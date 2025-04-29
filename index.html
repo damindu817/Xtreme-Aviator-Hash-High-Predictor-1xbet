@@ -1,0 +1,152 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aviator High Odd Predictor</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #eef7f9;
+      margin: 0;
+      padding: 20px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .container {
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      max-width: 450px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    h1, h2 {
+      text-align: center;
+      color: #0077aa;
+      margin-bottom: 10px;
+    }
+    .live-time {
+      border: 1px solid #0077aa;
+      padding: 10px;
+      border-radius: 8px;
+      margin: 10px 0 20px 0;
+      text-align: center;
+      background: #e6f7ff;
+      font-size: 18px;
+      color: #0077aa;
+    }
+    label {
+      display: block;
+      margin-top: 12px;
+      font-weight: bold;
+      color: #333;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-sizing: border-box;
+      font-size: 16px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 20px;
+      background: #0077aa;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #005f88;
+    }
+    .output {
+      margin-top: 20px;
+      padding: 15px;
+      background: #d1f7d1;
+      border-radius: 8px;
+      text-align: center;
+      color: #046604;
+      font-weight: bold;
+    }
+    footer {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 14px;
+      color: #555;
+    }
+    @media(max-width: 480px) {
+      .container {
+        padding: 15px;
+      }
+      input, button {
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+<body><div class="container">
+  <h1>Aviator High Odd Predictor</h1>  <div class="live-time">
+    <div id="liveDate"></div>
+    <div id="liveClock"></div>
+  </div><label for="date">Date:</label> <input type="date" id="date">
+
+<label for="time">Time (HH:MM:SS):</label> <input type="time" id="time" step="1">
+
+<label for="odd">Odd:</label> <input type="number" id="odd" step="0.01">
+
+<label for="hash">SHA512 Hash:</label> <input type="text" id="hash">
+
+<button onclick="analyze()">Analyze Now!</button>
+
+  <div id="result" class="output" style="display:none;"></div>
+</div><footer>
+  POWERED BY XTREME PREDICTOR
+</footer><script>
+function updateClock() {
+  const now = new Date();
+  const time = now.toLocaleTimeString();
+  const date = now.toISOString().split('T')[0];
+  document.getElementById('liveClock').textContent = "Time: " + time;
+  document.getElementById('liveDate').textContent = "Date: " + date;
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+function analyze() {
+  const date = document.getElementById('date').value;
+  const time = document.getElementById('time').value;
+  const odd = parseFloat(document.getElementById('odd').value);
+  const hash = document.getElementById('hash').value;
+
+  if (!date || !time || isNaN(odd) || !hash) {
+    alert("Please fill in all fields.");
+    return;
+  }
+
+  const dateTimeStr = date + 'T' + time;
+  const inputDateTime = new Date(dateTimeStr);
+
+  let nextSeconds = 180;
+  if (odd > 10) nextSeconds = 300;
+  if (odd > 50) nextSeconds = 600;
+
+  if (hash.endsWith("aa") || hash.endsWith("11")) {
+    nextSeconds += 120;
+  }
+
+  const nextDateTime = new Date(inputDateTime.getTime() + nextSeconds * 1000);
+  const nextTimeStr = nextDateTime.toTimeString().split(" ")[0];
+
+  document.getElementById('result').style.display = 'block';
+  document.getElementById('result').textContent = `Next Possible High Odd Time: ${nextTimeStr}`;
+}
+</script></body>
+</html>
