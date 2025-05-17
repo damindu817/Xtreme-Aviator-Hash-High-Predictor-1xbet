@@ -1,152 +1,758 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aviator High Odd Predictor</title>
+  <title>Hash High Predictor - Advanced Analysis</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #eef7f9;
+    :root {
+      --primary: #dc2626;    /* Red primary color */
+      --primary-dark: #b91c1c;
+      --secondary: #ec4899;  /* Pink for Very High */
+      --medium: #f97316;     /* Orange for Medium */
+      --low: #60a5fa;       /* Blue for Low */
+      --danger: #ef4444;
+      --text: #f3f4f6;
+      --text-light: #d1d5db;
+      --light-bg: #0f172a;   /* Dark blue background */
+      --card-bg: #1e293b;
+      --border: #334155;
+    }
+    
+    * {
       margin: 0;
-      padding: 20px 10px;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+    
+    body {
+      background: var(--light-bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
-    .container {
-      background: #ffffff;
-      padding: 20px;
+    
+    .app-container {
+      width: 100%;
+      max-width: 500px;
+      background: var(--card-bg);
       border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      max-width: 450px;
-      width: 100%;
-      box-sizing: border-box;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+      margin-bottom: 20px;
+      border: 1px solid var(--border);
     }
-    h1, h2 {
-      text-align: center;
-      color: #0077aa;
-      margin-bottom: 10px;
-    }
-    .live-time {
-      border: 1px solid #0077aa;
-      padding: 10px;
-      border-radius: 8px;
-      margin: 10px 0 20px 0;
-      text-align: center;
-      background: #e6f7ff;
-      font-size: 18px;
-      color: #0077aa;
-    }
-    label {
-      display: block;
-      margin-top: 12px;
-      font-weight: bold;
-      color: #333;
-    }
-    input {
-      width: 100%;
-      padding: 10px;
-      margin-top: 6px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      box-sizing: border-box;
-      font-size: 16px;
-    }
-    button {
-      width: 100%;
-      padding: 12px;
-      margin-top: 20px;
-      background: #0077aa;
+    
+    .app-header {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
       color: white;
+      padding: 22px;
+      text-align: center;
+    }
+    
+    .app-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    
+    .logo-icon {
+      font-size: 26px;
+    }
+    
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.3;
+    }
+    
+    .main-title {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+    
+    .sub-title {
+      font-size: 14px;
+      font-weight: 400;
+      opacity: 0.9;
+    }
+    
+    .live-clock-container {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 8px;
+      padding: 10px 15px;
+      margin-top: 15px;
+      display: flex;
+      justify-content: space-between;
+      backdrop-filter: blur(5px);
+    }
+    
+    .live-clock {
+      font-size: 14px;
+      font-weight: 500;
+    }
+    
+    .form-container {
+      padding: 22px;
+    }
+    
+    .input-group {
+      margin-bottom: 18px;
+    }
+    
+    .input-label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+    }
+    
+    .input-field {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 14px;
+      transition: all 0.2s;
+      background: #334155;
+      color: var(--text);
+    }
+    
+    .input-field:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.3);
+    }
+    
+    .btn {
+      width: 100%;
+      padding: 14px;
       border: none;
       border-radius: 8px;
-      font-size: 16px;
+      font-size: 15px;
+      font-weight: 600;
       cursor: pointer;
-      transition: background 0.3s;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
     }
-    button:hover {
-      background: #005f88;
+    
+    .btn-primary {
+      background: var(--primary);
+      color: white;
     }
-    .output {
-      margin-top: 20px;
-      padding: 15px;
-      background: #d1f7d1;
+    
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+    
+    .btn-danger {
+      background: #334155;
+      color: var(--text-light);
+      border: 1px solid var(--border);
+    }
+    
+    .btn-danger:hover {
+      background: var(--danger);
+      color: white;
+      border-color: var(--danger);
+    }
+    
+    .result-container {
+      padding: 18px;
       border-radius: 8px;
-      text-align: center;
-      color: #046604;
-      font-weight: bold;
+      margin-top: 20px;
+      border: 1px solid;
+      display: none;
+      background: rgba(30, 41, 59, 0.7);
     }
-    footer {
-      margin-top: 30px;
+    
+    .result-veryhigh {
+      border-color: var(--secondary);
+      background: rgba(236, 72, 153, 0.15);
+    }
+    
+    .result-high {
+      border-color: var(--primary);
+      background: rgba(220, 38, 38, 0.15);
+    }
+    
+    .result-medium {
+      border-color: var(--medium);
+      background: rgba(249, 115, 22, 0.15);
+    }
+    
+    .result-low {
+      border-color: var(--low);
+      background: rgba(96, 165, 250, 0.15);
+    }
+    
+    .result-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .result-veryhigh .result-title {
+      color: var(--secondary);
+    }
+    
+    .result-high .result-title {
+      color: var(--primary);
+    }
+    
+    .result-medium .result-title {
+      color: var(--medium);
+    }
+    
+    .result-low .result-title {
+      color: var(--low);
+    }
+    
+    .result-value {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+      margin-left: 32px;
+    }
+    
+    .result-details {
+      margin-top: 6px;
+      font-size: 13px;
+      color: var(--text-light);
+      margin-left: 32px;
+    }
+    
+    .history-container {
+      width: 100%;
+      max-width: 500px;
+      background: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      padding: 0;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    
+    .history-header {
+      padding: 18px 22px;
+      background: #1e293b;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .history-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .history-list {
+      padding: 0 22px;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    
+    .history-list::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    .history-list::-webkit-scrollbar-track {
+      background: var(--light-bg);
+      border-radius: 10px;
+    }
+    
+    .history-list::-webkit-scrollbar-thumb {
+      background: var(--primary);
+      border-radius: 10px;
+    }
+    
+    .history-item {
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .history-item:last-child {
+      border-bottom: none;
+    }
+    
+    .history-time {
+      font-weight: 600;
+      font-size: 15px;
+    }
+    
+    .history-details {
+      text-align: right;
+    }
+    
+    .history-odd {
+      font-size: 13px;
+      font-weight: 500;
+    }
+    
+    .history-date {
+      font-size: 12px;
+      color: var(--text-light);
+      margin-top: 4px;
+    }
+    
+    .signal-tag {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+      margin-top: 5px;
+    }
+    
+    .tag-veryhigh {
+      background: rgba(236, 72, 153, 0.2);
+      color: var(--secondary);
+    }
+    
+    .tag-high {
+      background: rgba(220, 38, 38, 0.2);
+      color: var(--primary);
+    }
+    
+    .tag-medium {
+      background: rgba(249, 115, 22, 0.2);
+      color: var(--medium);
+    }
+    
+    .tag-low {
+      background: rgba(96, 165, 250, 0.2);
+      color: var(--low);
+    }
+    
+    .footer {
+      margin-top: 25px;
       text-align: center;
+      color: var(--text-light);
+      font-size: 13px;
+      padding: 0 20px;
+    }
+    
+    /* Custom Alert Dialog */
+    .alert-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    
+    .alert-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    
+    .alert-box {
+      background: #1e293b;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 400px;
+      overflow: hidden;
+      transform: translateY(20px);
+      transition: transform 0.3s;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--border);
+    }
+    
+    .alert-overlay.active .alert-box {
+      transform: translateY(0);
+    }
+    
+    .alert-header {
+      padding: 16px;
+      background: var(--primary);
+      color: white;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 16px;
+    }
+    
+    .alert-content {
+      padding: 20px;
       font-size: 14px;
-      color: #555;
+      line-height: 1.5;
+      color: var(--text);
     }
-    @media(max-width: 480px) {
-      .container {
-        padding: 15px;
-      }
-      input, button {
-        font-size: 15px;
-      }
+    
+    .alert-actions {
+      padding: 15px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+    
+    .alert-btn {
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+      font-size: 14px;
+    }
+    
+    .alert-btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+    
+    .alert-btn-secondary {
+      background: #334155;
+      color: var(--text);
     }
   </style>
 </head>
-<body><div class="container">
-  <h1>Aviator High Odd Predictor</h1>  <div class="live-time">
-    <div id="liveDate"></div>
-    <div id="liveClock"></div>
-  </div><label for="date">Date:</label> <input type="date" id="date">
+<body>
+  <!-- Custom Alert Dialog -->
+  <div class="alert-overlay" id="alertDialog">
+    <div class="alert-box">
+      <div class="alert-header">
+        <i class="fas fa-exclamation-circle"></i>
+        <span id="alertTitle">Alert</span>
+      </div>
+      <div class="alert-content" id="alertMessage">
+        Message goes here
+      </div>
+      <div class="alert-actions" id="alertActions">
+        <button class="alert-btn alert-btn-primary" onclick="hideAlert()">OK</button>
+      </div>
+    </div>
+  </div>
 
-<label for="time">Time (HH:MM:SS):</label> <input type="time" id="time" step="1">
-
-<label for="odd">Odd:</label> <input type="number" id="odd" step="0.01">
-
-<label for="hash">SHA512 Hash:</label> <input type="text" id="hash">
-
-<button onclick="analyze()">Analyze Now!</button>
-
-  <div id="result" class="output" style="display:none;"></div>
-</div><footer>
-  POWERED BY XTREME PREDICTOR
-</footer><script>
-function updateClock() {
-  const now = new Date();
-  const time = now.toLocaleTimeString();
-  const date = now.toISOString().split('T')[0];
-  document.getElementById('liveClock').textContent = "Time: " + time;
-  document.getElementById('liveDate').textContent = "Date: " + date;
-}
-setInterval(updateClock, 1000);
-updateClock();
-
-function analyze() {
-  const date = document.getElementById('date').value;
-  const time = document.getElementById('time').value;
-  const odd = parseFloat(document.getElementById('odd').value);
-  const hash = document.getElementById('hash').value;
-
-  if (!date || !time || isNaN(odd) || !hash) {
-    alert("Please fill in all fields.");
-    return;
-  }
-
-  const dateTimeStr = date + 'T' + time;
-  const inputDateTime = new Date(dateTimeStr);
-
-  let nextSeconds = 180;
-  if (odd > 10) nextSeconds = 300;
-  if (odd > 50) nextSeconds = 600;
-
-  if (hash.endsWith("aa") || hash.endsWith("11")) {
-    nextSeconds += 120;
-  }
-
-  const nextDateTime = new Date(inputDateTime.getTime() + nextSeconds * 1000);
-  const nextTimeStr = nextDateTime.toTimeString().split(" ")[0];
-
-  document.getElementById('result').style.display = 'block';
-  document.getElementById('result').textContent = `Next Possible High Odd Time: ${nextTimeStr}`;
-}
-</script></body>
+  <div class="app-container">
+    <div class="app-header">
+      <div class="app-logo">
+        <i class="fas fa-chart-line logo-icon"></i>
+        <div class="logo-text">
+          <div class="main-title">Hash High Predictor</div>
+          <div class="sub-title">Advanced Analysis System</div>
+        </div>
+      </div>
+      <div class="live-clock-container">
+        <div class="live-clock" id="liveDate"></div>
+        <div class="live-clock" id="liveClock"></div>
+      </div>
+    </div>
+    
+    <div class="form-container">
+      <div class="input-group">
+        <label class="input-label" for="date"><i class="far fa-calendar-alt"></i> Date</label>
+        <input type="date" id="date" class="input-field">
+      </div>
+      
+      <div class="input-group">
+        <label class="input-label" for="time"><i class="far fa-clock"></i> Time (HH:MM:SS)</label>
+        <input type="time" id="time" class="input-field" step="1">
+      </div>
+      
+      <div class="input-group">
+        <label class="input-label" for="odd"><i class="fas fa-chart-line"></i> Odd Value</label>
+        <input type="number" id="odd" class="input-field" step="0.01" placeholder="Enter the odd value">
+      </div>
+      
+      <div class="input-group">
+        <label class="input-label" for="hash"><i class="fas fa-hashtag"></i> SHA512 Hash</label>
+        <input type="text" id="hash" class="input-field" placeholder="Enter the 128-character hash">
+      </div>
+      
+      <button class="btn btn-primary" onclick="analyze()">
+        <i class="fas fa-search"></i>
+        Analyze Now
+      </button>
+      
+      <button class="btn btn-danger" onclick="clearForm()" style="margin-top: 12px;">
+        <i class="fas fa-eraser"></i>
+        Clear Inputs
+      </button>
+      
+      <div id="result" class="result-container">
+        <div class="result-title">
+          <i class="fas fa-bell"></i>
+          <span id="signalType">Signal Prediction</span>
+        </div>
+        <div class="result-value" id="predictionResult"></div>
+        <div class="result-details" id="predictionDetails"></div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="history-container">
+    <div class="history-header">
+      <div class="history-title">
+        <i class="fas fa-history"></i>
+        Signal History
+      </div>
+      <button onclick="clearHistory()" style="background: none; border: none; color: var(--danger); cursor: pointer; font-size: 14px;">
+        <i class="fas fa-trash-alt"></i> Clear
+      </button>
+    </div>
+    <div class="history-list" id="historyList">
+      <!-- History items will be added here dynamically -->
+    </div>
+  </div>
+  
+  <div class="footer">
+    <p>© 2025 Hash High Predictor. All rights reserved.</p>
+  </div>
+  
+  <audio id="beepSound" src="https://assets.mixkit.co/sfx/preview/mixkit-alarm-digital-clock-beep-989.mp3" preload="auto"></audio>
+  
+  <script>
+    // Track last analyzed input to prevent duplicates
+    let lastAnalyzedInput = null;
+    
+    // Update live clock
+    function updateClock() {
+      const now = new Date();
+      const time = now.toLocaleTimeString();
+      const date = now.toISOString().split('T')[0];
+      document.getElementById('liveClock').textContent = time;
+      document.getElementById('liveDate').textContent = date;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+    
+    // Custom alert functions
+    function showAlert(title, message) {
+      document.getElementById('alertTitle').textContent = title;
+      document.getElementById('alertMessage').textContent = message;
+      document.getElementById('alertDialog').classList.add('active');
+    }
+    
+    function hideAlert() {
+      document.getElementById('alertDialog').classList.remove('active');
+    }
+    
+    // Play beep sound
+    function playBeep() {
+      const beep = document.getElementById('beepSound');
+      beep.currentTime = 0;
+      beep.play().catch(e => console.log("Audio play failed:", e));
+    }
+    
+    // Clear form
+    function clearForm() {
+      document.getElementById('date').value = '';
+      document.getElementById('time').value = '';
+      document.getElementById('odd').value = '';
+      document.getElementById('hash').value = '';
+      document.getElementById('result').style.display = 'none';
+      lastAnalyzedInput = null;
+    }
+    
+    // Clear history
+    function clearHistory() {
+      document.getElementById('alertActions').innerHTML = `
+        <button class="alert-btn alert-btn-secondary" onclick="hideAlert()">Cancel</button>
+        <button class="alert-btn alert-btn-primary" onclick="confirmClearHistory()">Clear All</button>
+      `;
+      showAlert('Clear History', 'Are you sure you want to clear all history? This cannot be undone.');
+    }
+    
+    function confirmClearHistory() {
+      localStorage.removeItem('aviatorPredictions');
+      renderHistory();
+      hideAlert();
+    }
+    
+    // Save prediction to history
+    function saveToHistory(inputData, prediction, signalType) {
+      let history = JSON.parse(localStorage.getItem('aviatorPredictions')) || [];
+      
+      // Add new prediction to beginning of array
+      history.unshift({
+        date: new Date().toLocaleString(),
+        input: inputData,
+        prediction: prediction,
+        signalType: signalType
+      });
+      
+      localStorage.setItem('aviatorPredictions', JSON.stringify(history));
+      renderHistory();
+    }
+    
+    // Render prediction history
+    function renderHistory() {
+      const history = JSON.parse(localStorage.getItem('aviatorPredictions')) || [];
+      const historyList = document.getElementById('historyList');
+      
+      historyList.innerHTML = '';
+      
+      if (history.length === 0) {
+        historyList.innerHTML = `
+          <div style="text-align: center; color: var(--text-light); padding: 40px 20px;">
+            <i class="far fa-clock" style="font-size: 28px; margin-bottom: 12px; opacity: 0.5;"></i>
+            <div>No signal history available</div>
+          </div>
+        `;
+        return;
+      }
+      
+      history.forEach(item => {
+        const historyItem = document.createElement('div');
+        historyItem.className = 'history-item';
+        
+        let tagClass = 'tag-low';
+        if (item.signalType.includes('Very High')) tagClass = 'tag-veryhigh';
+        else if (item.signalType.includes('High')) tagClass = 'tag-high';
+        else if (item.signalType.includes('Medium')) tagClass = 'tag-medium';
+        
+        historyItem.innerHTML = `
+          <div>
+            <div class="history-time">${item.prediction}</div>
+            <div class="${tagClass} signal-tag">${item.signalType}</div>
+          </div>
+          <div class="history-details">
+            <div class="history-odd">${item.input.odd}x</div>
+            <div class="history-date">${item.date}</div>
+          </div>
+        `;
+        historyList.appendChild(historyItem);
+      });
+    }
+    
+    // Main analysis function
+    function analyze() {
+      const date = document.getElementById('date').value;
+      const time = document.getElementById('time').value;
+      const odd = parseFloat(document.getElementById('odd').value);
+      const hash = document.getElementById('hash').value.trim();
+      
+      // Create unique input identifier
+      const currentInput = `${date}-${time}-${odd}-${hash}`;
+      
+      // Check if this is the same as last analyzed input
+      if (lastAnalyzedInput === currentInput) {
+        showAlert('Duplicate Analysis', 'You have already analyzed this exact input. Please change at least one field to analyze again.');
+        return;
+      }
+      
+      // Validation
+      if (!date || !time || isNaN(odd) || !hash) {
+        showAlert('Input Required', 'Please fill in all fields correctly.');
+        return;
+      }
+      
+      if (hash.length !== 128 || !/^[a-f0-9]+$/i.test(hash)) {
+        showAlert('Invalid Hash', 'Please enter a valid 128-character SHA512 hash (hexadecimal characters only).');
+        return;
+      }
+      
+      if (odd <= 0) {
+        showAlert('Invalid Odd', 'Odd value must be greater than 0.');
+        return;
+      }
+      
+      const dateTimeStr = date + 'T' + time;
+      const inputDateTime = new Date(dateTimeStr);
+      
+      // Calculate prediction based on algorithm
+      let nextSeconds = 180; // Default 3 minutes
+      let signalType = 'Low Signal';
+      
+      if (odd > 1.5 && odd <= 10) {
+        signalType = 'Medium Signal';
+        nextSeconds = 240; // 4 minutes
+      }
+      else if (odd > 10 && odd <= 50) {
+        signalType = 'High Signal';
+        nextSeconds = 300; // 5 minutes
+      }
+      else if (odd > 50) {
+        signalType = 'Very High Signal';
+        nextSeconds = 600; // 10 minutes
+      }
+      
+      // Additional hash pattern analysis
+      if (hash.endsWith("aa") || hash.endsWith("11")) {
+        nextSeconds += 120; // Add 2 minutes for specific hash patterns
+        signalType += " (Pattern)";
+      }
+      
+      // Check for repeating patterns in hash
+      const repeatingPatterns = hash.match(/([a-f0-9])\1{2,}/gi);
+      if (repeatingPatterns && repeatingPatterns.length > 0) {
+        nextSeconds += 60; // Add 1 minute for repeating characters
+        signalType += " (Repeating)";
+      }
+      
+      const nextDateTime = new Date(inputDateTime.getTime() + nextSeconds * 1000);
+      const nextTimeStr = nextDateTime.toLocaleTimeString();
+      
+      // Display result with appropriate styling
+      const resultDiv = document.getElementById('result');
+      resultDiv.style.display = 'block';
+      
+      if (signalType.includes('Very High')) {
+        resultDiv.className = 'result-container result-veryhigh';
+      } else if (signalType.includes('High')) {
+        resultDiv.className = 'result-container result-high';
+      } else if (signalType.includes('Medium')) {
+        resultDiv.className = 'result-container result-medium';
+      } else {
+        resultDiv.className = 'result-container result-low';
+      }
+      
+      document.getElementById('signalType').textContent = signalType;
+      document.getElementById('predictionResult').textContent = nextTimeStr;
+      document.getElementById('predictionDetails').textContent = `Predicted from ${odd}x odd and hash analysis`;
+      
+      // Play beep sound
+      playBeep();
+      
+      // Save to history
+      saveToHistory(
+        { date, time, odd, hash },
+        nextTimeStr,
+        signalType
+      );
+      
+      // Store the current input to prevent duplicate analysis
+      lastAnalyzedInput = currentInput;
+    }
+    
+    // Initialize history on load
+    document.addEventListener('DOMContentLoaded', renderHistory);
+  </script>
+</body>
 </html>
