@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Hash High Predictor - Advanced Analysis</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
@@ -10,7 +10,7 @@
       --primary: #dc2626;    /* Red primary color */
       --primary-dark: #b91c1c;
       --secondary: #ec4899;  /* Pink for Very High */
-      --medium: #a855f7;     /* Purple for Medium (changed from orange) */
+      --medium: #a855f7;     /* Purple for Medium */
       --low: #60a5fa;       /* Blue for Low */
       --danger: #ef4444;
       --text: #f3f4f6;
@@ -25,16 +25,21 @@
       padding: 0;
       box-sizing: border-box;
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      -webkit-user-select: none; /* Prevent text selection */
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
     }
     
     body {
       background: var(--light-bg);
       color: var(--text);
       min-height: 100vh;
-      padding: 40px 20px 20px; /* Added more top padding to move content down */
+      padding: 40px 20px 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
+      touch-action: pan-y; /* Prevent zoom gestures */
     }
     
     .app-container {
@@ -128,6 +133,10 @@
       transition: all 0.2s;
       background: #334155;
       color: var(--text);
+      -webkit-user-select: text; /* Allow selection in input fields */
+      -moz-user-select: text;
+      -ms-user-select: text;
+      user-select: text;
     }
     
     .input-field:focus {
@@ -194,7 +203,7 @@
     
     .result-medium {
       border-color: var(--medium);
-      background: rgba(168, 85, 247, 0.15); /* Updated to purple */
+      background: rgba(168, 85, 247, 0.15);
     }
     
     .result-low {
@@ -220,7 +229,7 @@
     }
     
     .result-medium .result-title {
-      color: var(--medium); /* Updated to purple */
+      color: var(--medium);
     }
     
     .result-low .result-title {
@@ -358,7 +367,7 @@
     }
     
     .tag-medium {
-      background: rgba(168, 85, 247, 0.2); /* Updated to purple */
+      background: rgba(168, 85, 247, 0.2);
       color: var(--medium);
     }
     
@@ -456,9 +465,23 @@
       background: #334155;
       color: var(--text);
     }
+    
+    /* Copy protection overlay */
+    .copy-protection {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 9999;
+      background: transparent;
+    }
   </style>
 </head>
 <body>
+  <!-- Copy protection overlay -->
+  <div class="copy-protection"></div>
+  
   <!-- Custom Alert Dialog -->
   <div class="alert-overlay" id="alertDialog">
     <div class="alert-box">
@@ -562,7 +585,7 @@
   </div>
   
   <div class="footer">
-    <p>© 2025 Xtreme Hash High Predictor. All rights reserved.</p>
+    <p>© 2025 Hash High Predictor. All rights reserved.</p>
   </div>
   
   <audio id="beepSound" src="https://assets.mixkit.co/sfx/preview/mixkit-alarm-digital-clock-beep-989.mp3" preload="auto"></audio>
@@ -570,6 +593,23 @@
   <script>
     // Track last analyzed input to prevent duplicates
     let lastAnalyzedInput = null;
+    
+    // Block text selection and context menu
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+    });
+    
+    // Block keyboard shortcuts for copy/paste
+    document.addEventListener('keydown', function(e) {
+      // Disable Ctrl+C, Ctrl+V, Ctrl+X
+      if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 88)) {
+        e.preventDefault();
+      }
+      // Disable right click
+      if (e.keyCode === 93) {
+        e.preventDefault();
+      }
+    });
     
     // Update live clock
     function updateClock() {
