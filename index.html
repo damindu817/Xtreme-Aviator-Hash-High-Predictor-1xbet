@@ -241,6 +241,22 @@
       margin-left: 32px;
     }
     
+    .result-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    
+    .result-label {
+      font-weight: 600;
+      color: var(--text-light);
+    }
+    
+    .result-data {
+      font-weight: 600;
+      color: var(--text);
+    }
+    
     .history-container {
       width: 100%;
       max-width: 500px;
@@ -486,8 +502,8 @@
       </div>
       
       <div class="input-group">
-        <label class="input-label" for="odd"><i class="fas fa-chart-line"></i> Odd Value</label>
-        <input type="number" id="odd" class="input-field" step="0.01" placeholder="Enter the odd value">
+        <label class="input-label" for="odd"><i class="fas fa-chart-line"></i> Current Odd Value</label>
+        <input type="number" id="odd" class="input-field" step="0.01" placeholder="Enter the current odd value">
       </div>
       
       <div class="input-group">
@@ -511,7 +527,21 @@
           <span id="signalType">Signal Prediction</span>
         </div>
         <div class="result-value" id="predictionResult"></div>
-        <div class="result-details" id="predictionDetails"></div>
+        <div class="result-details">
+          <div class="result-row">
+            <span class="result-label">Predicted Time:</span>
+            <span class="result-data" id="predictedTime"></span>
+          </div>
+          <div class="result-row">
+            <span class="result-label">Predicted Odd:</span>
+            <span class="result-data" id="predictedOdd"></span>
+          </div>
+          <div class="result-row">
+            <span class="result-label">Confidence:</span>
+            <span class="result-data" id="confidenceLevel"></span>
+          </div>
+          <div class="result-details" id="predictionDetails"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -596,7 +626,7 @@
     }
     
     // Save prediction to history
-    function saveToHistory(inputData, prediction, signalType) {
+    function saveToHistory(inputData, prediction, signalType, predictedOdd, confidence) {
       let history = JSON.parse(localStorage.getItem('aviatorPredictions')) || [];
       
       // Add new prediction to beginning of array
@@ -604,8 +634,15 @@
         date: new Date().toLocaleString(),
         input: inputData,
         prediction: prediction,
-        signalType: signalType
+        signalType: signalType,
+        predictedOdd: predictedOdd,
+        confidence: confidence
       });
+      
+      // Keep only the last 100 entries
+      if (history.length > 100) {
+        history = history.slice(0, 100);
+      }
       
       localStorage.setItem('aviatorPredictions', JSON.stringify(history));
       renderHistory();
@@ -640,15 +677,102 @@
         historyItem.innerHTML = `
           <div>
             <div class="history-time">${item.prediction}</div>
-            <div class="${tagClass} signal-tag">${item.signalType}</div>
+            <div class="history-odd">Predicted: ${item.predictedOdd}x</div>
+            <div class="${tagClass} signal-tag">${item.signalType} (${item.confidence})</div>
           </div>
           <div class="history-details">
-            <div class="history-odd">${item.input.odd}x</div>
+            <div class="history-odd">Current: ${item.input.odd}x</div>
             <div class="history-date">${item.date}</div>
           </div>
         `;
         historyList.appendChild(historyItem);
       });
+    }
+    
+    // Calculate hash entropy to detect patterns
+    function calculateHashEntropy(hash) {
+      const frequency = {};
+      for (const char of hash) {
+        frequency[char] = (frequency[char] || 0) + 1;
+      }
+      
+      let entropy = 0;
+      const length = hash.length;
+      for (const char in frequency) {
+        const prob = frequency[char] / length;
+        entropy -= prob * Math.log2(prob);
+      }
+      
+      return entropy;
+    }
+    
+    // Analyze hash patterns to predict next odd
+    function predictNextOdd(hash, currentOdd) {
+      // Convert hash to numerical values for analysis
+      const hashValues = Array.from(hash).map(c => parseInt(c, 16));
+      
+      // Calculate average of hash values
+      const avg = hashValues.reduce((sum, val) => sum + val, 0) / hashValues.length;
+      
+      // Count repeating patterns
+      const repeatingPatterns = hash.match(/([a-f0-9])\1{2,}/gi) || [];
+      const patternCount = repeatingPatterns.length;
+      
+      // Calculate hash entropy
+      const entropy = calculateHashEntropy(hash);
+      
+      // Base prediction on current odd with adjustments
+      let predictedOdd = currentOdd;
+      
+      // Adjust based on hash characteristics
+      if (hash.endsWith('aa') || hash.endsWith('55')) {
+        predictedOdd *= 1.5; // Higher odd likely
+      } else if (hash.endsWith('00') || hash.endsWith('ff')) {
+        predictedOdd *= 0.8; // Lower odd likely
+      }
+      
+      // Adjust for entropy (more random = more volatility)
+      if (entropy > 3.5) {
+        predictedOdd *= 1.2;
+      } else {
+        predictedOdd *= 0.9;
+      }
+      
+      // Adjust for repeating patterns
+      if (patternCount > 2) {
+        predictedOdd *= 1.3;
+      }
+      
+      // Ensure reasonable bounds
+      predictedOdd = Math.max(1.1, Math.min(predictedOdd, 100));
+      
+      // Round to 2 decimal places
+      return Math.round(predictedOdd * 100) / 100;
+    }
+    
+    // Calculate confidence level based on analysis
+    function calculateConfidence(hash, predictedOdd, currentOdd) {
+      let confidence = 70; // Base confidence
+      
+      // Increase confidence for specific patterns
+      if (hash.endsWith('aa') || hash.endsWith('55') || hash.endsWith('00') || hash.endsWith('ff')) {
+        confidence += 15;
+      }
+      
+      // Adjust based on how far predicted is from current
+      const ratio = predictedOdd / currentOdd;
+      if (ratio > 1.5 || ratio < 0.67) {
+        confidence -= 10;
+      } else if (ratio > 1.2 || ratio < 0.83) {
+        confidence += 5;
+      } else {
+        confidence += 10;
+      }
+      
+      // Ensure within bounds
+      confidence = Math.max(50, Math.min(confidence, 95));
+      
+      return confidence + '%';
     }
     
     // Main analysis function
@@ -686,7 +810,7 @@
       const dateTimeStr = date + 'T' + time;
       const inputDateTime = new Date(dateTimeStr);
       
-      // Calculate prediction based on algorithm
+      // Calculate prediction time based on algorithm
       let nextSeconds = 180; // Default 3 minutes
       let signalType = 'Low Signal';
       
@@ -703,7 +827,11 @@
         nextSeconds = 600; // 10 minutes
       }
       
-      // Additional hash pattern analysis
+      // Predict the next odd value
+      const predictedOdd = predictNextOdd(hash, odd);
+      const confidence = calculateConfidence(hash, predictedOdd, odd);
+      
+      // Additional hash pattern analysis for time adjustment
       if (hash.endsWith("aa") || hash.endsWith("11")) {
         nextSeconds += 120; // Add 2 minutes for specific hash patterns
         signalType += " (Pattern)";
@@ -734,8 +862,11 @@
       }
       
       document.getElementById('signalType').textContent = signalType;
-      document.getElementById('predictionResult').textContent = nextTimeStr;
-      document.getElementById('predictionDetails').textContent = `Predicted from ${odd}x odd and hash analysis`;
+      document.getElementById('predictionResult').textContent = 'Next High Prediction';
+      document.getElementById('predictedTime').textContent = nextTimeStr;
+      document.getElementById('predictedOdd').textContent = predictedOdd + 'x';
+      document.getElementById('confidenceLevel').textContent = confidence;
+      document.getElementById('predictionDetails').textContent = `Analysis based on current odd ${odd}x and hash patterns`;
       
       // Play beep sound
       playBeep();
@@ -744,7 +875,9 @@
       saveToHistory(
         { date, time, odd, hash },
         nextTimeStr,
-        signalType
+        signalType,
+        predictedOdd,
+        confidence
       );
       
       // Store the current input to prevent duplicate analysis
