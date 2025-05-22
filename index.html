@@ -10,7 +10,7 @@
       --primary: #dc2626;    /* Red primary color */
       --primary-dark: #b91c1c;
       --secondary: #ec4899;  /* Pink for Very High */
-      --medium: #f97316;     /* Orange for Medium */
+      --medium: #a855f7;     /* Purple for Medium (changed from orange) */
       --low: #60a5fa;       /* Blue for Low */
       --danger: #ef4444;
       --text: #f3f4f6;
@@ -31,7 +31,7 @@
       background: var(--light-bg);
       color: var(--text);
       min-height: 100vh;
-      padding: 20px;
+      padding: 40px 20px 20px; /* Added more top padding to move content down */
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -194,7 +194,7 @@
     
     .result-medium {
       border-color: var(--medium);
-      background: rgba(249, 115, 22, 0.15);
+      background: rgba(168, 85, 247, 0.15); /* Updated to purple */
     }
     
     .result-low {
@@ -220,7 +220,7 @@
     }
     
     .result-medium .result-title {
-      color: var(--medium);
+      color: var(--medium); /* Updated to purple */
     }
     
     .result-low .result-title {
@@ -358,7 +358,7 @@
     }
     
     .tag-medium {
-      background: rgba(249, 115, 22, 0.2);
+      background: rgba(168, 85, 247, 0.2); /* Updated to purple */
       color: var(--medium);
     }
     
