@@ -3,889 +3,776 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hash High Predictor - Advanced Analysis</title>
+  <title>XTREME AVIATOR PREDICTOR</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
-      --primary: #dc2626;    /* Red primary color */
-      --primary-dark: #b91c1c;
-      --secondary: #ec4899;  /* Pink for Very High */
-      --medium: #a855f7;     /* Purple for Medium (changed from orange) */
-      --low: #60a5fa;       /* Blue for Low */
-      --danger: #ef4444;
-      --text: #f3f4f6;
-      --text-light: #d1d5db;
-      --light-bg: #0f172a;   /* Dark blue background */
-      --card-bg: #1e293b;
-      --border: #334155;
+      --primary: #7c4dff;
+      --secondary: #b388ff;
+      --accent: #ff4081;
+      --dark: #0f0f1a;
+      --light: #ffffff;
+      --success: #00e676;
+      --warning: #ffc400;
+      --danger: #ff1744;
+      --info: #00b0ff;
+      --text-light: rgba(255,255,255,0.9);
     }
     
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      user-select: none;
+      -webkit-user-select: none;
     }
     
     body {
-      background: var(--light-bg);
-      color: var(--text);
+      background: linear-gradient(135deg, #1a1a2e, #16213e);
+      color: var(--text-light);
       min-height: 100vh;
-      padding: 40px 20px 20px; /* Added more top padding to move content down */
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      padding: 1rem;
+      touch-action: pan-y;
+      overflow-x: hidden;
     }
     
-    .app-container {
-      width: 100%;
-      max-width: 500px;
-      background: var(--card-bg);
-      border-radius: 12px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-      overflow: hidden;
-      margin-bottom: 20px;
-      border: 1px solid var(--border);
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: rgba(20, 20, 40, 0.95);
+      border-radius: 16px;
+      padding: 1rem;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      animation: fadeIn 0.8s ease-out;
+      background-image: 
+        radial-gradient(circle at 25% 25%, rgba(124, 77, 255, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(255, 64, 129, 0.15) 0%, transparent 50%);
     }
     
-    .app-header {
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: white;
-      padding: 22px;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .header-section {
       text-align: center;
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(124, 77, 255, 0.4);
     }
     
-    .app-logo {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      margin-bottom: 8px;
-    }
-    
-    .logo-icon {
-      font-size: 26px;
-    }
-    
-    .logo-text {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.3;
-    }
-    
-    .main-title {
-      font-size: 22px;
+    .logo {
+      font-size: 1.5rem;
       font-weight: 700;
-      letter-spacing: -0.5px;
+      background: linear-gradient(to right, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 2px 10px rgba(124, 77, 255, 0.3);
+      display: inline-block;
     }
     
-    .sub-title {
-      font-size: 14px;
-      font-weight: 400;
+    .subtitle {
+      color: var(--light);
+      font-size: 0.8rem;
+      margin-bottom: 1rem;
       opacity: 0.9;
     }
     
-    .live-clock-container {
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 8px;
-      padding: 10px 15px;
-      margin-top: 15px;
+    .datetime-container {
+      background: rgba(124, 77, 255, 0.15);
+      border-radius: 10px;
+      padding: 0.6rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      border: 1px solid rgba(124, 77, 255, 0.3);
       display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    
+    .datetime-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+    }
+    
+    .datetime-item i {
+      color: var(--secondary);
+      font-size: 0.8rem;
+    }
+    
+    .input-section {
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+    
+    .input-header {
+      display: flex;
+      align-items: center;
       justify-content: space-between;
-      backdrop-filter: blur(5px);
+      margin-bottom: 0.5rem;
+      position: relative;
     }
     
-    .live-clock {
-      font-size: 14px;
-      font-weight: 500;
-    }
-    
-    .form-container {
-      padding: 22px;
-    }
-    
-    .input-group {
-      margin-bottom: 18px;
+    .input-label-container {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
     }
     
     .input-label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: 600;
-      color: var(--text);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 14px;
+      color: var(--light);
+      font-weight: 500;
+      font-size: 0.85rem;
+      white-space: nowrap;
     }
     
-    .input-field {
+    .info-icon {
+      color: white;
+      font-size: 0.7rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+    
+    .info-icon:hover {
+      transform: scale(1.1);
+    }
+    
+    .hash-input-container {
+      position: relative;
+    }
+    
+    .hash-input {
       width: 100%;
-      padding: 12px 15px;
-      border: 1px solid var(--border);
+      padding: 0.8rem;
       border-radius: 8px;
-      font-size: 14px;
-      transition: all 0.2s;
-      background: #334155;
-      color: var(--text);
+      border: 2px solid rgba(124, 77, 255, 0.5);
+      background: rgba(30, 30, 60, 0.5);
+      color: white;
+      font-size: 0.85rem;
+      transition: all 0.3s ease;
+      padding-right: 35px;
+      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.2);
     }
     
-    .input-field:focus {
+    .hash-input:focus {
       outline: none;
       border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.3);
+      box-shadow: 0 0 0 3px rgba(124, 77, 255, 0.3),
+                  inset 0 2px 8px rgba(0, 0, 0, 0.2);
     }
     
-    .btn {
-      width: 100%;
-      padding: 14px;
+    .hash-input::placeholder {
+      color: rgba(255, 255, 255, 0.4);
+    }
+    
+    .clear-btn {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.1);
       border: none;
-      border-radius: 8px;
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
+      color: var(--secondary);
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
     }
     
-    .btn-primary {
-      background: var(--primary);
-      color: white;
+    .clear-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+      color: var(--light);
     }
     
-    .btn-primary:hover {
-      background: var(--primary-dark);
-      transform: translateY(-1px);
-    }
-    
-    .btn-danger {
-      background: #334155;
-      color: var(--text-light);
-      border: 1px solid var(--border);
-    }
-    
-    .btn-danger:hover {
-      background: var(--danger);
-      color: white;
-      border-color: var(--danger);
-    }
-    
-    .result-container {
-      padding: 18px;
-      border-radius: 8px;
-      margin-top: 20px;
-      border: 1px solid;
-      display: none;
-      background: rgba(30, 41, 59, 0.7);
-    }
-    
-    .result-veryhigh {
-      border-color: var(--secondary);
-      background: rgba(236, 72, 153, 0.15);
-    }
-    
-    .result-high {
-      border-color: var(--primary);
-      background: rgba(220, 38, 38, 0.15);
-    }
-    
-    .result-medium {
-      border-color: var(--medium);
-      background: rgba(168, 85, 247, 0.15); /* Updated to purple */
-    }
-    
-    .result-low {
-      border-color: var(--low);
-      background: rgba(96, 165, 250, 0.15);
-    }
-    
-    .result-title {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    
-    .result-veryhigh .result-title {
-      color: var(--secondary);
-    }
-    
-    .result-high .result-title {
-      color: var(--primary);
-    }
-    
-    .result-medium .result-title {
-      color: var(--medium); /* Updated to purple */
-    }
-    
-    .result-low .result-title {
-      color: var(--low);
-    }
-    
-    .result-value {
-      font-size: 22px;
-      font-weight: 700;
-      color: var(--text);
-      margin-left: 32px;
-    }
-    
-    .result-details {
-      margin-top: 6px;
-      font-size: 13px;
-      color: var(--text-light);
-      margin-left: 32px;
-    }
-    
-    .result-row {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 8px;
-    }
-    
-    .result-label {
-      font-weight: 600;
-      color: var(--text-light);
-    }
-    
-    .result-data {
-      font-weight: 600;
-      color: var(--text);
-    }
-    
-    .history-container {
+    .input-hint {
+      position: absolute;
+      top: 100%;
+      left: 0;
       width: 100%;
-      max-width: 500px;
-      background: var(--card-bg);
-      border-radius: 12px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-      padding: 0;
-      overflow: hidden;
-      border: 1px solid var(--border);
-    }
-    
-    .history-header {
-      padding: 18px 22px;
-      background: #1e293b;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    
-    .history-title {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--text);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    
-    .history-list {
-      padding: 0 22px;
-      max-height: 300px;
-      overflow-y: auto;
-    }
-    
-    .history-list::-webkit-scrollbar {
-      width: 6px;
-    }
-    
-    .history-list::-webkit-scrollbar-track {
-      background: var(--light-bg);
-      border-radius: 10px;
-    }
-    
-    .history-list::-webkit-scrollbar-thumb {
-      background: var(--primary);
-      border-radius: 10px;
-    }
-    
-    .history-item {
-      padding: 16px 0;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    
-    .history-item:last-child {
-      border-bottom: none;
-    }
-    
-    .history-time {
-      font-weight: 600;
-      font-size: 15px;
-    }
-    
-    .history-details {
-      text-align: right;
-    }
-    
-    .history-odd {
-      font-size: 13px;
-      font-weight: 500;
-    }
-    
-    .history-date {
-      font-size: 12px;
-      color: var(--text-light);
-      margin-top: 4px;
-    }
-    
-    .signal-tag {
-      display: inline-block;
-      padding: 3px 8px;
-      border-radius: 12px;
-      font-size: 11px;
-      font-weight: 600;
-      margin-top: 5px;
-    }
-    
-    .tag-veryhigh {
-      background: rgba(236, 72, 153, 0.2);
-      color: var(--secondary);
-    }
-    
-    .tag-high {
-      background: rgba(220, 38, 38, 0.2);
-      color: var(--primary);
-    }
-    
-    .tag-medium {
-      background: rgba(168, 85, 247, 0.2); /* Updated to purple */
-      color: var(--medium);
-    }
-    
-    .tag-low {
-      background: rgba(96, 165, 250, 0.2);
-      color: var(--low);
-    }
-    
-    .footer {
-      margin-top: 25px;
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.9);
+      padding: 0.8rem;
+      background: rgba(30, 30, 60, 0.95);
+      border-radius: 8px;
+      border: 1px solid var(--primary);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      z-index: 10;
+      display: none;
+      margin-top: 0.5rem;
       text-align: center;
-      color: var(--text-light);
-      font-size: 13px;
-      padding: 0 20px;
+      line-height: 1.4;
+      animation: fadeIn 0.2s ease-out;
     }
     
-    /* Custom Alert Dialog */
-    .alert-overlay {
-      position: fixed;
+    .odds-container {
+      display: flex;
+      justify-content: center;
+      gap: 0.8rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .odd-btn {
+      padding: 0.7rem 1rem;
+      border-radius: 8px;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      min-width: 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+    
+    .odd-btn::after {
+      content: '';
+      position: absolute;
       top: 0;
       left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.7);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transform: translateX(-100%);
+      transition: 0.6s;
     }
     
-    .alert-overlay.active {
-      opacity: 1;
-      pointer-events: all;
+    .odd-btn:hover::after {
+      transform: translateX(100%);
     }
     
-    .alert-box {
-      background: #1e293b;
-      border-radius: 12px;
-      width: 90%;
-      max-width: 400px;
-      overflow: hidden;
-      transform: translateY(20px);
-      transition: transform 0.3s;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-      border: 1px solid var(--border);
+    .odd-btn-2x {
+      background: linear-gradient(135deg, var(--primary), #9575cd);
+      color: white;
     }
     
-    .alert-overlay.active .alert-box {
+    .odd-btn-3x {
+      background: linear-gradient(135deg, var(--accent), #f06292);
+      color: white;
+    }
+    
+    .odd-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+    }
+    
+    .odd-btn:active {
       transform: translateY(0);
     }
     
-    .alert-header {
-      padding: 16px;
-      background: var(--primary);
-      color: white;
-      font-weight: 600;
+    .odd-value {
+      font-size: 1rem;
+      font-weight: bold;
+    }
+    
+    .odd-label {
+      font-size: 0.65rem;
+      opacity: 0.9;
+    }
+    
+    .results-section {
+      background: rgba(30, 30, 60, 0.6);
+      border-radius: 10px;
+      padding: 0.9rem;
+      margin-top: 1rem;
+      border-left: 4px solid var(--primary);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+    
+    .result-title {
       display: flex;
       align-items: center;
-      gap: 10px;
-      font-size: 16px;
+      gap: 0.5rem;
+      margin-bottom: 0.7rem;
+      color: var(--light);
+      font-size: 0.9rem;
+      justify-content: center;
     }
     
-    .alert-content {
-      padding: 20px;
-      font-size: 14px;
-      line-height: 1.5;
-      color: var(--text);
+    .result-title i {
+      color: var(--primary);
+      font-size: 0.75rem;
     }
     
-    .alert-actions {
-      padding: 15px;
+    .result-title h2 {
+      font-size: 0.9rem;
+    }
+    
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.6rem;
+    }
+    
+    .result-item {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 0.6rem;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .result-item:hover {
+      background: rgba(255, 255, 255, 0.12);
+      transform: translateY(-2px);
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    .result-label {
+      font-size: 0.7rem;
+      color: var(--secondary);
+      margin-bottom: 0.3rem;
       display: flex;
-      justify-content: flex-end;
-      gap: 10px;
+      align-items: center;
+      gap: 0.4rem;
     }
     
-    .alert-btn {
-      padding: 8px 16px;
-      border-radius: 8px;
-      font-weight: 500;
-      cursor: pointer;
-      border: none;
-      font-size: 14px;
+    .result-label i {
+      font-size: 0.7rem;
     }
     
-    .alert-btn-primary {
-      background: var(--primary);
+    .result-value {
+      font-size: 0.9rem;
+      font-weight: bold;
+      color: var(--light);
+    }
+    
+    .confidence-high {
+      color: var(--success) !important;
+    }
+    
+    .confidence-medium {
+      color: var(--warning) !important;
+    }
+    
+    .confidence-low {
+      color: var(--danger) !important;
+    }
+    
+    .footer {
+      text-align: center;
+      margin-top: 1.5rem;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.65rem;
+    }
+    
+    .loading {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(30, 30, 60, 0.9);
+      padding: 1rem 1.5rem;
+      border-radius: 10px;
+      border: 1px solid var(--primary);
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+      z-index: 100;
+      display: none;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .loading.show {
+      opacity: 1;
+      display: block;
+    }
+    
+    .spinner {
+      width: 30px;
+      height: 30px;
+      border: 3px solid rgba(124, 77, 255, 0.2);
+      border-radius: 50%;
+      border-top-color: var(--primary);
+      animation: spin 1s linear infinite;
+      margin: 0 auto 0.5rem;
+    }
+    
+    .loading-text {
+      font-size: 0.8rem;
+      color: var(--light);
+    }
+    
+    .custom-alert {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(30, 30, 60, 0.95);
+      border: 1px solid var(--danger);
+      border-radius: 10px;
+      padding: 1.5rem;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      max-width: 90%;
+      width: 300px;
+      text-align: center;
+      display: none;
+    }
+    
+    .custom-alert-message {
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+      color: var(--light);
+    }
+    
+    .custom-alert-button {
+      background: var(--danger);
       color: white;
+      border: none;
+      padding: 0.5rem 1.5rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
     }
     
-    .alert-btn-secondary {
-      background: #334155;
-      color: var(--text);
+    .custom-alert-button:hover {
+      background: #ff3a3a;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    @media (max-width: 480px) {
+      .container {
+        padding: 0.9rem;
+      }
+      
+      .logo {
+        font-size: 1.3rem;
+      }
+      
+      .datetime-container {
+        gap: 1rem;
+        padding: 0.6rem;
+      }
+      
+      .datetime-item {
+        font-size: 0.75rem;
+      }
+      
+      .result-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .odds-container {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .odd-btn {
+        width: 100%;
+        padding: 0.7rem;
+      }
+      
+      .hash-input {
+        padding: 0.7rem;
+        font-size: 0.8rem;
+      }
+      
+      .input-hint {
+        font-size: 0.7rem;
+        padding: 0.6rem;
+      }
+      
+      .custom-alert {
+        width: 90%;
+        padding: 1rem;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Custom Alert Dialog -->
-  <div class="alert-overlay" id="alertDialog">
-    <div class="alert-box">
-      <div class="alert-header">
-        <i class="fas fa-exclamation-circle"></i>
-        <span id="alertTitle">Alert</span>
+  <div class="container">
+    <div class="header-section">
+      <h1 class="logo">XTREME AVIATOR PREDICTOR</h1>
+      <p class="subtitle">Advanced SHA512 Hash Analysis Engine</p>
+    </div>
+    
+    <div class="datetime-container">
+      <div class="datetime-item">
+        <i class="fas fa-calendar-day"></i>
+        <span id="currentDate">Loading date...</span>
       </div>
-      <div class="alert-content" id="alertMessage">
-        Message goes here
+      <div class="datetime-item">
+        <i class="fas fa-clock"></i>
+        <span id="currentTime">Loading time...</span>
       </div>
-      <div class="alert-actions" id="alertActions">
-        <button class="alert-btn alert-btn-primary" onclick="hideAlert()">OK</button>
+    </div>
+    
+    <div class="input-section">
+      <div class="input-header">
+        <div class="input-label-container">
+          <div class="input-label">Enter SHA512 Hash</div>
+          <i class="fas fa-info-circle info-icon" id="infoIcon"></i>
+        </div>
       </div>
+      <div class="hash-input-container">
+        <input type="text" id="hashInput" class="hash-input" placeholder="Paste your hash here...">
+        <button class="clear-btn" id="clearInput">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="input-hint" id="inputHint">
+        Must be 128-character<br>hexadecimal string (0-9, a-f)
+      </div>
+    </div>
+    
+    <div class="odds-container">
+      <button class="odd-btn odd-btn-2x" onclick="runPredictionWithUI('2')">
+        <span class="odd-value">2×</span>
+        <span class="odd-label">DOUBLE</span>
+      </button>
+      <button class="odd-btn odd-btn-3x" onclick="runPredictionWithUI('3')">
+        <span class="odd-value">3×</span>
+        <span class="odd-label">TRIPLE</span>
+      </button>
+    </div>
+    
+    <div class="loading" id="loadingIndicator">
+      <div class="spinner"></div>
+      <p class="loading-text">Analyzing hash patterns...</p>
+    </div>
+    
+    <div class="results-section" id="resultBox">
+      <div class="result-title">
+        <i class="fas fa-chart-bar"></i>
+        <h2>PREDICTION RESULTS</h2>
+      </div>
+      
+      <div class="result-grid">
+        <div class="result-item">
+          <div class="result-label">
+            <i class="fas fa-random"></i>
+            <span>ENTROPY</span>
+          </div>
+          <div class="result-value" id="entropyValue">0.000</div>
+        </div>
+        
+        <div class="result-item">
+          <div class="result-label">
+            <i class="fas fa-star"></i>
+            <span>SCORE</span>
+          </div>
+          <div class="result-value" id="scoreValue">0</div>
+        </div>
+        
+        <div class="result-item">
+          <div class="result-label">
+            <i class="fas fa-bullseye"></i>
+            <span>CONFIDENCE</span>
+          </div>
+          <div class="result-value" id="confidenceValue">0%</div>
+        </div>
+        
+        <div class="result-item">
+          <div class="result-label">
+            <i class="fas fa-stopwatch"></i>
+            <span>DELAY</span>
+          </div>
+          <div class="result-value" id="delayValue">0s</div>
+        </div>
+        
+        <div class="result-item" style="grid-column: span 2;">
+          <div class="result-label">
+            <i class="fas fa-hourglass-half"></i>
+            <span>ESTIMATED TIME</span>
+          </div>
+          <div class="result-value" id="timeValue">00:00:00</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer">
+      <p>© 2023 XTREME AVIATOR PREDICTOR | v2.1.7</p>
     </div>
   </div>
 
-  <div class="app-container">
-    <div class="app-header">
-      <div class="app-logo">
-        <i class="fas fa-chart-line logo-icon"></i>
-        <div class="logo-text">
-          <div class="main-title">Hash High Predictor</div>
-          <div class="sub-title">Advanced Analysis System</div>
-        </div>
-      </div>
-      <div class="live-clock-container">
-        <div class="live-clock" id="liveDate"></div>
-        <div class="live-clock" id="liveClock"></div>
-      </div>
-    </div>
-    
-    <div class="form-container">
-      <div class="input-group">
-        <label class="input-label" for="date"><i class="far fa-calendar-alt"></i> Date</label>
-        <input type="date" id="date" class="input-field">
-      </div>
-      
-      <div class="input-group">
-        <label class="input-label" for="time"><i class="far fa-clock"></i> Time (HH:MM:SS)</label>
-        <input type="time" id="time" class="input-field" step="1">
-      </div>
-      
-      <div class="input-group">
-        <label class="input-label" for="odd"><i class="fas fa-chart-line"></i> Current Odd Value</label>
-        <input type="number" id="odd" class="input-field" step="0.01" placeholder="Enter the current odd value">
-      </div>
-      
-      <div class="input-group">
-        <label class="input-label" for="hash"><i class="fas fa-hashtag"></i> SHA512 Hash</label>
-        <input type="text" id="hash" class="input-field" placeholder="Enter the 128-character hash">
-      </div>
-      
-      <button class="btn btn-primary" onclick="analyze()">
-        <i class="fas fa-search"></i>
-        Analyze Now
-      </button>
-      
-      <button class="btn btn-danger" onclick="clearForm()" style="margin-top: 12px;">
-        <i class="fas fa-eraser"></i>
-        Clear Inputs
-      </button>
-      
-      <div id="result" class="result-container">
-        <div class="result-title">
-          <i class="fas fa-bell"></i>
-          <span id="signalType">Signal Prediction</span>
-        </div>
-        <div class="result-value" id="predictionResult"></div>
-        <div class="result-details">
-          <div class="result-row">
-            <span class="result-label">Predicted Time:</span>
-            <span class="result-data" id="predictedTime"></span>
-          </div>
-          <div class="result-row">
-            <span class="result-label">Predicted Odd:</span>
-            <span class="result-data" id="predictedOdd"></span>
-          </div>
-          <div class="result-row">
-            <span class="result-label">Confidence:</span>
-            <span class="result-data" id="confidenceLevel"></span>
-          </div>
-          <div class="result-details" id="predictionDetails"></div>
-        </div>
-      </div>
-    </div>
+  <div class="custom-alert" id="customAlert">
+    <div class="custom-alert-message" id="alertMessage"></div>
+    <button class="custom-alert-button" id="alertButton">OK</button>
   </div>
-  
-  <div class="history-container">
-    <div class="history-header">
-      <div class="history-title">
-        <i class="fas fa-history"></i>
-        Signal History
-      </div>
-      <button onclick="clearHistory()" style="background: none; border: none; color: var(--danger); cursor: pointer; font-size: 14px;">
-        <i class="fas fa-trash-alt"></i> Clear
-      </button>
-    </div>
-    <div class="history-list" id="historyList">
-      <!-- History items will be added here dynamically -->
-    </div>
-  </div>
-  
-  <div class="footer">
-    <p>© 2025 Hash High Predictor. All rights reserved.</p>
-  </div>
-  
-  <audio id="beepSound" src="https://assets.mixkit.co/sfx/preview/mixkit-alarm-digital-clock-beep-989.mp3" preload="auto"></audio>
-  
+
   <script>
-    // Track last analyzed input to prevent duplicates
-    let lastAnalyzedInput = null;
+    // Prevent text selection and zooming
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+    });
     
-    // Update live clock
-    function updateClock() {
+    document.addEventListener('keydown', function(e) {
+      if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 85 || e.keyCode === 117)) {
+        e.preventDefault();
+      }
+    });
+
+    function updateDateTime() {
       const now = new Date();
-      const time = now.toLocaleTimeString();
-      const date = now.toISOString().split('T')[0];
-      document.getElementById('liveClock').textContent = time;
-      document.getElementById('liveDate').textContent = date;
-    }
-    setInterval(updateClock, 1000);
-    updateClock();
-    
-    // Custom alert functions
-    function showAlert(title, message) {
-      document.getElementById('alertTitle').textContent = title;
-      document.getElementById('alertMessage').textContent = message;
-      document.getElementById('alertDialog').classList.add('active');
-    }
-    
-    function hideAlert() {
-      document.getElementById('alertDialog').classList.remove('active');
-    }
-    
-    // Play beep sound
-    function playBeep() {
-      const beep = document.getElementById('beepSound');
-      beep.currentTime = 0;
-      beep.play().catch(e => console.log("Audio play failed:", e));
-    }
-    
-    // Clear form
-    function clearForm() {
-      document.getElementById('date').value = '';
-      document.getElementById('time').value = '';
-      document.getElementById('odd').value = '';
-      document.getElementById('hash').value = '';
-      document.getElementById('result').style.display = 'none';
-      lastAnalyzedInput = null;
-    }
-    
-    // Clear history
-    function clearHistory() {
-      document.getElementById('alertActions').innerHTML = `
-        <button class="alert-btn alert-btn-secondary" onclick="hideAlert()">Cancel</button>
-        <button class="alert-btn alert-btn-primary" onclick="confirmClearHistory()">Clear All</button>
-      `;
-      showAlert('Clear History', 'Are you sure you want to clear all history? This cannot be undone.');
-    }
-    
-    function confirmClearHistory() {
-      localStorage.removeItem('aviatorPredictions');
-      renderHistory();
-      hideAlert();
-    }
-    
-    // Save prediction to history
-    function saveToHistory(inputData, prediction, signalType, predictedOdd, confidence) {
-      let history = JSON.parse(localStorage.getItem('aviatorPredictions')) || [];
       
-      // Add new prediction to beginning of array
-      history.unshift({
-        date: new Date().toLocaleString(),
-        input: inputData,
-        prediction: prediction,
-        signalType: signalType,
-        predictedOdd: predictedOdd,
-        confidence: confidence
-      });
+      // Format date
+      const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      document.getElementById('currentDate').textContent = now.toLocaleDateString('en-US', dateOptions);
       
-      // Keep only the last 100 entries
-      if (history.length > 100) {
-        history = history.slice(0, 100);
+      // Format time in 24-hour format
+      const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+      document.getElementById('currentTime').textContent = now.toLocaleTimeString('en-US', timeOptions);
+    }
+    
+    // Update datetime immediately and then every second
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
+
+    // Info icon functionality with auto-hide
+    const infoIcon = document.getElementById('infoIcon');
+    const inputHint = document.getElementById('inputHint');
+    
+    infoIcon.addEventListener('click', function(e) {
+      e.stopPropagation();
+      inputHint.style.display = 'block';
+      
+      // Auto-hide after 5 seconds
+      setTimeout(() => {
+        inputHint.style.display = 'none';
+      }, 5000);
+    });
+
+    // Hide hint when clicking elsewhere
+    document.addEventListener('click', function() {
+      inputHint.style.display = 'none';
+    });
+
+    // Prevent hint from closing when clicking on it
+    inputHint.addEventListener('click', function(e) {
+      e.stopPropagation();
+    });
+
+    // Clear input button functionality
+    document.getElementById('clearInput').addEventListener('click', function() {
+      document.getElementById('hashInput').value = '';
+      document.getElementById('hashInput').focus();
+    });
+
+    // Custom alert system
+    const customAlert = document.getElementById('customAlert');
+    const alertMessage = document.getElementById('alertMessage');
+    const alertButton = document.getElementById('alertButton');
+    
+    function showAlert(message) {
+      alertMessage.textContent = message;
+      customAlert.style.display = 'block';
+    }
+    
+    alertButton.addEventListener('click', function() {
+      customAlert.style.display = 'none';
+    });
+
+    function calcEntropy(hash) {
+      const freq = {};
+      for (let c of hash) freq[c] = (freq[c] || 0) + 1;
+      return Object.values(freq).reduce((acc, f) => {
+        const p = f / hash.length;
+        return acc - p * Math.log2(p);
+      }, 0);
+    }
+
+    function scoreFromHash(hash) {
+      const indexes = [5, 15, 25, 35, 50, 75, 100, 120];
+      return indexes.reduce((sum, i) => sum + parseInt(hash[i], 16), 0);
+    }
+
+    function calculateConfidence(entropy, score, oddTarget, hash) {
+      let confidence = 50;
+      if (entropy > 4.2) confidence += 10;
+      if (entropy > 4.5) confidence += 15;
+      if (score % 7 === 0) confidence += 8;
+      if (score % 5 === 0) confidence += 5;
+      if (/(\w)\1{2,}/.test(hash)) confidence += 15;
+      if (/(\w{2,4})\1{1,}/.test(hash)) confidence += 10;
+      const tail = hash.slice(-4);
+      if (/^(aaaa|ffff|0000|1111)$/.test(tail)) confidence += 20;
+
+      // Odd-specific adjustments
+      if (oddTarget === '3') confidence += 5;
+      if (oddTarget === '2') {
+        if (entropy > 4.0 && entropy < 4.3) confidence += 10;
+        if (score >= 50 && score <= 85) confidence += 7;
       }
-      
-      localStorage.setItem('aviatorPredictions', JSON.stringify(history));
-      renderHistory();
+
+      return Math.min(98, Math.max(5, Math.round(confidence)));
     }
-    
-    // Render prediction history
-    function renderHistory() {
-      const history = JSON.parse(localStorage.getItem('aviatorPredictions')) || [];
-      const historyList = document.getElementById('historyList');
-      
-      historyList.innerHTML = '';
-      
-      if (history.length === 0) {
-        historyList.innerHTML = `
-          <div style="text-align: center; color: var(--text-light); padding: 40px 20px;">
-            <i class="far fa-clock" style="font-size: 28px; margin-bottom: 12px; opacity: 0.5;"></i>
-            <div>No signal history available</div>
-          </div>
-        `;
+
+    function calculateDelay(score, entropy, oddTarget, hash) {
+      let base = parseInt(oddTarget) * 45;
+      if (entropy > 4.3) base += 20;
+      if (score % 7 === 0) base += 30;
+      if (score % 5 === 0) base += 15;
+      if (/(\w)\1{2,}/.test(hash)) base += 20;
+      if (/(\w{2,4})\1{1,}/.test(hash)) base += 15;
+      return Math.max(45, base);
+    }
+
+    function runPredictionWithUI(oddTarget) {
+      const hash = document.getElementById('hashInput').value.trim().toLowerCase();
+      if (hash.length !== 128 || !/^[a-f0-9]+$/.test(hash)) {
+        showAlert('Invalid SHA512 hash! Must be exactly 128 hexadecimal characters.');
         return;
       }
-      
-      history.forEach(item => {
-        const historyItem = document.createElement('div');
-        historyItem.className = 'history-item';
+
+      // Show loading indicator with smooth transition
+      const loadingIndicator = document.getElementById('loadingIndicator');
+      loadingIndicator.classList.add('show');
+
+      // Simulate processing delay for better UX
+      setTimeout(() => {
+        const entropy = calcEntropy(hash);
+        const score = scoreFromHash(hash);
+        const confidence = calculateConfidence(entropy, score, oddTarget, hash);
+        const delay = calculateDelay(score, entropy, oddTarget, hash);
+
+        const currentTime = new Date();
+        const futureTime = new Date(currentTime.getTime() + delay * 1000);
         
-        let tagClass = 'tag-low';
-        if (item.signalType.includes('Very High')) tagClass = 'tag-veryhigh';
-        else if (item.signalType.includes('High')) tagClass = 'tag-high';
-        else if (item.signalType.includes('Medium')) tagClass = 'tag-medium';
+        // Format time in 24-hour format
+        const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+        const timeString = futureTime.toLocaleTimeString('en-US', timeOptions);
+
+        document.getElementById('entropyValue').textContent = entropy.toFixed(3);
+        document.getElementById('scoreValue').textContent = score;
+        document.getElementById('confidenceValue').textContent = confidence + '%';
         
-        historyItem.innerHTML = `
-          <div>
-            <div class="history-time">${item.prediction}</div>
-            <div class="history-odd">Predicted: ${item.predictedOdd}x</div>
-            <div class="${tagClass} signal-tag">${item.signalType} (${item.confidence})</div>
-          </div>
-          <div class="history-details">
-            <div class="history-odd">Current: ${item.input.odd}x</div>
-            <div class="history-date">${item.date}</div>
-          </div>
-        `;
-        historyList.appendChild(historyItem);
-      });
+        // Add confidence class based on value
+        const confidenceElement = document.getElementById('confidenceValue');
+        confidenceElement.className = 'result-value ';
+        if (confidence >= 70) confidenceElement.classList.add('confidence-high');
+        else if (confidence >= 40) confidenceElement.classList.add('confidence-medium');
+        else confidenceElement.classList.add('confidence-low');
+        
+        document.getElementById('delayValue').textContent = delay + 's';
+        document.getElementById('timeValue').textContent = timeString;
+
+        // Hide loading with smooth transition
+        loadingIndicator.classList.remove('show');
+        setTimeout(() => {
+          loadingIndicator.style.display = 'none';
+        }, 300);
+      }, 800);
     }
-    
-    // Calculate hash entropy to detect patterns
-    function calculateHashEntropy(hash) {
-      const frequency = {};
-      for (const char of hash) {
-        frequency[char] = (frequency[char] || 0) + 1;
-      }
-      
-      let entropy = 0;
-      const length = hash.length;
-      for (const char in frequency) {
-        const prob = frequency[char] / length;
-        entropy -= prob * Math.log2(prob);
-      }
-      
-      return entropy;
-    }
-    
-    // Analyze hash patterns to predict next odd
-    function predictNextOdd(hash, currentOdd) {
-      // Convert hash to numerical values for analysis
-      const hashValues = Array.from(hash).map(c => parseInt(c, 16));
-      
-      // Calculate average of hash values
-      const avg = hashValues.reduce((sum, val) => sum + val, 0) / hashValues.length;
-      
-      // Count repeating patterns
-      const repeatingPatterns = hash.match(/([a-f0-9])\1{2,}/gi) || [];
-      const patternCount = repeatingPatterns.length;
-      
-      // Calculate hash entropy
-      const entropy = calculateHashEntropy(hash);
-      
-      // Base prediction on current odd with adjustments
-      let predictedOdd = currentOdd;
-      
-      // Adjust based on hash characteristics
-      if (hash.endsWith('aa') || hash.endsWith('55')) {
-        predictedOdd *= 1.5; // Higher odd likely
-      } else if (hash.endsWith('00') || hash.endsWith('ff')) {
-        predictedOdd *= 0.8; // Lower odd likely
-      }
-      
-      // Adjust for entropy (more random = more volatility)
-      if (entropy > 3.5) {
-        predictedOdd *= 1.2;
-      } else {
-        predictedOdd *= 0.9;
-      }
-      
-      // Adjust for repeating patterns
-      if (patternCount > 2) {
-        predictedOdd *= 1.3;
-      }
-      
-      // Ensure reasonable bounds
-      predictedOdd = Math.max(1.1, Math.min(predictedOdd, 100));
-      
-      // Round to 2 decimal places
-      return Math.round(predictedOdd * 100) / 100;
-    }
-    
-    // Calculate confidence level based on analysis
-    function calculateConfidence(hash, predictedOdd, currentOdd) {
-      let confidence = 70; // Base confidence
-      
-      // Increase confidence for specific patterns
-      if (hash.endsWith('aa') || hash.endsWith('55') || hash.endsWith('00') || hash.endsWith('ff')) {
-        confidence += 15;
-      }
-      
-      // Adjust based on how far predicted is from current
-      const ratio = predictedOdd / currentOdd;
-      if (ratio > 1.5 || ratio < 0.67) {
-        confidence -= 10;
-      } else if (ratio > 1.2 || ratio < 0.83) {
-        confidence += 5;
-      } else {
-        confidence += 10;
-      }
-      
-      // Ensure within bounds
-      confidence = Math.max(50, Math.min(confidence, 95));
-      
-      return confidence + '%';
-    }
-    
-    // Main analysis function
-    function analyze() {
-      const date = document.getElementById('date').value;
-      const time = document.getElementById('time').value;
-      const odd = parseFloat(document.getElementById('odd').value);
-      const hash = document.getElementById('hash').value.trim();
-      
-      // Create unique input identifier
-      const currentInput = `${date}-${time}-${odd}-${hash}`;
-      
-      // Check if this is the same as last analyzed input
-      if (lastAnalyzedInput === currentInput) {
-        showAlert('Duplicate Analysis', 'You have already analyzed this exact input. Please change at least one field to analyze again.');
-        return;
-      }
-      
-      // Validation
-      if (!date || !time || isNaN(odd) || !hash) {
-        showAlert('Input Required', 'Please fill in all fields correctly.');
-        return;
-      }
-      
-      if (hash.length !== 128 || !/^[a-f0-9]+$/i.test(hash)) {
-        showAlert('Invalid Hash', 'Please enter a valid 128-character SHA512 hash (hexadecimal characters only).');
-        return;
-      }
-      
-      if (odd <= 0) {
-        showAlert('Invalid Odd', 'Odd value must be greater than 0.');
-        return;
-      }
-      
-      const dateTimeStr = date + 'T' + time;
-      const inputDateTime = new Date(dateTimeStr);
-      
-      // Calculate prediction time based on algorithm
-      let nextSeconds = 180; // Default 3 minutes
-      let signalType = 'Low Signal';
-      
-      if (odd > 1.5 && odd <= 10) {
-        signalType = 'Medium Signal';
-        nextSeconds = 240; // 4 minutes
-      }
-      else if (odd > 10 && odd <= 50) {
-        signalType = 'High Signal';
-        nextSeconds = 300; // 5 minutes
-      }
-      else if (odd > 50) {
-        signalType = 'Very High Signal';
-        nextSeconds = 600; // 10 minutes
-      }
-      
-      // Predict the next odd value
-      const predictedOdd = predictNextOdd(hash, odd);
-      const confidence = calculateConfidence(hash, predictedOdd, odd);
-      
-      // Additional hash pattern analysis for time adjustment
-      if (hash.endsWith("aa") || hash.endsWith("11")) {
-        nextSeconds += 120; // Add 2 minutes for specific hash patterns
-        signalType += " (Pattern)";
-      }
-      
-      // Check for repeating patterns in hash
-      const repeatingPatterns = hash.match(/([a-f0-9])\1{2,}/gi);
-      if (repeatingPatterns && repeatingPatterns.length > 0) {
-        nextSeconds += 60; // Add 1 minute for repeating characters
-        signalType += " (Repeating)";
-      }
-      
-      const nextDateTime = new Date(inputDateTime.getTime() + nextSeconds * 1000);
-      const nextTimeStr = nextDateTime.toLocaleTimeString();
-      
-      // Display result with appropriate styling
-      const resultDiv = document.getElementById('result');
-      resultDiv.style.display = 'block';
-      
-      if (signalType.includes('Very High')) {
-        resultDiv.className = 'result-container result-veryhigh';
-      } else if (signalType.includes('High')) {
-        resultDiv.className = 'result-container result-high';
-      } else if (signalType.includes('Medium')) {
-        resultDiv.className = 'result-container result-medium';
-      } else {
-        resultDiv.className = 'result-container result-low';
-      }
-      
-      document.getElementById('signalType').textContent = signalType;
-      document.getElementById('predictionResult').textContent = 'Next High Prediction';
-      document.getElementById('predictedTime').textContent = nextTimeStr;
-      document.getElementById('predictedOdd').textContent = predictedOdd + 'x';
-      document.getElementById('confidenceLevel').textContent = confidence;
-      document.getElementById('predictionDetails').textContent = `Analysis based on current odd ${odd}x and hash patterns`;
-      
-      // Play beep sound
-      playBeep();
-      
-      // Save to history
-      saveToHistory(
-        { date, time, odd, hash },
-        nextTimeStr,
-        signalType,
-        predictedOdd,
-        confidence
-      );
-      
-      // Store the current input to prevent duplicate analysis
-      lastAnalyzedInput = currentInput;
-    }
-    
-    // Initialize history on load
-    document.addEventListener('DOMContentLoaded', renderHistory);
   </script>
 </body>
 </html>
