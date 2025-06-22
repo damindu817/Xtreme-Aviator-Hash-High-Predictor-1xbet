@@ -32,9 +32,11 @@
       background: linear-gradient(135deg, #1a1a2e, #16213e);
       color: var(--text-light);
       min-height: 100vh;
-      padding: 1rem;
+      padding: 1.5rem 1rem 2rem;
       touch-action: pan-y;
       overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
     }
     
     .container {
@@ -42,7 +44,7 @@
       margin: 0 auto;
       background: rgba(20, 20, 40, 0.95);
       border-radius: 16px;
-      padding: 1rem;
+      padding: 1.5rem;
       box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
       backdrop-filter: blur(10px);
       border: 1px solid rgba(255, 255, 255, 0.15);
@@ -50,6 +52,7 @@
       background-image: 
         radial-gradient(circle at 25% 25%, rgba(124, 77, 255, 0.15) 0%, transparent 50%),
         radial-gradient(circle at 75% 75%, rgba(255, 64, 129, 0.15) 0%, transparent 50%);
+      margin-top: 1rem;
     }
     
     @keyframes fadeIn {
@@ -59,7 +62,7 @@
     
     .header-section {
       text-align: center;
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
       padding-bottom: 1rem;
       border-bottom: 1px solid rgba(124, 77, 255, 0.4);
     }
@@ -79,14 +82,14 @@
     .subtitle {
       color: var(--light);
       font-size: 0.8rem;
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
       opacity: 0.9;
     }
     
     .datetime-container {
       background: rgba(124, 77, 255, 0.15);
       border-radius: 10px;
-      padding: 0.6rem;
+      padding: 0.8rem;
       margin-bottom: 1.5rem;
       text-align: center;
       border: 1px solid rgba(124, 77, 255, 0.3);
@@ -152,7 +155,7 @@
     
     .hash-input {
       width: 100%;
-      padding: 0.8rem;
+      padding: 0.9rem;
       border-radius: 8px;
       border: 2px solid rgba(124, 77, 255, 0.5);
       background: rgba(30, 30, 60, 0.5);
@@ -220,12 +223,12 @@
     .odds-container {
       display: flex;
       justify-content: center;
-      gap: 0.8rem;
+      gap: 1rem;
       margin-bottom: 1.5rem;
     }
     
     .odd-btn {
-      padding: 0.7rem 1rem;
+      padding: 0.8rem 1.2rem;
       border-radius: 8px;
       border: none;
       font-weight: bold;
@@ -233,7 +236,7 @@
       transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
-      min-width: 80px;
+      min-width: 90px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -288,7 +291,7 @@
     .results-section {
       background: rgba(30, 30, 60, 0.6);
       border-radius: 10px;
-      padding: 0.9rem;
+      padding: 1rem;
       margin-top: 1rem;
       border-left: 4px solid var(--primary);
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
@@ -298,7 +301,7 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      margin-bottom: 0.7rem;
+      margin-bottom: 0.8rem;
       color: var(--light);
       font-size: 0.9rem;
       justify-content: center;
@@ -316,12 +319,12 @@
     .result-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 0.6rem;
+      gap: 0.7rem;
     }
     
     .result-item {
       background: rgba(255, 255, 255, 0.08);
-      padding: 0.6rem;
+      padding: 0.7rem;
       border-radius: 6px;
       transition: all 0.3s ease;
       border: 1px solid rgba(255, 255, 255, 0.05);
@@ -369,6 +372,7 @@
       margin-top: 1.5rem;
       color: rgba(255, 255, 255, 0.5);
       font-size: 0.65rem;
+      padding-bottom: 0.5rem;
     }
     
     .loading {
@@ -377,7 +381,7 @@
       left: 50%;
       transform: translate(-50%, -50%);
       background: rgba(30, 30, 60, 0.9);
-      padding: 1rem 1.5rem;
+      padding: 1.2rem 1.8rem;
       border-radius: 10px;
       border: 1px solid var(--primary);
       box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
@@ -400,7 +404,7 @@
       border-radius: 50%;
       border-top-color: var(--primary);
       animation: spin 1s linear infinite;
-      margin: 0 auto 0.5rem;
+      margin: 0 auto 0.6rem;
     }
     
     .loading-text {
@@ -451,8 +455,13 @@
     }
     
     @media (max-width: 480px) {
+      body {
+        padding: 1rem 0.8rem 1.5rem;
+      }
+      
       .container {
-        padding: 0.9rem;
+        padding: 1.2rem;
+        margin-top: 0.5rem;
       }
       
       .logo {
@@ -460,8 +469,9 @@
       }
       
       .datetime-container {
-        gap: 1rem;
-        padding: 0.6rem;
+        flex-direction: column;
+        gap: 0.6rem;
+        padding: 0.7rem;
       }
       
       .datetime-item {
@@ -479,17 +489,17 @@
       
       .odd-btn {
         width: 100%;
-        padding: 0.7rem;
+        padding: 0.8rem;
       }
       
       .hash-input {
-        padding: 0.7rem;
+        padding: 0.8rem;
         font-size: 0.8rem;
       }
       
       .input-hint {
         font-size: 0.7rem;
-        padding: 0.6rem;
+        padding: 0.7rem;
       }
       
       .custom-alert {
@@ -502,7 +512,7 @@
 <body>
   <div class="container">
     <div class="header-section">
-      <h1 class="logo">XTREME AVIATOR XASH LITE</h1>
+      <h1 class="logo">XTREME AVIATOR PREDICTOR</h1>
       <p class="subtitle">Advanced SHA512 Hash Analysis Engine</p>
     </div>
     
@@ -601,7 +611,7 @@
     </div>
     
     <div class="footer">
-      <p>© 2025 XTREME AVIATOR SHA512 HASH LITE | v2.1.7</p>
+      <p>© 2023 XTREME AVIATOR PREDICTOR | v2.1.8</p>
     </div>
   </div>
 
@@ -736,7 +746,10 @@
 
       // Show loading indicator with smooth transition
       const loadingIndicator = document.getElementById('loadingIndicator');
-      loadingIndicator.classList.add('show');
+      loadingIndicator.style.display = 'block';
+      setTimeout(() => {
+        loadingIndicator.classList.add('show');
+      }, 10);
 
       // Simulate processing delay for better UX
       setTimeout(() => {
