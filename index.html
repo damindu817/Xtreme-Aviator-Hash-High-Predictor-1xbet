@@ -4,7 +4,797 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>XTREME AVIATOR PREDICTOR PRO</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>XTREME AVIATOR PREDICTOR</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #7c4dff;
+      --secondary: #b388ff;
+      --accent: #ff4081;
+      --dark: #0f0f1a;
+      --light: #ffffff;
+      --success: #00e676;
+      --warning: #ffc400;
+      --danger: #ff1744;
+      --info: #00b0ff;
+      --text-light: rgba(255,255,255,0.9);
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      -webkit-user-select: text; /* Changed from 'none' to 'text' */
+      user-select: text; /* Changed from 'none' to 'text' */
+    }
+    
+    body {
+      background: linear-gradient(135deg, #1a1a2e, #16213e);
+      color: var(--text-light);
+      min-height: 100vh;
+      padding: 1rem;
+      touch-action: pan-y;
+      overflow-x: hidden;
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: rgba(20, 20, 40, 0.95);
+      border-radius: 16px;
+      padding: 1rem;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      animation: fadeIn 0.8s ease-out;
+      background-image: 
+        radial-gradient(circle at 25% 25%, rgba(124, 77, 255, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(255, 64, 129, 0.15) 0%, transparent 50%);
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .header-section {
+      text-align: center;
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(124, 77, 255, 0.4);
+    }
+    
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: linear-gradient(to right, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 2px 10px rgba(124, 77, 255, 0.3);
+      display: inline-block;
+    }
+    
+    .subtitle {
+      color: var(--light);
+      font-size: 0.8rem;
+      margin-bottom: 1rem;
+      opacity: 0.9;
+    }
+    
+    .datetime-container {
+      background: rgba(124, 77, 255, 0.15);
+      border-radius: 10px;
+      padding: 0.6rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      border: 1px solid rgba(124, 77, 255, 0.3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    
+    .datetime-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+    }
+    
+    .datetime-item i {
+      color: var(--secondary);
+      font-size: 0.8rem;
+    }
+    
+    .input-section {
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+    
+    .input-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      position: relative;
+    }
+    
+    .input-label-container {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    
+    .input-label {
+      color: var(--light);
+      font-weight: 500;
+      font-size: 0.85rem;
+      white-space: nowrap;
+    }
+    
+    .info-icon {
+      color: white;
+      font-size: 0.7rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+    
+    .info-icon:hover {
+      transform: scale(1.1);
+    }
+    
+    .hash-input-container {
+      position: relative;
+    }
+    
+    .hash-input {
+      width: 100%;
+      padding: 0.8rem;
+      border-radius: 8px;
+      border: 2px solid rgba(124, 77, 255, 0.5);
+      background: rgba(30, 30, 60, 0.5);
+      color: white;
+      font-size: 0.85rem;
+      transition: all 0.3s ease;
+      padding-right: 35px;
+      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    .hash-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(124, 77, 255, 0.3),
+                  inset 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    .hash-input::placeholder {
+      color: rgba(255, 255, 255, 0.4);
+    }
+    
+    .clear-btn {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 0, 0, 0.3);
+      border: none;
+      color: white;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .clear-btn:hover {
+      background: rgba(255, 0, 0, 0.5);
+      color: var(--light);
+    }
+    
+    .input-hint {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.9);
+      padding: 0.8rem;
+      background: rgba(30, 30, 60, 0.95);
+      border-radius: 8px;
+      border: 1px solid var(--primary);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      z-index: 10;
+      display: none;
+      margin-top: 0.5rem;
+      text-align: center;
+      line-height: 1.4;
+      animation: fadeIn 0.2s ease-out;
+    }
+    
+    .odds-container {
+      display: flex;
+      justify-content: center;
+      gap: 0.8rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .odd-btn {
+      padding: 0.7rem 1rem;
+      border-radius: 8px;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      min-width: 80px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      text-align: center;
+    }
+    
+    .odd-btn::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transform: translateX(-100%);
+      transition: 0.6s;
+    }
+    
+    .odd-btn:hover::after {
+      transform: translateX(100%);
+    }
+    
+    .odd-btn-2x {
+      background: linear-gradient(135deg, #1e88e5, #64b5f6);
+      color: white;
+    }
+    
+    .odd-btn-3x {
+      background: linear-gradient(135deg, var(--accent), #f06292);
+      color: white;
+    }
+    
+    .odd-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+    }
+    
+    .odd-btn:active {
+      transform: translateY(0);
+    }
+    
+    .result-bar {
+      height: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      margin-top: 0.5rem;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .result-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.5s ease;
+    }
+    
+    .fill-2x {
+      background: linear-gradient(to right, #1e88e5, #64b5f6);
+    }
+    
+    .fill-3x {
+      background: linear-gradient(to right, var(--accent), #f06292);
+    }
+    
+    .results-section {
+      background: rgba(30, 30, 60, 0.6);
+      border-radius: 10px;
+      padding: 0.9rem;
+      margin-top: 1rem;
+      border-left: 4px solid var(--primary);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+    
+    .result-title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.7rem;
+      color: var(--light);
+      font-size: 0.9rem;
+      justify-content: center;
+    }
+    
+    .result-title i {
+      color: var(--primary);
+      font-size: 0.75rem;
+    }
+    
+    .result-title h2 {
+      font-size: 0.9rem;
+    }
+    
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.6rem;
+    }
+    
+    .result-item {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 0.6rem;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .result-item:hover {
+      background: rgba(255, 255, 255, 0.12);
+      transform: translateY(-2px);
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    .result-label {
+      font-size: 0.7rem;
+      color: var(--secondary);
+      margin-bottom: 0.3rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    
+    .result-label i {
+      font-size: 0.7rem;
+    }
+    
+    .result-value {
+      font-size: 0.9rem;
+      font-weight: bold;
+      color: var(--light);
+    }
+    
+    .confidence-high {
+      color: var(--success) !important;
+    }
+    
+    .confidence-medium {
+      color: var(--warning) !important;
+    }
+    
+    .confidence-low {
+      color: var(--danger) !important;
+    }
+    
+    .footer {
+      text-align: center;
+      margin-top: 1.5rem;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.65rem;
+    }
+    
+    .loading {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(30, 30, 60, 0.9);
+      padding: 1rem 1.5rem;
+      border-radius: 10px;
+      border: 1px solid var(--primary);
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+      z-index: 100;
+      display: none;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .loading.show {
+      opacity: 1;
+      display: block;
+    }
+    
+    .spinner {
+      width: 30px;
+      height: 30px;
+      border: 3px solid rgba(124, 77, 255, 0.2);
+      border-radius: 50%;
+      border-top-color: var(--primary);
+      animation: spin 1s linear infinite;
+      margin: 0 auto 0.5rem;
+    }
+    
+    .loading-text {
+      font-size: 0.8rem;
+      color: var(--light);
+    }
+    
+    .custom-alert {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(30, 30, 60, 0.95);
+      border: 1px solid var(--danger);
+      border-radius: 10px;
+      padding: 1.5rem;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      max-width: 90%;
+      width: 300px;
+      text-align: center;
+      display: none;
+    }
+    
+    .custom-alert-message {
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+      color: var(--light);
+    }
+    
+    .custom-alert-button {
+      background: var(--danger);
+      color: white;
+      border: none;
+      padding: 0.5rem 1.5rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+    
+    .custom-alert-button:hover {
+      background: #ff3a3a;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    @media (max-width: 480px) {
+      .container {
+        padding: 0.9rem;
+      }
+      
+      .logo {
+        font-size: 1.3rem;
+      }
+      
+      .datetime-container {
+        gap: 1rem;
+        padding: 0.6rem;
+      }
+      
+      .datetime-item {
+        font-size: 0.75rem;
+      }
+      
+      .result-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .odds-container {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .odd-btn {
+        width: 100%;
+        padding: 0.7rem;
+      }
+      
+      .hash-input {
+        padding: 0.7rem;
+        font-size: 0.8rem;
+      }
+      
+      .input-hint {
+        font-size: 0.7rem;
+        padding: 0.6rem;
+      }
+      
+      .custom-alert {
+        width: 90%;
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header-section">
+      <h1 class="logo">XTREME AVIATOR XASH LITE</h1>
+      <p class="subtitle">Advanced SHA512 Hash Analysis Engine</p>
+    </div>
+    
+    <div class="datetime-container">
+      <div class="datetime-item">
+        <i class="fas fa-calendar-day"></i>
+        <span id="currentDate">Loading date...</span>
+      </div>
+      <div class="datetime-item">
+        <i class="fas fa-clock"></i>
+        <span id="currentTime">Loading time...</span>
+      </div>
+    </div>
+    
+    <div class="input-section">
+      <div class="input-header">
+        <div class="input-label-container">
+          <div class="input-label">Enter SHA512 Hash</div>
+          <i class="fas fa-info-circle info-icon" id="infoIcon"></i>
+        </div>
+      </div>
+      <div class="hash-input-container">
+        <input type="text" id="hashInput" class="hash-input" placeholder="Paste your hash here...">
+        <button class="clear-btn" id="clearInput">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="input-hint" id="inputHint">
+        Must be 128-character<br>hexadecimal string (0-9, a-f)
+      </div>
+    </div>
+    
+    <div class="odds-container">
+      <button class="odd-btn odd-btn-2x" onclick="runPredictionWithUI('2')">
+        2× DOUBLE
+      </button>
+      <button class="odd-btn odd-btn-3x" onclick="runPredictionWithUI('3')">
+        3× TRIPLE
+      </button>
+    </div>
+    
+    <div class="loading" id="loadingIndicator">
+      <div class="spinner"></div>
+      <p class="loading-text">Analyzing hash patterns...</p>
+    </div>
+    
+    <div class="results-section" id="resultBox">
+      <div class="result-title">
+        <i class="fas fa-chart-bar"></i>
+        <h2>PREDICTION RESULTS</h2>
+      </div>
+      
+      <div class="result-grid">
+        <div class="result-item">
+          <div class="result-label">
+            <i class="fas fa-random"></i>
+            <span>ENTROPY</span>
+          </div>
+          <div class="result-value" id="entropyValue">0.000</div>
+        </div>
+        
+        <div class="result-item">
+          <div class="result-label">
+            <i class="fas fa-star"></i>
+            <span>SCORE</span>
+          </div>
+          <div class="result-value" id="scoreValue">0</div>
+        </div>
+        
+        <div class="result-item">
+          <div class="result-label">
+            <i class="fas fa-bullseye"></i>
+            <span>CONFIDENCE</span>
+          </div>
+          <div class="result-value" id="confidenceValue">0%</div>
+        </div>
+        
+        <div class="result-item">
+          <div class="result-label">
+            <i class="fas fa-stopwatch"></i>
+            <span>DELAY</span>
+          </div>
+          <div class="result-value" id="delayValue">0s</div>
+        </div>
+        
+        <div class="result-item" style="grid-column: span 2;">
+          <div class="result-label">
+            <i class="fas fa-hourglass-half"></i>
+            <span>ESTIMATED TIME</span>
+          </div>
+          <div class="result-value" id="timeValue">00:00:00</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer">
+      <p>© 2025 XTREME AVIATOR SHA512 HASH LITE | v2.1.7</p>
+    </div>
+  </div>
+
+  <div class="custom-alert" id="customAlert">
+    <div class="custom-alert-message" id="alertMessage"></div>
+    <button class="custom-alert-button" id="alertButton">OK</button>
+  </div>
+
+  <script>
+    // Allow paste in hash input
+    document.getElementById('hashInput').addEventListener('paste', function(e) {
+      // Allow paste operation
+    });
+
+    function updateDateTime() {
+      const now = new Date();
+      
+      // Format date
+      const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      document.getElementById('currentDate').textContent = now.toLocaleDateString('en-US', dateOptions);
+      
+      // Format time in 24-hour format
+      const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+      document.getElementById('currentTime').textContent = now.toLocaleTimeString('en-US', timeOptions);
+    }
+    
+    // Update datetime immediately and then every second
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
+
+    // Info icon functionality with auto-hide
+    const infoIcon = document.getElementById('infoIcon');
+    const inputHint = document.getElementById('inputHint');
+    
+    infoIcon.addEventListener('click', function(e) {
+      e.stopPropagation();
+      inputHint.style.display = 'block';
+      
+      // Auto-hide after 5 seconds
+      setTimeout(() => {
+        inputHint.style.display = 'none';
+      }, 5000);
+    });
+
+    // Hide hint when clicking elsewhere
+    document.addEventListener('click', function() {
+      inputHint.style.display = 'none';
+    });
+
+    // Prevent hint from closing when clicking on it
+    inputHint.addEventListener('click', function(e) {
+      e.stopPropagation();
+    });
+
+    // Clear input button functionality
+    document.getElementById('clearInput').addEventListener('click', function() {
+      document.getElementById('hashInput').value = '';
+      document.getElementById('hashInput').focus();
+    });
+
+    // Show clear button when input has value
+    document.getElementById('hashInput').addEventListener('input', function() {
+      const clearBtn = document.getElementById('clearInput');
+      if (this.value.length > 0) {
+        clearBtn.style.display = 'flex';
+      } else {
+        clearBtn.style.display = 'none';
+      }
+    });
+
+    // Custom alert system
+    const customAlert = document.getElementById('customAlert');
+    const alertMessage = document.getElementById('alertMessage');
+    const alertButton = document.getElementById('alertButton');
+    
+    function showAlert(message) {
+      alertMessage.textContent = message;
+      customAlert.style.display = 'block';
+    }
+    
+    alertButton.addEventListener('click', function() {
+      customAlert.style.display = 'none';
+    });
+
+    function calcEntropy(hash) {
+      const freq = {};
+      for (let c of hash) freq[c] = (freq[c] || 0) + 1;
+      return Object.values(freq).reduce((acc, f) => {
+        const p = f / hash.length;
+        return acc - p * Math.log2(p);
+      }, 0);
+    }
+
+    function scoreFromHash(hash) {
+      const indexes = [5, 15, 25, 35, 50, 75, 100, 120];
+      return indexes.reduce((sum, i) => sum + parseInt(hash[i], 16), 0);
+    }
+
+    function calculateConfidence(entropy, score, oddTarget, hash) {
+      let confidence = 50;
+      if (entropy > 4.2) confidence += 10;
+      if (entropy > 4.5) confidence += 15;
+      if (score % 7 === 0) confidence += 8;
+      if (score % 5 === 0) confidence += 5;
+      if (/(\w)\1{2,}/.test(hash)) confidence += 15;
+      if (/(\w{2,4})\1{1,}/.test(hash)) confidence += 10;
+      const tail = hash.slice(-4);
+      if (/^(aaaa|ffff|0000|1111)$/.test(tail)) confidence += 20;
+
+      // Odd-specific adjustments
+      if (oddTarget === '3') confidence += 5;
+      if (oddTarget === '2') {
+        if (entropy > 4.0 && entropy < 4.3) confidence += 10;
+        if (score >= 50 && score <= 85) confidence += 7;
+      }
+
+      return Math.min(98, Math.max(5, Math.round(confidence)));
+    }
+
+    function calculateDelay(score, entropy, oddTarget, hash) {
+      let base = parseInt(oddTarget) * 45;
+      if (entropy > 4.3) base += 20;
+      if (score % 7 === 0) base += 30;
+      if (score % 5 === 0) base += 15;
+      if (/(\w)\1{2,}/.test(hash)) base += 20;
+      if (/(\w{2,4})\1{1,}/.test(hash)) base += 15;
+      return Math.max(45, base);
+    }
+
+    function runPredictionWithUI(oddTarget) {
+      const hash = document.getElementById('hashInput').value.trim().toLowerCase();
+      if (hash.length !== 128 || !/^[a-f0-9]+$/.test(hash)) {
+        showAlert('Invalid SHA512 hash! Must be exactly 128 hexadecimal characters.');
+        return;
+      }
+
+      // Show loading indicator with smooth transition
+      const loadingIndicator = document.getElementById('loadingIndicator');
+      loadingIndicator.classList.add('show');
+
+      // Simulate processing delay for better UX
+      setTimeout(() => {
+        const entropy = calcEntropy(hash);
+        const score = scoreFromHash(hash);
+        const confidence = calculateConfidence(entropy, score, oddTarget, hash);
+        const delay = calculateDelay(score, entropy, oddTarget, hash);
+
+        const currentTime = new Date();
+        const futureTime = new Date(currentTime.getTime() + delay * 1000);
+        
+        // Format time in 24-hour format
+        const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+        const timeString = futureTime.toLocaleTimeString('en-US', timeOptions);
+
+        document.getElementById('entropyValue').textContent = entropy.toFixed(3);
+        document.getElementById('scoreValue').textContent = score;
+        document.getElementById('confidenceValue').textContent = confidence + '%';
+        
+        // Add confidence class based on value
+        const confidenceElement = document.getElementById('confidenceValue');
+        confidenceElement.className = 'result-value ';
+        if (confidence >= 70) confidenceElement.classList.add('confidence-high');
+        else if (confidence >= 40) confidenceElement.classList.add('confidence-medium');
+        else confidenceElement.classList.add('confidence-low');
+        
+        document.getElementById('delayValue').textContent = delay + 's';
+        document.getElementById('timeValue').textContent = timeString;
+
+        // Hide loading with smooth transition
+        loadingIndicator.classList.remove('show');
+        setTimeout(() => {
+          loadingIndicator.style.display = 'none';
+        }, 300);
+      }, 800);
+    }
+  </script>
+</body>
+</html>/6.4.0/css/all.min.css">
   <style>
     :root {
       --primary: #7c4dff;
