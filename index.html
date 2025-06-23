@@ -2,110 +2,167 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>XTREME AVIATOR PREDICTOR</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>XTREME AVIATOR PREDICTOR PRO</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
       --primary: #7c4dff;
+      --primary-dark: #5e35b1;
       --secondary: #b388ff;
       --accent: #ff4081;
+      --accent-dark: #d81b60;
       --dark: #0f0f1a;
+      --darker: #0a0a12;
       --light: #ffffff;
+      --light-dim: rgba(255,255,255,0.9);
       --success: #00e676;
       --warning: #ffc400;
       --danger: #ff1744;
       --info: #00b0ff;
+      --glass: rgba(20, 20, 40, 0.85);
+      --glass-border: rgba(255, 255, 255, 0.15);
       --text-light: rgba(255,255,255,0.9);
+      --text-dim: rgba(255,255,255,0.7);
     }
     
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      user-select: none;
+      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      -webkit-tap-highlight-color: transparent;
       -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
     }
     
     body {
       background: linear-gradient(135deg, #1a1a2e, #16213e);
       color: var(--text-light);
       min-height: 100vh;
-      padding: 1rem;
-      touch-action: pan-y;
+      padding: 0;
+      touch-action: manipulation;
       overflow-x: hidden;
+      background-attachment: fixed;
+      background-size: cover;
     }
     
-    .container {
-      max-width: 800px;
+    /* Floating particles background */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+    
+    .particle {
+      position: absolute;
+      background: rgba(124, 77, 255, 0.4);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    
+    .app-container {
+      max-width: 100%;
+      width: 100%;
       margin: 0 auto;
-      background: rgba(20, 20, 40, 0.95);
-      border-radius: 16px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
       padding: 1rem;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      animation: fadeIn 0.8s ease-out;
-      background-image: 
-        radial-gradient(circle at 25% 25%, rgba(124, 77, 255, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 75% 75%, rgba(255, 64, 129, 0.15) 0%, transparent 50%);
-    }
-    
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      position: relative;
+      overflow: hidden;
     }
     
     .header-section {
       text-align: center;
-      margin-bottom: 1rem;
-      padding-bottom: 1rem;
-      border-bottom: 1px solid rgba(124, 77, 255, 0.4);
+      margin-bottom: 1.5rem;
+      padding: 1.5rem 1rem;
+      position: relative;
+      z-index: 2;
+      background: rgba(20, 20, 40, 0.7);
+      border-radius: 16px;
+      border: 1px solid rgba(124, 77, 255, 0.3);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
     }
     
     .logo {
-      font-size: 1.5rem;
-      font-weight: 700;
+      font-size: 1.8rem;
+      font-weight: 800;
       background: linear-gradient(to right, var(--primary), var(--accent));
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      margin-bottom: 0.5rem;
-      text-shadow: 0 2px 10px rgba(124, 77, 255, 0.3);
-      display: inline-block;
+      margin-bottom: 0.25rem;
+      text-shadow: 0 4px 15px rgba(124, 77, 255, 0.3);
+      letter-spacing: 1px;
     }
     
     .subtitle {
       color: var(--light);
-      font-size: 0.8rem;
-      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      margin-bottom: 0;
       opacity: 0.9;
+      font-weight: 400;
+      letter-spacing: 0.8px;
+    }
+    
+    .card {
+      background: var(--glass);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    }
+    
+    .card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at center, rgba(124, 77, 255, 0.1) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: -1;
     }
     
     .datetime-container {
-      background: rgba(124, 77, 255, 0.15);
-      border-radius: 10px;
-      padding: 0.6rem;
-      margin-bottom: 1.5rem;
-      text-align: center;
-      border: 1px solid rgba(124, 77, 255, 0.3);
       display: flex;
       justify-content: center;
-      align-items: center;
       gap: 1.5rem;
+      margin-bottom: 1.5rem;
     }
     
     .datetime-item {
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      font-size: 0.8rem;
+      font-size: 0.85rem;
+      color: var(--text-dim);
     }
     
     .datetime-item i {
       color: var(--secondary);
-      font-size: 0.8rem;
+      font-size: 0.9rem;
     }
     
     .input-section {
@@ -117,32 +174,34 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.8rem;
       position: relative;
     }
     
     .input-label-container {
       display: flex;
       align-items: center;
-      gap: 0.3rem;
+      gap: 0.5rem;
     }
     
     .input-label {
       color: var(--light);
       font-weight: 500;
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       white-space: nowrap;
+      letter-spacing: 0.3px;
     }
     
     .info-icon {
-      color: white;
-      font-size: 0.7rem;
+      color: var(--text-dim);
+      font-size: 0.8rem;
       cursor: pointer;
       transition: all 0.2s ease;
       flex-shrink: 0;
     }
     
     .info-icon:hover {
+      color: var(--light);
       transform: scale(1.1);
     }
     
@@ -152,61 +211,86 @@
     
     .hash-input {
       width: 100%;
-      padding: 0.8rem;
-      border-radius: 8px;
-      border: 2px solid rgba(124, 77, 255, 0.5);
-      background: rgba(30, 30, 60, 0.5);
+      padding: 1rem;
+      border-radius: 12px;
+      border: 2px solid rgba(124, 77, 255, 0.4);
+      background: rgba(30, 30, 60, 0.4);
       color: white;
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       transition: all 0.3s ease;
-      padding-right: 35px;
-      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.2);
+      padding-right: 45px;
+      box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
+      font-family: 'Courier New', monospace;
+      letter-spacing: 0.5px;
     }
     
     .hash-input:focus {
       outline: none;
       border-color: var(--primary);
       box-shadow: 0 0 0 3px rgba(124, 77, 255, 0.3),
-                  inset 0 2px 8px rgba(0, 0, 0, 0.2);
+                  inset 0 2px 10px rgba(0, 0, 0, 0.3);
     }
     
     .hash-input::placeholder {
       color: rgba(255, 255, 255, 0.4);
+      font-family: 'Poppins', sans-serif;
+      letter-spacing: normal;
     }
     
-    .clear-btn {
+    .input-actions {
       position: absolute;
-      right: 8px;
+      right: 10px;
       top: 50%;
       transform: translateY(-50%);
-      background: rgba(255, 0, 0, 0.3);
+      display: flex;
+      gap: 0.5rem;
+    }
+    
+    .input-btn {
+      background: rgba(255, 255, 255, 0.1);
       border: none;
       color: white;
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       transition: all 0.3s ease;
+      font-size: 0.8rem;
     }
     
-    .clear-btn:hover {
-      background: rgba(255, 0, 0, 0.5);
-      color: var(--light);
+    .input-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+    
+    .input-btn.clear {
+      background: rgba(255, 64, 129, 0.3);
+    }
+    
+    .input-btn.clear:hover {
+      background: rgba(255, 64, 129, 0.5);
+    }
+    
+    .input-btn.paste {
+      background: rgba(0, 176, 255, 0.3);
+    }
+    
+    .input-btn.paste:hover {
+      background: rgba(0, 176, 255, 0.5);
     }
     
     .input-hint {
       position: absolute;
-      top: 100%;
+      top: calc(100% + 5px);
       left: 0;
       width: 100%;
       font-size: 0.75rem;
-      color: rgba(255, 255, 255, 0.9);
+      color: var(--text-light);
       padding: 0.8rem;
       background: rgba(30, 30, 60, 0.95);
-      border-radius: 8px;
+      border-radius: 12px;
       border: 1px solid var(--primary);
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
       z-index: 10;
@@ -214,31 +298,39 @@
       margin-top: 0.5rem;
       text-align: center;
       line-height: 1.4;
-      animation: fadeIn 0.2s ease-out;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
     
     .odds-container {
       display: flex;
       justify-content: center;
-      gap: 0.8rem;
+      gap: 1rem;
       margin-bottom: 1.5rem;
     }
     
     .odd-btn {
-      padding: 0.7rem 1rem;
-      border-radius: 8px;
+      flex: 1;
+      padding: 1rem;
+      border-radius: 12px;
       border: none;
       font-weight: bold;
       cursor: pointer;
       transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
-      min-width: 80px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      min-width: 120px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
       text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      z-index: 1;
     }
     
-    .odd-btn::after {
+    .odd-btn::before {
       content: '';
       position: absolute;
       top: 0;
@@ -248,109 +340,103 @@
       background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
       transform: translateX(-100%);
       transition: 0.6s;
+      z-index: -1;
     }
     
-    .odd-btn:hover::after {
+    .odd-btn:hover::before {
       transform: translateX(100%);
     }
     
     .odd-btn-2x {
-      background: linear-gradient(135deg, #1e88e5, #64b5f6);
-      color: white;
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
     }
     
     .odd-btn-3x {
-      background: linear-gradient(135deg, var(--accent), #f06292);
-      color: white;
+      background: linear-gradient(135deg, var(--accent-dark), var(--accent));
     }
     
     .odd-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
     }
     
     .odd-btn:active {
       transform: translateY(0);
     }
     
-    .result-bar {
-      height: 8px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 4px;
-      margin-top: 0.5rem;
-      overflow: hidden;
-      position: relative;
+    .odd-btn-label {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.2rem;
     }
     
-    .result-fill {
-      height: 100%;
-      border-radius: 4px;
-      transition: width 0.5s ease;
-    }
-    
-    .fill-2x {
-      background: linear-gradient(to right, #1e88e5, #64b5f6);
-    }
-    
-    .fill-3x {
-      background: linear-gradient(to right, var(--accent), #f06292);
+    .odd-btn-value {
+      font-size: 0.85rem;
+      opacity: 0.9;
+      font-weight: 400;
     }
     
     .results-section {
       background: rgba(30, 30, 60, 0.6);
-      border-radius: 10px;
-      padding: 0.9rem;
-      margin-top: 1rem;
+      border-radius: 16px;
+      padding: 1.5rem;
       border-left: 4px solid var(--primary);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
     
     .result-title {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      margin-bottom: 0.7rem;
+      gap: 0.8rem;
+      margin-bottom: 1.2rem;
       color: var(--light);
-      font-size: 0.9rem;
+      font-size: 1rem;
       justify-content: center;
     }
     
     .result-title i {
       color: var(--primary);
-      font-size: 0.75rem;
+      font-size: 1rem;
     }
     
     .result-title h2 {
-      font-size: 0.9rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
     }
     
     .result-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 0.6rem;
+      gap: 0.8rem;
     }
     
     .result-item {
       background: rgba(255, 255, 255, 0.08);
-      padding: 0.6rem;
-      border-radius: 6px;
+      padding: 1rem;
+      border-radius: 12px;
       transition: all 0.3s ease;
       border: 1px solid rgba(255, 255, 255, 0.05);
     }
     
     .result-item:hover {
       background: rgba(255, 255, 255, 0.12);
-      transform: translateY(-2px);
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     }
     
     .result-label {
-      font-size: 0.7rem;
+      font-size: 0.75rem;
       color: var(--secondary);
-      margin-bottom: 0.3rem;
+      margin-bottom: 0.5rem;
       display: flex;
       align-items: center;
-      gap: 0.4rem;
+      gap: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 500;
     }
     
     .result-label i {
@@ -358,7 +444,7 @@
     }
     
     .result-value {
-      font-size: 0.9rem;
+      font-size: 1.1rem;
       font-weight: bold;
       color: var(--light);
     }
@@ -375,195 +461,379 @@
       color: var(--danger) !important;
     }
     
+    .result-progress {
+      height: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 3px;
+      margin-top: 0.8rem;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .result-progress-fill {
+      height: 100%;
+      border-radius: 3px;
+      transition: width 0.8s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .result-progress-fill::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      animation: progressShine 2s infinite;
+    }
+    
+    @keyframes progressShine {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+    
+    .signal-info {
+      grid-column: span 2;
+      background: rgba(124, 77, 255, 0.15);
+      border: 1px solid var(--primary);
+      padding: 1rem;
+      border-radius: 12px;
+      margin-top: 0.5rem;
+    }
+    
+    .signal-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+    
+    .signal-label {
+      color: var(--secondary);
+      font-weight: 500;
+      font-size: 0.85rem;
+    }
+    
+    .signal-value {
+      color: var(--light);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    
     .footer {
       text-align: center;
-      margin-top: 1.5rem;
+      margin-top: 2rem;
       color: rgba(255, 255, 255, 0.5);
-      font-size: 0.65rem;
+      font-size: 0.7rem;
+      padding: 1rem 0;
     }
     
     .loading {
       position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(30, 30, 60, 0.9);
-      padding: 1rem 1.5rem;
-      border-radius: 10px;
-      border: 1px solid var(--primary);
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
-      z-index: 100;
-      display: none;
-      text-align: center;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(10, 10, 20, 0.9);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
       opacity: 0;
+      pointer-events: none;
       transition: opacity 0.3s ease;
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
     }
     
     .loading.show {
       opacity: 1;
-      display: block;
+      pointer-events: all;
     }
     
     .spinner {
-      width: 30px;
-      height: 30px;
-      border: 3px solid rgba(124, 77, 255, 0.2);
+      width: 50px;
+      height: 50px;
+      border: 4px solid rgba(124, 77, 255, 0.2);
       border-radius: 50%;
       border-top-color: var(--primary);
       animation: spin 1s linear infinite;
-      margin: 0 auto 0.5rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+    
+    .spinner::after {
+      content: '';
+      position: absolute;
+      top: -4px;
+      left: -4px;
+      right: -4px;
+      bottom: -4px;
+      border: 4px solid transparent;
+      border-radius: 50%;
+      border-top-color: var(--accent);
+      animation: spin 1.5s linear infinite;
+      opacity: 0.7;
     }
     
     .loading-text {
-      font-size: 0.8rem;
+      font-size: 0.9rem;
       color: var(--light);
+      margin-bottom: 1rem;
+      text-align: center;
+      max-width: 80%;
+      line-height: 1.5;
+    }
+    
+    .loading-dots {
+      display: flex;
+      gap: 0.5rem;
+    }
+    
+    .loading-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--primary);
+      border-radius: 50%;
+      animation: bounce 1s infinite ease-in-out;
+    }
+    
+    .loading-dot:nth-child(1) {
+      animation-delay: 0s;
+    }
+    
+    .loading-dot:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+    
+    .loading-dot:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+    
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
     }
     
     .custom-alert {
       position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(30, 30, 60, 0.95);
-      border: 1px solid var(--danger);
-      border-radius: 10px;
-      padding: 1.5rem;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(10, 10, 20, 0.9);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       z-index: 1000;
-      max-width: 90%;
-      width: 300px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      padding: 1.5rem;
+    }
+    
+    .custom-alert.show {
+      opacity: 1;
+      pointer-events: all;
+    }
+    
+    .custom-alert-box {
+      background: var(--glass);
+      border-radius: 16px;
+      padding: 1.5rem;
+      width: 100%;
+      max-width: 350px;
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      transform: scale(0.9);
+      transition: transform 0.3s ease;
       text-align: center;
-      display: none;
+    }
+    
+    .custom-alert.show .custom-alert-box {
+      transform: scale(1);
+    }
+    
+    .custom-alert-icon {
+      font-size: 2.5rem;
+      color: var(--danger);
+      margin-bottom: 1rem;
     }
     
     .custom-alert-message {
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       margin-bottom: 1.5rem;
       color: var(--light);
+      line-height: 1.5;
     }
     
     .custom-alert-button {
       background: var(--danger);
       color: white;
       border: none;
-      padding: 0.5rem 1.5rem;
-      border-radius: 6px;
+      padding: 0.8rem 1.5rem;
+      border-radius: 10px;
       cursor: pointer;
       font-weight: bold;
       transition: all 0.3s ease;
+      width: 100%;
+      max-width: 200px;
+      margin: 0 auto;
+      box-shadow: 0 4px 10px rgba(255, 23, 68, 0.3);
     }
     
     .custom-alert-button:hover {
       background: #ff3a3a;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(255, 23, 68, 0.4);
+    }
+    
+    .custom-alert-button:active {
+      transform: translateY(0);
     }
     
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
     
-    @media (max-width: 480px) {
-      .container {
-        padding: 0.9rem;
+    /* Floating animation for cards */
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .app-container {
+        padding: 0.8rem;
       }
       
       .logo {
-        font-size: 1.3rem;
+        font-size: 1.5rem;
+      }
+      
+      .subtitle {
+        font-size: 0.8rem;
       }
       
       .datetime-container {
         gap: 1rem;
-        padding: 0.6rem;
       }
       
       .datetime-item {
-        font-size: 0.75rem;
+        font-size: 0.8rem;
+      }
+      
+      .hash-input {
+        padding: 0.9rem;
+        font-size: 0.85rem;
+      }
+      
+      .odds-container {
+        flex-direction: column;
+        gap: 0.8rem;
+      }
+      
+      .odd-btn {
+        width: 100%;
+        padding: 1rem;
       }
       
       .result-grid {
         grid-template-columns: 1fr;
       }
       
-      .odds-container {
-        flex-direction: column;
-        align-items: center;
+      .result-item {
+        padding: 0.9rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .logo {
+        font-size: 1.3rem;
       }
       
-      .odd-btn {
-        width: 100%;
-        padding: 0.7rem;
+      .card {
+        padding: 1.2rem;
       }
       
-      .hash-input {
-        padding: 0.7rem;
-        font-size: 0.8rem;
+      .result-title h2 {
+        font-size: 1rem;
       }
       
-      .input-hint {
-        font-size: 0.7rem;
-        padding: 0.6rem;
-      }
-      
-      .custom-alert {
-        width: 90%;
-        padding: 1rem;
+      .result-value {
+        font-size: 1rem;
       }
     }
   </style>
 </head>
 <body>
-  <div class="container">
+  <!-- Floating particles background -->
+  <div class="particles" id="particles"></div>
+  
+  <div class="app-container">
     <div class="header-section">
-      <h1 class="logo">XTREME AVIATOR XASH LITE</h1>
+      <h1 class="logo">XTREME AVIATOR PREDICTOR PRO</h1>
       <p class="subtitle">Advanced SHA512 Hash Analysis Engine</p>
     </div>
     
-    <div class="datetime-container">
-      <div class="datetime-item">
-        <i class="fas fa-calendar-day"></i>
-        <span id="currentDate">Loading date...</span>
-      </div>
-      <div class="datetime-item">
-        <i class="fas fa-clock"></i>
-        <span id="currentTime">Loading time...</span>
-      </div>
-    </div>
-    
-    <div class="input-section">
-      <div class="input-header">
-        <div class="input-label-container">
-          <div class="input-label">Enter SHA512 Hash</div>
-          <i class="fas fa-info-circle info-icon" id="infoIcon"></i>
+    <div class="card">
+      <div class="datetime-container">
+        <div class="datetime-item">
+          <i class="fas fa-calendar-day"></i>
+          <span id="currentDate">Loading date...</span>
+        </div>
+        <div class="datetime-item">
+          <i class="fas fa-clock"></i>
+          <span id="currentTime">Loading time...</span>
         </div>
       </div>
-      <div class="hash-input-container">
-        <input type="text" id="hashInput" class="hash-input" placeholder="Paste your hash here...">
-        <button class="clear-btn" id="clearInput">
-          <i class="fas fa-times"></i>
+      
+      <div class="input-section">
+        <div class="input-header">
+          <div class="input-label-container">
+            <div class="input-label">Enter SHA512 Hash</div>
+            <i class="fas fa-info-circle info-icon" id="infoIcon"></i>
+          </div>
+        </div>
+        <div class="hash-input-container">
+          <input type="text" id="hashInput" class="hash-input" placeholder="Paste your hash here...">
+          <div class="input-actions">
+            <button class="input-btn paste" id="pasteButton">
+              <i class="fas fa-paste"></i>
+            </button>
+            <button class="input-btn clear" id="clearInput">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>
+        <div class="input-hint" id="inputHint">
+          Must be 128-character hexadecimal string (0-9, a-f).<br>
+          Copy the game hash from your Aviator game interface.
+        </div>
+      </div>
+      
+      <div class="odds-container">
+        <button class="odd-btn odd-btn-2x" onclick="runPredictionWithUI('2')">
+          <span class="odd-btn-label">2× DOUBLE</span>
+          <span class="odd-btn-value">Higher probability</span>
+        </button>
+        <button class="odd-btn odd-btn-3x" onclick="runPredictionWithUI('3')">
+          <span class="odd-btn-label">3× TRIPLE</span>
+          <span class="odd-btn-value">Higher payout</span>
         </button>
       </div>
-      <div class="input-hint" id="inputHint">
-        Must be 128-character<br>hexadecimal string (0-9, a-f)
-      </div>
     </div>
     
-    <div class="odds-container">
-      <button class="odd-btn odd-btn-2x" onclick="runPredictionWithUI('2')">
-        2× DOUBLE
-      </button>
-      <button class="odd-btn odd-btn-3x" onclick="runPredictionWithUI('3')">
-        3× TRIPLE
-      </button>
-    </div>
-    
-    <div class="loading" id="loadingIndicator">
-      <div class="spinner"></div>
-      <p class="loading-text">Analyzing hash patterns...</p>
-    </div>
-    
-    <div class="results-section" id="resultBox">
+    <div class="card results-section" id="resultBox">
       <div class="result-title">
         <i class="fas fa-chart-bar"></i>
-        <h2>PREDICTION RESULTS</h2>
+        <h2>PREDICTION ANALYTICS</h2>
       </div>
       
       <div class="result-grid">
@@ -573,6 +843,9 @@
             <span>ENTROPY</span>
           </div>
           <div class="result-value" id="entropyValue">0.000</div>
+          <div class="result-progress">
+            <div class="result-progress-fill fill-entropy" id="entropyProgress" style="width: 0%"></div>
+          </div>
         </div>
         
         <div class="result-item">
@@ -581,6 +854,9 @@
             <span>SCORE</span>
           </div>
           <div class="result-value" id="scoreValue">0</div>
+          <div class="result-progress">
+            <div class="result-progress-fill fill-score" id="scoreProgress" style="width: 0%"></div>
+          </div>
         </div>
         
         <div class="result-item">
@@ -589,6 +865,9 @@
             <span>CONFIDENCE</span>
           </div>
           <div class="result-value" id="confidenceValue">0%</div>
+          <div class="result-progress">
+            <div class="result-progress-fill fill-confidence" id="confidenceProgress" style="width: 0%"></div>
+          </div>
         </div>
         
         <div class="result-item">
@@ -597,39 +876,84 @@
             <span>DELAY</span>
           </div>
           <div class="result-value" id="delayValue">0s</div>
+          <div class="result-progress">
+            <div class="result-progress-fill fill-delay" id="delayProgress" style="width: 0%"></div>
+          </div>
         </div>
         
-        <div class="result-item" style="grid-column: span 2;">
-          <div class="result-label">
-            <i class="fas fa-hourglass-half"></i>
-            <span>ESTIMATED TIME</span>
+        <div class="signal-info">
+          <div class="signal-row">
+            <span class="signal-label">Selected Multiplier:</span>
+            <span class="signal-value" id="selectedMultiplier">Not selected</span>
           </div>
-          <div class="result-value" id="timeValue">00:00:00</div>
+          <div class="signal-row">
+            <span class="signal-label">Optimal Bet Time:</span>
+            <span class="signal-value" id="timeValue">00:00:00</span>
+          </div>
         </div>
       </div>
     </div>
     
     <div class="footer">
-      <p>© 2025 XTREME AVIATOR SHA512 HASH LITE | v2.1.7</p>
+      <p>© 2025 XTREME AVIATOR SHA512 PREDICTOR PRO | All rights reserved</p>
+    </div>
+  </div>
+
+  <div class="loading" id="loadingIndicator">
+    <div class="spinner"></div>
+    <p class="loading-text">Analyzing hash patterns<br>and calculating predictions...</p>
+    <div class="loading-dots">
+      <div class="loading-dot"></div>
+      <div class="loading-dot"></div>
+      <div class="loading-dot"></div>
     </div>
   </div>
 
   <div class="custom-alert" id="customAlert">
-    <div class="custom-alert-message" id="alertMessage"></div>
-    <button class="custom-alert-button" id="alertButton">OK</button>
+    <div class="custom-alert-box">
+      <div class="custom-alert-icon">
+        <i class="fas fa-exclamation-triangle"></i>
+      </div>
+      <div class="custom-alert-message" id="alertMessage"></div>
+      <button class="custom-alert-button" id="alertButton">UNDERSTOOD</button>
+    </div>
   </div>
 
   <script>
-    // Prevent text selection and zooming
-    document.addEventListener('contextmenu', function(e) {
-      e.preventDefault();
-    });
+    // Create floating particles
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = window.innerWidth < 768 ? 15 : 30;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        
+        // Random size between 2px and 6px
+        const size = Math.random() * 4 + 2;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        
+        // Random position
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.top = `${Math.random() * 100}%`;
+        
+        // Random opacity
+        particle.style.opacity = Math.random() * 0.5 + 0.1;
+        
+        // Random animation
+        const duration = Math.random() * 20 + 10;
+        const delay = Math.random() * 5;
+        particle.style.animation = `float ${duration}s ease-in-out ${delay}s infinite`;
+        
+        particlesContainer.appendChild(particle);
+      }
+    }
     
-    // Allow paste in hash input
-    document.getElementById('hashInput').addEventListener('paste', function(e) {
-      // Allow paste operation
-    });
-
+    // Initialize particles
+    createParticles();
+    
+    // Update date and time
     function updateDateTime() {
       const now = new Date();
       
@@ -670,10 +994,22 @@
       e.stopPropagation();
     });
 
-    // Clear input button functionality
+    // Input actions
     document.getElementById('clearInput').addEventListener('click', function() {
       document.getElementById('hashInput').value = '';
       document.getElementById('hashInput').focus();
+      this.style.display = 'none';
+    });
+
+    // Paste functionality for mobile
+    document.getElementById('pasteButton').addEventListener('click', async function() {
+      try {
+        const text = await navigator.clipboard.readText();
+        document.getElementById('hashInput').value = text;
+        document.getElementById('clearInput').style.display = 'flex';
+      } catch (err) {
+        showAlert('Failed to paste from clipboard. Please paste manually.');
+      }
     });
 
     // Show clear button when input has value
@@ -693,13 +1029,14 @@
     
     function showAlert(message) {
       alertMessage.textContent = message;
-      customAlert.style.display = 'block';
+      customAlert.classList.add('show');
     }
     
     alertButton.addEventListener('click', function() {
-      customAlert.style.display = 'none';
+      customAlert.classList.remove('show');
     });
 
+    // Calculation functions
     function calcEntropy(hash) {
       const freq = {};
       for (let c of hash) freq[c] = (freq[c] || 0) + 1;
@@ -748,11 +1085,11 @@
     function runPredictionWithUI(oddTarget) {
       const hash = document.getElementById('hashInput').value.trim().toLowerCase();
       if (hash.length !== 128 || !/^[a-f0-9]+$/.test(hash)) {
-        showAlert('Invalid SHA512 hash! Must be exactly 128 hexadecimal characters.');
+        showAlert('Invalid SHA512 hash! Must be exactly 128 hexadecimal characters (0-9, a-f).');
         return;
       }
 
-      // Show loading indicator with smooth transition
+      // Show loading indicator
       const loadingIndicator = document.getElementById('loadingIndicator');
       loadingIndicator.classList.add('show');
 
@@ -770,6 +1107,7 @@
         const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
         const timeString = futureTime.toLocaleTimeString('en-US', timeOptions);
 
+        // Update results
         document.getElementById('entropyValue').textContent = entropy.toFixed(3);
         document.getElementById('scoreValue').textContent = score;
         document.getElementById('confidenceValue').textContent = confidence + '%';
@@ -783,14 +1121,42 @@
         
         document.getElementById('delayValue').textContent = delay + 's';
         document.getElementById('timeValue').textContent = timeString;
+        document.getElementById('selectedMultiplier').textContent = oddTarget === '2' ? '2× DOUBLE' : '3× TRIPLE';
 
-        // Hide loading with smooth transition
-        loadingIndicator.classList.remove('show');
+        // Update progress bars
+        document.getElementById('entropyProgress').style.width = `${Math.min(100, (entropy / 5) * 100)}%`;
+        document.getElementById('scoreProgress').style.width = `${Math.min(100, (score / 128) * 100)}%`;
+        document.getElementById('confidenceProgress').style.width = `${confidence}%`;
+        document.getElementById('delayProgress').style.width = `${Math.min(100, (delay / 180) * 100)}%`;
+
+        // Hide loading indicator
         setTimeout(() => {
-          loadingIndicator.style.display = 'none';
+          loadingIndicator.classList.remove('show');
+          
+          // Scroll to results
+          document.getElementById('resultBox').scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'nearest'
+          });
         }, 300);
-      }, 800);
+      }, 1500);
     }
+
+    // Initialize clear button visibility
+    document.getElementById('clearInput').style.display = 'none';
+
+    // Prevent zooming
+    document.addEventListener('wheel', function(e) {
+      if (e.ctrlKey) {
+        e.preventDefault();
+      }
+    }, { passive: false });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.ctrlKey && (e.key === '+' || e.key === '-' || e.key === '0')) {
+        e.preventDefault();
+      }
+    });
   </script>
 </body>
 </html>
