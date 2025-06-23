@@ -273,29 +273,18 @@
       transform: translateY(0);
     }
     
-    .result-bar-container {
-      margin-top: 1rem;
-      margin-bottom: 0.5rem;
-    }
-    
-    .result-bar-label {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 0.3rem;
-      font-size: 0.75rem;
-      color: var(--secondary);
-    }
-    
     .result-bar {
-      height: 10px;
+      height: 8px;
       background: rgba(255, 255, 255, 0.1);
-      border-radius: 5px;
+      border-radius: 4px;
+      margin-top: 0.5rem;
       overflow: hidden;
+      position: relative;
     }
     
-    .result-bar-fill {
+    .result-fill {
       height: 100%;
-      border-radius: 5px;
+      border-radius: 4px;
       transition: width 0.5s ease;
     }
     
@@ -577,16 +566,6 @@
         <h2>PREDICTION RESULTS</h2>
       </div>
       
-      <div class="result-bar-container">
-        <div class="result-bar-label">
-          <span>PREDICTION STRENGTH</span>
-          <span id="oddValueDisplay">Select odd</span>
-        </div>
-        <div class="result-bar">
-          <div class="result-bar-fill" id="resultBarFill"></div>
-        </div>
-      </div>
-      
       <div class="result-grid">
         <div class="result-item">
           <div class="result-label">
@@ -791,18 +770,9 @@
         const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
         const timeString = futureTime.toLocaleTimeString('en-US', timeOptions);
 
-        // Update results
         document.getElementById('entropyValue').textContent = entropy.toFixed(3);
         document.getElementById('scoreValue').textContent = score;
         document.getElementById('confidenceValue').textContent = confidence + '%';
-        
-        // Update odd value display
-        document.getElementById('oddValueDisplay').textContent = oddTarget + '×';
-        
-        // Update result bar
-        const resultBarFill = document.getElementById('resultBarFill');
-        resultBarFill.className = 'result-bar-fill fill-' + oddTarget + 'x';
-        resultBarFill.style.width = (confidence * 0.9) + '%'; // Scale to 90% of confidence
         
         // Add confidence class based on value
         const confidenceElement = document.getElementById('confidenceValue');
