@@ -179,9 +179,9 @@
       right: 8px;
       top: 50%;
       transform: translateY(-50%);
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 0, 0, 0.3);
       border: none;
-      color: var(--secondary);
+      color: white;
       width: 26px;
       height: 26px;
       border-radius: 50%;
@@ -193,7 +193,7 @@
     }
     
     .clear-btn:hover {
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 0, 0, 0.5);
       color: var(--light);
     }
     
@@ -234,10 +234,8 @@
       position: relative;
       overflow: hidden;
       min-width: 80px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      text-align: center;
     }
     
     .odd-btn::after {
@@ -257,7 +255,7 @@
     }
     
     .odd-btn-2x {
-      background: linear-gradient(135deg, var(--primary), #9575cd);
+      background: linear-gradient(135deg, #1e88e5, #64b5f6);
       color: white;
     }
     
@@ -275,14 +273,27 @@
       transform: translateY(0);
     }
     
-    .odd-value {
-      font-size: 1rem;
-      font-weight: bold;
+    .result-bar {
+      height: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      margin-top: 0.5rem;
+      overflow: hidden;
+      position: relative;
     }
     
-    .odd-label {
-      font-size: 0.65rem;
-      opacity: 0.9;
+    .result-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.5s ease;
+    }
+    
+    .fill-2x {
+      background: linear-gradient(to right, #1e88e5, #64b5f6);
+    }
+    
+    .fill-3x {
+      background: linear-gradient(to right, var(--accent), #f06292);
     }
     
     .results-section {
@@ -537,12 +548,10 @@
     
     <div class="odds-container">
       <button class="odd-btn odd-btn-2x" onclick="runPredictionWithUI('2')">
-        <span class="odd-value">2×</span>
-        <span class="odd-label">DOUBLE</span>
+        2× DOUBLE
       </button>
       <button class="odd-btn odd-btn-3x" onclick="runPredictionWithUI('3')">
-        <span class="odd-value">3×</span>
-        <span class="odd-label">TRIPLE</span>
+        3× TRIPLE
       </button>
     </div>
     
@@ -601,9 +610,7 @@
     </div>
     
     <div class="footer">
-      <p>© 2025 XTREME AVIATOR SHA512 HASH LITE |
-
-v2.1.7</p>
+      <p>© 2025 XTREME AVIATOR SHA512 HASH LITE | v2.1.7</p>
     </div>
   </div>
 
@@ -618,10 +625,9 @@ v2.1.7</p>
       e.preventDefault();
     });
     
-    document.addEventListener('keydown', function(e) {
-      if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 85 || e.keyCode === 117)) {
-        e.preventDefault();
-      }
+    // Allow paste in hash input
+    document.getElementById('hashInput').addEventListener('paste', function(e) {
+      // Allow paste operation
     });
 
     function updateDateTime() {
@@ -668,6 +674,16 @@ v2.1.7</p>
     document.getElementById('clearInput').addEventListener('click', function() {
       document.getElementById('hashInput').value = '';
       document.getElementById('hashInput').focus();
+    });
+
+    // Show clear button when input has value
+    document.getElementById('hashInput').addEventListener('input', function() {
+      const clearBtn = document.getElementById('clearInput');
+      if (this.value.length > 0) {
+        clearBtn.style.display = 'flex';
+      } else {
+        clearBtn.style.display = 'none';
+      }
     });
 
     // Custom alert system
