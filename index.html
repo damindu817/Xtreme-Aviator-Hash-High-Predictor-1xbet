@@ -347,12 +347,12 @@
       transform: translateX(100%);
     }
     
-    .odd-btn-2x {
-      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+    .odd-btn-1_5x {
+      background: linear-gradient(135deg, #1976d2, #2196f3);
     }
     
-    .odd-btn-3x {
-      background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+    .odd-btn-2x {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
     }
     
     .odd-btn:hover {
@@ -804,9 +804,6 @@
         <div class="hash-input-container">
           <input type="text" id="hashInput" class="hash-input" placeholder="Paste your hash here...">
           <div class="input-actions">
-            <button class="input-btn paste" id="pasteButton">
-              <i class="fas fa-paste"></i>
-            </button>
             <button class="input-btn clear" id="clearInput">
               <i class="fas fa-times"></i>
             </button>
@@ -819,12 +816,12 @@
       </div>
       
       <div class="odds-container">
-        <button class="odd-btn odd-btn-2x" onclick="runPredictionWithUI('2')">
-          <span class="odd-btn-label">2× DOUBLE</span>
-          <span class="odd-btn-value">Higher probability</span>
+        <button class="odd-btn odd-btn-1_5x" onclick="runPredictionWithUI('1.5')">
+          <span class="odd-btn-label">1.50× CASHOUT</span>
+          <span class="odd-btn-value">Lower risk</span>
         </button>
-        <button class="odd-btn odd-btn-3x" onclick="runPredictionWithUI('3')">
-          <span class="odd-btn-label">3× TRIPLE</span>
+        <button class="odd-btn odd-btn-2x" onclick="runPredictionWithUI('2')">
+          <span class="odd-btn-label">2× CASHOUT</span>
           <span class="odd-btn-value">Higher payout</span>
         </button>
       </div>
@@ -1000,17 +997,6 @@
       document.getElementById('hashInput').value = '';
       document.getElementById('hashInput').focus();
       this.style.display = 'none';
-    });
-
-    // Paste functionality for mobile
-    document.getElementById('pasteButton').addEventListener('click', async function() {
-      try {
-        const text = await navigator.clipboard.readText();
-        document.getElementById('hashInput').value = text;
-        document.getElementById('clearInput').style.display = 'flex';
-      } catch (err) {
-        showAlert('Failed to paste from clipboard. Please paste manually.');
-      }
     });
 
     // Show clear button when input has value
