@@ -24,6 +24,8 @@
       --glass-border: rgba(255, 255, 255, 0.15);
       --text-light: rgba(255,255,255,0.9);
       --text-dim: rgba(255,255,255,0.7);
+      --blue: #2196F3;
+      --blue-dark: #1565C0;
     }
     
     * {
@@ -273,14 +275,6 @@
       background: rgba(255, 64, 129, 0.5);
     }
     
-    .input-btn.paste {
-      background: rgba(0, 176, 255, 0.3);
-    }
-    
-    .input-btn.paste:hover {
-      background: rgba(0, 176, 255, 0.5);
-    }
-    
     .input-hint {
       position: absolute;
       top: calc(100% + 5px);
@@ -348,7 +342,7 @@
     }
     
     .odd-btn-1_5x {
-      background: linear-gradient(135deg, #1976d2, #2196f3);
+      background: linear-gradient(135deg, var(--blue-dark), var(--blue));
     }
     
     .odd-btn-2x {
