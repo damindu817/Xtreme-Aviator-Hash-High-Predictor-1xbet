@@ -24,8 +24,6 @@
       --glass-border: rgba(255, 255, 255, 0.15);
       --text-light: rgba(255,255,255,0.9);
       --text-dim: rgba(255,255,255,0.7);
-      --blue: #2196F3;
-      --blue-dark: #1565C0;
     }
     
     * {
@@ -275,6 +273,14 @@
       background: rgba(255, 64, 129, 0.5);
     }
     
+    .input-btn.paste {
+      background: rgba(0, 176, 255, 0.3);
+    }
+    
+    .input-btn.paste:hover {
+      background: rgba(0, 176, 255, 0.5);
+    }
+    
     .input-hint {
       position: absolute;
       top: calc(100% + 5px);
@@ -341,12 +347,12 @@
       transform: translateX(100%);
     }
     
-    .odd-btn-1_5x {
-      background: linear-gradient(135deg, var(--blue-dark), var(--blue));
-    }
-    
     .odd-btn-2x {
       background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+    }
+    
+    .odd-btn-3x {
+      background: linear-gradient(135deg, var(--accent-dark), var(--accent));
     }
     
     .odd-btn:hover {
@@ -798,6 +804,9 @@
         <div class="hash-input-container">
           <input type="text" id="hashInput" class="hash-input" placeholder="Paste your hash here...">
           <div class="input-actions">
+            <button class="input-btn paste" id="pasteButton">
+              <i class="fas fa-paste"></i>
+            </button>
             <button class="input-btn clear" id="clearInput">
               <i class="fas fa-times"></i>
             </button>
@@ -810,12 +819,12 @@
       </div>
       
       <div class="odds-container">
-        <button class="odd-btn odd-btn-1_5x" onclick="runPredictionWithUI('1.5')">
-          <span class="odd-btn-label">1.50× CASHOUT</span>
-          <span class="odd-btn-value">Lower risk</span>
-        </button>
         <button class="odd-btn odd-btn-2x" onclick="runPredictionWithUI('2')">
-          <span class="odd-btn-label">2× CASHOUT</span>
+          <span class="odd-btn-label">2× DOUBLE</span>
+          <span class="odd-btn-value">Higher probability</span>
+        </button>
+        <button class="odd-btn odd-btn-3x" onclick="runPredictionWithUI('3')">
+          <span class="odd-btn-label">3× TRIPLE</span>
           <span class="odd-btn-value">Higher payout</span>
         </button>
       </div>
@@ -991,6 +1000,17 @@
       document.getElementById('hashInput').value = '';
       document.getElementById('hashInput').focus();
       this.style.display = 'none';
+    });
+
+    // Paste functionality for mobile
+    document.getElementById('pasteButton').addEventListener('click', async function() {
+      try {
+        const text = await navigator.clipboard.readText();
+        document.getElementById('hashInput').value = text;
+        document.getElementById('clearInput').style.display = 'flex';
+      } catch (err) {
+        showAlert('Failed to paste from clipboard. Please paste manually.');
+      }
     });
 
     // Show clear button when input has value
