@@ -1,106 +1,117 @@
-// Hash analysis functions
-function calcEntropy(hash) {
-  const freq = {};
-  for (let c of hash) freq[c] = (freq[c] || 0) + 1;
-  return Object.values(freq).reduce((acc, f) => {
-    const p = f / hash.length;
-    return acc - p * Math.log2(p);
-  }, 0);
-}
-
-function scoreFromHash(hash) {
-  const indexes = [5, 15, 25, 35, 50, 75, 100, 120];
-  return indexes.reduce((sum, i) => sum + parseInt(hash[i], 16), 0);
-}
-
-function calculateConfidence(entropy, score, oddTarget, hash) {
-  let confidence = 50;
-  if (entropy > 4.2) confidence += 10;
-  if (entropy > 4.5) confidence += 15;
-  if (score % 7 === 0) confidence += 8;
-  if (score % 5 === 0) confidence += 5;
-  if (/(\w)\1{2,}/.test(hash)) confidence += 15;
-  if (/(\w{2,4})\1{1,}/.test(hash)) confidence += 10;
-  const tail = hash.slice(-4);
-  if (/^(aaaa|ffff|0000|1111)$/.test(tail)) confidence += 20;
-
-  // Odd-specific adjustments
-  if (oddTarget === '3') confidence += 5;
-  if (oddTarget === '2') {
-    if (entropy > 4.0 && entropy < 4.3) confidence += 10;
-    if (score >= 50 && score <= 85) confidence += 7;
-  }
-
-  return Math.min(98, Math.max(5, Math.round(confidence)));
-}
-
-function calculateDelay(score, entropy, oddTarget, hash) {
-  let base = parseInt(oddTarget) * 45;
-  if (entropy > 4.3) base += 20;
-  if (score % 7 === 0) base += 30;
-  if (score % 5 === 0) base += 15;
-  if (/(\w)\1{2,}/.test(hash)) base += 20;
-  if (/(\w{2,4})\1{1,}/.test(hash)) base += 15;
-  return Math.max(45, base);
-}
-
-// Main prediction function
-function runPredictionWithUI(oddTarget) {
-  const hash = document.getElementById('hashInput').value.trim().toLowerCase();
-  if (hash.length !== 128 || !/^[a-f0-9]+$/.test(hash)) {
-    showAlert('Invalid SHA512 hash! Must be exactly 128 hexadecimal characters (0-9, a-f).');
-    return;
-  }
-
-  // Show loading indicator
-  const loadingIndicator = document.getElementById('loadingIndicator');
-  loadingIndicator.classList.add('show');
-
-  // Simulate processing delay for better UX
-  setTimeout(() => {
-    const entropy = calcEntropy(hash);
-    const score = scoreFromHash(hash);
-    const confidence = calculateConfidence(entropy, score, oddTarget, hash);
-    const delay = calculateDelay(score, entropy, oddTarget, hash);
-
-    const currentTime = new Date();
-    const futureTime = new Date(currentTime.getTime() + delay * 1000);
+const hashLogic = (function() {
+    // Lite version optimized for 2x and 3x predictions
     
-    // Format time in 24-hour format
-    const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
-    const timeString = futureTime.toLocaleTimeString('en-US', timeOptions);
-
-    // Update results
-    document.getElementById('entropyValue').textContent = entropy.toFixed(3);
-    document.getElementById('scoreValue').textContent = score;
-    document.getElementById('confidenceValue').textContent = confidence + '%';
+    const calculateEntropy = (hash) => {
+        if (!hash || hash.length !== 128) return 0;
+        
+        const freq = {};
+        for (const char of hash) {
+            freq[char] = (freq[char] || 0) + 1;
+        }
+        
+        let entropy = 0;
+        const len = hash.length;
+        for (const char in freq) {
+            const p = freq[char] / len;
+            entropy -= p * Math.log2(p);
+        }
+        
+        return entropy;
+    };
     
-    // Add confidence class based on value
-    const confidenceElement = document.getElementById('confidenceValue');
-    confidenceElement.className = 'result-value ';
-    if (confidence >= 70) confidenceElement.classList.add('confidence-high');
-    else if (confidence >= 40) confidenceElement.classList.add('confidence-medium');
-    else confidenceElement.classList.add('confidence-low');
+    const scoreFromHash = (hash) => {
+        if (!hash || hash.length !== 128) return 0;
+        
+        // Lite scoring focuses on positions that matter for 2x/3x
+        const scorePositions = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110];
+        let score = 0;
+        
+        for (const pos of scorePositions) {
+            const char = hash.charAt(pos);
+            const hexValue = parseInt(char, 16);
+            
+            // For 2x/3x, we want more balanced values (4-12 range)
+            if (hexValue >= 4 && hexValue <= 12) {
+                score += 3;
+            } else if (hexValue === 0 || hexValue === 15) {
+                score -= 2; // Penalize extremes less harshly
+            }
+        }
+        
+        // Bonus for repeating patterns (2-3 chars) which are common in 2x/3x
+        const repeatingPatterns = hash.match(/([0-9a-f])\1{1,2}/g);
+        if (repeatingPatterns) {
+            score += Math.min(repeatingPatterns.length * 2, 10);
+        }
+        
+        return Math.max(0, Math.min(score, 100)); // Keep score between 0-100
+    };
     
-    document.getElementById('delayValue').textContent = delay + 's';
-    document.getElementById('timeValue').textContent = timeString;
-    document.getElementById('selectedMultiplier').textContent = oddTarget === '2' ? '2× DOUBLE' : '3× TRIPLE';
-
-    // Update progress bars
-    document.getElementById('entropyProgress').style.width = `${Math.min(100, (entropy / 5) * 100)}%`;
-    document.getElementById('scoreProgress').style.width = `${Math.min(100, (score / 128) * 100)}%`;
-    document.getElementById('confidenceProgress').style.width = `${confidence}%`;
-    document.getElementById('delayProgress').style.width = `${Math.min(100, (delay / 180) * 100)}%`;
-
-    // Hide loading indicator
-    setTimeout(() => {
-      loadingIndicator.classList.remove('show');
-      
-      // Scroll to results
-      document.getElementById('resultBox').scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'nearest'
-      });
-    }, 300);
-  }, 1500);
-}
+    const calculateConfidence = (entropy, score, odd, hash) => {
+        if (!hash || hash.length !== 128) return 0;
+        
+        // Base confidence from score (adjusted for 2x/3x)
+        let confidence = score * 0.8;
+        
+        // Entropy adjustments (less aggressive than full version)
+        if (entropy > 3.8 && entropy < 4.3) {
+            confidence += 10; // Sweet spot for 2x/3x
+        } else if (entropy <= 3.5) {
+            confidence -= 5; // Slightly penalize low entropy
+        }
+        
+        // Odd-specific adjustments
+        if (odd === '2') {
+            // 2x prefers more balanced hashes
+            confidence += 5;
+            
+            // Bonus for alternating patterns common in 2x
+            const altPatterns = hash.match(/([0-9a-f][0-9a-f])/g);
+            if (altPatterns && altPatterns.length > 10) {
+                confidence += 8;
+            }
+        } else if (odd === '3') {
+            // 3x can handle slightly more variation
+            confidence += 3;
+            
+            // Small repeating sequences (2-3 chars) help 3x
+            const smallRepeats = hash.match(/([0-9a-f]{2,3})\1/g);
+            if (smallRepeats) {
+                confidence += smallRepeats.length * 2;
+            }
+        }
+        
+        // Final adjustments
+        confidence = Math.max(10, Math.min(confidence, 95));
+        
+        return Math.round(confidence);
+    };
+    
+    const calculateDelay = (score, entropy, odd, hash) => {
+        if (!hash || hash.length !== 128) return 30;
+        
+        // Base delay (seconds)
+        let delay = parseInt(odd) * 30; // 60s for 2x, 90s for 3x
+        
+        // Adjust based on score (higher score = slightly shorter delay)
+        delay -= Math.floor(score / 20);
+        
+        // Small entropy adjustment
+        if (entropy > 4.0) {
+            delay += 5;
+        } else if (entropy < 3.8) {
+            delay -= 5;
+        }
+        
+        // Ensure reasonable bounds
+        return Math.max(20, Math.min(delay, 90));
+    };
+    
+    // Public API
+    return {
+        calcEntropy: calculateEntropy,
+        scoreFromHash: scoreFromHash,
+        calculateConfidence: calculateConfidence,
+        calculateDelay: calculateDelay
+    };
+})();
