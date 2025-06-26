@@ -1028,67 +1028,37 @@
       }
     });
 
-    // Button click handlers - these will be called from hashLogic.js
-    function setupButtonHandlers() {
-      document.getElementById('btn1-5x').addEventListener('click', function() {
-        const hash = document.getElementById('hashInput').value.trim();
-        if (!hash || hash.length !== 128) {
-          showAlert('Please enter a valid 128-character SHA512 hash');
-          return;
-        }
-        
-        // Show loading indicator
-        document.getElementById('loadingIndicator').classList.add('show');
-        
-        // Reset selected multiplier until we get confirmation from hashLogic
-        document.getElementById('selectedMultiplier').textContent = 'Processing...';
-        
-        // This would be called from hashLogic.js after processing
-        if (typeof runPrediction === 'function') {
-          runPrediction('1.5');
-        }
-      });
-      
-      document.getElementById('btn2x').addEventListener('click', function() {
-        const hash = document.getElementById('hashInput').value.trim();
-        if (!hash || hash.length !== 128) {
-          showAlert('Please enter a valid 128-character SHA512 hash');
-          return;
-        }
-        
-        // Show loading indicator
-        document.getElementById('loadingIndicator').classList.add('show');
-        
-        // Reset selected multiplier until we get confirmation from hashLogic
-        document.getElementById('selectedMultiplier').textContent = 'Processing...';
-        
-        // This would be called from hashLogic.js after processing
-        if (typeof runPrediction === 'function') {
-          runPrediction('2');
-        }
-      });
-    }
-
-    // Function to update the selected multiplier display (called from hashLogic.js)
-    function updateMultiplierDisplay(multiplier) {
-      const displayText = multiplier === '1.5' ? '1.50x' : '2x';
-      document.getElementById('selectedMultiplier').textContent = displayText;
-    }
-
-    // Function to hide loading indicator (called from hashLogic.js)
-    function hideLoadingIndicator() {
-      document.getElementById('loadingIndicator').classList.remove('show');
-    }
-
     // Initialize button handlers when DOM is loaded
     document.addEventListener('DOMContentLoaded', function() {
-      setupButtonHandlers();
-      
       // Show clear button if there's already text in the input
       if (document.getElementById('hashInput').value.length > 0) {
         document.getElementById('clearInput').style.display = 'flex';
       }
+      
+      // The actual button click handlers are in hashLogic.js
+      // We're just setting up the UI here
     });
+
+    // This function will be called from hashLogic.js to update the multiplier display
+    function updateMultiplierDisplay(multiplier) {
+      let displayText = 'Not selected';
+      if (multiplier === '2') {
+        displayText = '1.50x';
+      } else if (multiplier === '3') {
+        displayText = '2x';
+      }
+      document.getElementById('selectedMultiplier').textContent = displayText;
+    }
+
+    // This function will be called from hashLogic.js to show/hide loading
+    function setLoading(loading) {
+      const loader = document.getElementById('loadingIndicator');
+      if (loading) {
+        loader.classList.add('show');
+      } else {
+        loader.classList.remove('show');
+      }
+    }
   </script>
 </body>
 </html>
