@@ -3,1061 +3,987 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>XTREME AVIATOR PREDICTOR PRO</title>
+  <title>XTREME AVIATOR SHA512 HASH ULTRA PREDICTOR LITE</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
-      --primary: #7c4dff;
-      --primary-dark: #5e35b1;
-      --secondary: #b388ff;
-      --accent: #ff4081;
-      --accent-dark: #d81b60;
-      --dark: #0f0f1a;
-      --darker: #0a0a12;
-      --light: #ffffff;
-      --light-dim: rgba(255,255,255,0.9);
-      --success: #00e676;
-      --warning: #ffc400;
-      --danger: #ff1744;
-      --info: #00b0ff;
-      --glass: rgba(20, 20, 40, 0.85);
-      --glass-border: rgba(255, 255, 255, 0.15);
-      --text-light: rgba(255,255,255,0.9);
-      --text-dim: rgba(255,255,255,0.7);
+      --primary: #3a86ff;
+      --primary-dark: #2667cc;
+      --secondary: #8338ec;
+      --danger: #ff006e;
+      --success: #06d6a0;
+      --warning: #ffbe0b;
+      --dark-1: #0a0e17;
+      --dark-2: #121827;
+      --dark-3: #1e2538;
+      --light-1: #f8f9fa;
+      --light-2: #e9ecef;
+      --accent: #3a86ff;
+      --extreme: #ff00ff;
     }
     
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-      -webkit-tap-highlight-color: transparent;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
     
     body {
-      background: linear-gradient(135deg, #1a1a2e, #16213e);
-      color: var(--text-light);
+      background: linear-gradient(135deg, var(--dark-1), var(--dark-2));
+      color: var(--light-1);
+      line-height: 1.6;
       min-height: 100vh;
-      padding: 0;
-      touch-action: manipulation;
-      overflow-x: hidden;
-      background-attachment: fixed;
-      background-size: cover;
-    }
-    
-    /* Floating particles background */
-    .particles {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: -1;
-    }
-    
-    .particle {
-      position: absolute;
-      background: rgba(124, 77, 255, 0.4);
-      border-radius: 50%;
-      pointer-events: none;
-    }
-    
-    .app-container {
-      max-width: 100%;
-      width: 100%;
-      margin: 0 auto;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      padding: 1rem;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .header-section {
-      text-align: center;
-      margin-bottom: 1.5rem;
-      padding: 1.5rem 1rem;
-      position: relative;
-      z-index: 2;
-      background: rgba(20, 20, 40, 0.7);
-      border-radius: 16px;
-      border: 1px solid rgba(124, 77, 255, 0.3);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-    }
-    
-    .logo {
-      font-size: 1.8rem;
-      font-weight: 800;
-      background: linear-gradient(to right, var(--primary), var(--accent));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      margin-bottom: 0.25rem;
-      text-shadow: 0 4px 15px rgba(124, 77, 255, 0.3);
-      letter-spacing: 1px;
-    }
-    
-    .subtitle {
-      color: var(--light);
-      font-size: 0.9rem;
-      margin-bottom: 0;
-      opacity: 0.9;
-      font-weight: 400;
-      letter-spacing: 0.8px;
-    }
-    
-    .card {
-      background: var(--glass);
-      border-radius: 16px;
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid var(--glass-border);
-      position: relative;
-      overflow: hidden;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-    }
-    
-    .card::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle at center, rgba(124, 77, 255, 0.1) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: -1;
-    }
-    
-    .datetime-container {
       display: flex;
       justify-content: center;
-      gap: 1.5rem;
-      margin-bottom: 1.5rem;
-    }
-    
-    .datetime-item {
-      display: flex;
       align-items: center;
-      gap: 0.5rem;
-      font-size: 0.85rem;
-      color: var(--text-dim);
+      padding: 20px;
+      touch-action: manipulation;
     }
     
-    .datetime-item i {
-      color: var(--secondary);
+    .main-container {
+      width: 100%;
+      max-width: 600px;
+      background: var(--dark-2);
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      position: relative;
+    }
+    
+    .header {
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      padding: 20px;
+      text-align: center;
+    }
+    
+    .header h1 {
+      font-weight: 600;
+      font-size: 1.5rem;
+      margin-bottom: 5px;
+      line-height: 1.3;
+    }
+    
+    .header p {
+      opacity: 0.9;
       font-size: 0.9rem;
     }
     
-    .input-section {
-      margin-bottom: 1.5rem;
-      position: relative;
-    }
-    
-    .input-header {
+    .datetime {
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      margin-bottom: 0.8rem;
+      background: rgba(0, 0, 0, 0.2);
+      padding: 10px 20px;
+      font-size: 0.9rem;
+    }
+    
+    .content {
+      padding: 20px;
+    }
+    
+    .input-group {
+      margin-bottom: 20px;
       position: relative;
     }
     
-    .input-label-container {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    
-    .input-label {
-      color: var(--light);
+    .input-group label {
+      display: block;
+      margin-bottom: 8px;
       font-weight: 500;
       font-size: 0.9rem;
-      white-space: nowrap;
-      letter-spacing: 0.3px;
+      color: var(--light-2);
     }
     
-    .info-icon {
-      color: var(--text-dim);
-      font-size: 0.8rem;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      flex-shrink: 0;
-    }
-    
-    .info-icon:hover {
-      color: var(--light);
-      transform: scale(1.1);
-    }
-    
-    .hash-input-container {
-      position: relative;
-    }
-    
-    .hash-input {
+    #hashInput {
       width: 100%;
-      padding: 1rem;
-      border-radius: 12px;
-      border: 2px solid rgba(124, 77, 255, 0.4);
-      background: rgba(30, 30, 60, 0.4);
-      color: white;
-      font-size: 0.9rem;
+      padding: 14px 16px;
+      background: var(--dark-3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      color: var(--light-1);
+      font-size: 1rem;
       transition: all 0.3s ease;
-      padding-right: 45px;
-      box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
-      font-family: 'Courier New', monospace;
-      letter-spacing: 0.5px;
+      -webkit-user-select: text;
+      -moz-user-select: text;
+      -ms-user-select: text;
+      user-select: text;
     }
     
-    .hash-input:focus {
+    #hashInput:focus {
       outline: none;
       border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(124, 77, 255, 0.3),
-                  inset 0 2px 10px rgba(0, 0, 0, 0.3);
-    }
-    
-    .hash-input::placeholder {
-      color: rgba(255, 255, 255, 0.4);
-      font-family: 'Poppins', sans-serif;
-      letter-spacing: normal;
+      box-shadow: 0 0 0 3px rgba(58, 134, 255, 0.2);
     }
     
     .input-actions {
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
       display: flex;
-      gap: 0.5rem;
+      justify-content: space-between;
+      margin-top: 10px;
+      gap: 10px;
     }
     
-    .input-btn {
-      background: rgba(255, 255, 255, 0.1);
+    .paste-btn {
+      background: rgba(58, 134, 255, 0.2);
+      color: var(--primary);
       border: none;
-      color: white;
-      width: 30px;
-      height: 30px;
       border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      padding: 10px 15px;
+      font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
-      font-size: 0.8rem;
-    }
-    
-    .input-btn:hover {
-      background: rgba(255, 255, 255, 0.2);
-    }
-    
-    .input-btn.clear {
-      background: rgba(255, 64, 129, 0.3);
-    }
-    
-    .input-btn.clear:hover {
-      background: rgba(255, 64, 129, 0.5);
-    }
-    
-    .input-hint {
-      position: absolute;
-      top: calc(100% + 5px);
-      left: 0;
-      width: 100%;
-      font-size: 0.75rem;
-      color: var(--text-light);
-      padding: 0.8rem;
-      background: rgba(30, 30, 60, 0.95);
-      border-radius: 12px;
-      border: 1px solid var(--primary);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-      z-index: 10;
-      display: none;
-      margin-top: 0.5rem;
-      text-align: center;
-      line-height: 1.4;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-    }
-    
-    .odds-container {
       display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
       justify-content: center;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
+    }
+    
+    .paste-btn:hover {
+      background: rgba(58, 134, 255, 0.3);
+    }
+    
+    .clear-btn {
+      background: rgba(255, 0, 110, 0.2);
+      color: var(--danger);
+      border: none;
+      border-radius: 8px;
+      padding: 10px 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+      justify-content: center;
+    }
+    
+    .clear-btn:hover {
+      background: rgba(255, 0, 110, 0.3);
+    }
+    
+    .odd-buttons {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin: 20px 0;
     }
     
     .odd-btn {
-      flex: 1;
-      padding: 1rem;
-      border-radius: 12px;
+      padding: 12px;
       border: none;
-      font-weight: bold;
+      border-radius: 8px;
+      font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-      min-width: 120px;
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-      text-align: center;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      color: white;
-      z-index: 1;
-    }
-    
-    .odd-btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-      transform: translateX(-100%);
-      transition: 0.6s;
-      z-index: -1;
-    }
-    
-    .odd-btn:hover::before {
-      transform: translateX(100%);
-    }
-    
-    .odd-btn-1-5x {
-      background: linear-gradient(135deg, #1976d2, #2196f3);
-    }
-    
-    .odd-btn-2x {
-      background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+      background: var(--dark-3);
+      color: var(--light-1);
+      position: relative;
+      overflow: hidden;
     }
     
     .odd-btn:hover {
       transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-    }
-    
-    .odd-btn:active {
-      transform: translateY(0);
-    }
-    
-    .odd-btn-label {
-      font-size: 1rem;
-      font-weight: 600;
-      margin-bottom: 0.2rem;
-    }
-    
-    .odd-btn-value {
-      font-size: 0.85rem;
-      opacity: 0.9;
-      font-weight: 400;
-    }
-    
-    .results-section {
-      background: rgba(30, 30, 60, 0.6);
-      border-radius: 16px;
-      padding: 1.5rem;
-      border-left: 4px solid var(--primary);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-    }
-    
-    .result-title {
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-      margin-bottom: 1.2rem;
-      color: var(--light);
-      font-size: 1rem;
-      justify-content: center;
-    }
-    
-    .result-title i {
-      color: var(--primary);
-      font-size: 1rem;
-    }
-    
-    .result-title h2 {
-      font-size: 1.1rem;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-    }
-    
-    .result-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 0.8rem;
-    }
-    
-    .result-item {
-      background: rgba(255, 255, 255, 0.08);
-      padding: 1rem;
-      border-radius: 12px;
-      transition: all 0.3s ease;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-    }
-    
-    .result-item:hover {
-      background: rgba(255, 255, 255, 0.12);
-      transform: translateY(-3px);
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     }
     
-    .result-label {
-      font-size: 0.75rem;
-      color: var(--secondary);
-      margin-bottom: 0.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      font-weight: 500;
+    .odd-btn:nth-child(1) { border-top: 3px solid var(--success); }
+    .odd-btn:nth-child(2) { border-top: 3px solid var(--warning); }
+    
+    .odd-btn span:first-child {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 3px;
+      z-index: 2;
     }
     
-    .result-label i {
-      font-size: 0.7rem;
+    .odd-btn span:last-child {
+      font-size: 0.8rem;
+      opacity: 0.8;
+      z-index: 2;
     }
     
-    .result-value {
-      font-size: 1.1rem;
-      font-weight: bold;
-      color: var(--light);
-    }
-    
-    .confidence-high {
-      color: var(--success) !important;
-    }
-    
-    .confidence-medium {
-      color: var(--warning) !important;
-    }
-    
-    .confidence-low {
-      color: var(--danger) !important;
-    }
-    
-    .result-progress {
-      height: 6px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 3px;
-      margin-top: 0.8rem;
-      overflow: hidden;
-      position: relative;
-    }
-    
-    .result-progress-fill {
-      height: 100%;
-      border-radius: 3px;
-      transition: width 0.8s ease;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .result-progress-fill::after {
-      content: '';
+    .confidence-bar {
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
       bottom: 0;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-      animation: progressShine 2s infinite;
+      left: 0;
+      height: 4px;
+      transition: width 0.5s ease;
     }
     
-    @keyframes progressShine {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(100%); }
+    #confidence-2 { background: var(--success); }
+    #confidence-3 { background: var(--warning); }
+    
+    .results {
+      background: var(--dark-3);
+      border-radius: 10px;
+      padding: 20px;
+      margin-top: 20px;
+      border-left: 4px solid var(--primary);
     }
     
-    .signal-info {
-      grid-column: span 2;
-      background: rgba(124, 77, 255, 0.15);
-      border: 1px solid var(--primary);
-      padding: 1rem;
-      border-radius: 12px;
-      margin-top: 0.5rem;
-    }
-    
-    .signal-row {
+    .result-item {
       display: flex;
       justify-content: space-between;
-      margin-bottom: 0.5rem;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
     
-    .signal-label {
-      color: var(--secondary);
+    .result-item:last-child {
+      border-bottom: none;
+    }
+    
+    .result-item .label {
+      color: var(--light-2);
       font-weight: 500;
-      font-size: 0.85rem;
     }
     
-    .signal-value {
-      color: var(--light);
+    .result-item .value {
       font-weight: 600;
-      font-size: 0.95rem;
+    }
+    
+    .countdown {
+      background: rgba(6, 214, 160, 0.1);
+      border-left: 4px solid var(--success);
+      padding: 15px;
+      border-radius: 8px;
+      margin: 15px 0;
+      text-align: center;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+    }
+    
+    .countdown.warning {
+      background: rgba(255, 190, 11, 0.1);
+      border-left: 4px solid var(--warning);
+    }
+    
+    .countdown.danger {
+      background: rgba(255, 0, 110, 0.1);
+      border-left: 4px solid var(--danger);
+    }
+    
+    .copy-result-btn {
+      background: rgba(58, 134, 255, 0.2);
+      color: var(--primary);
+      border: none;
+      border-radius: 8px;
+      padding: 10px 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 15px;
+      width: 100%;
+    }
+    
+    .copy-result-btn:hover {
+      background: rgba(58, 134, 255, 0.3);
+    }
+    
+    .copy-result-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
     }
     
     .footer {
       text-align: center;
-      margin-top: 2rem;
-      color: rgba(255, 255, 255, 0.5);
-      font-size: 0.7rem;
-      padding: 1rem 0;
-    }
-    
-    .loading {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(10, 10, 20, 0.9);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-      backdrop-filter: blur(5px);
-      -webkit-backdrop-filter: blur(5px);
-    }
-    
-    .loading.show {
-      opacity: 1;
-      pointer-events: all;
-    }
-    
-    .spinner {
-      width: 50px;
-      height: 50px;
-      border: 4px solid rgba(124, 77, 255, 0.2);
-      border-radius: 50%;
-      border-top-color: var(--primary);
-      animation: spin 1s linear infinite;
-      margin-bottom: 1.5rem;
-      position: relative;
-    }
-    
-    .spinner::after {
-      content: '';
-      position: absolute;
-      top: -4px;
-      left: -4px;
-      right: -4px;
-      bottom: -4px;
-      border: 4px solid transparent;
-      border-radius: 50%;
-      border-top-color: var(--accent);
-      animation: spin 1.5s linear infinite;
+      padding: 15px;
+      font-size: 0.8rem;
+      color: var(--light-2);
       opacity: 0.7;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
     }
     
-    .loading-text {
-      font-size: 0.9rem;
-      color: var(--light);
-      margin-bottom: 1rem;
-      text-align: center;
-      max-width: 80%;
-      line-height: 1.5;
+    /* Animation for active signal */
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(6, 214, 160, 0.4); }
+      70% { box-shadow: 0 0 0 10px rgba(6, 214, 160, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(6, 214, 160, 0); }
     }
     
-    .loading-dots {
-      display: flex;
-      gap: 0.5rem;
+    .active-signal {
+      animation: pulse 2s infinite;
     }
-    
-    .loading-dot {
-      width: 8px;
-      height: 8px;
-      background: var(--primary);
-      border-radius: 50%;
-      animation: bounce 1s infinite ease-in-out;
-    }
-    
-    .loading-dot:nth-child(1) {
-      animation-delay: 0s;
-    }
-    
-    .loading-dot:nth-child(2) {
-      animation-delay: 0.2s;
-    }
-    
-    .loading-dot:nth-child(3) {
-      animation-delay: 0.4s;
-    }
-    
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-    
-    .custom-alert {
+
+    /* Custom Dialog Styles */
+    .dialog-overlay {
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(10, 10, 20, 0.9);
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
       display: flex;
-      flex-direction: column;
-      align-items: center;
       justify-content: center;
+      align-items: center;
       z-index: 1000;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.3s ease;
-      backdrop-filter: blur(5px);
-      -webkit-backdrop-filter: blur(5px);
-      padding: 1.5rem;
     }
-    
-    .custom-alert.show {
+
+    .dialog-overlay.active {
       opacity: 1;
       pointer-events: all;
     }
-    
-    .custom-alert-box {
-      background: var(--glass);
-      border-radius: 16px;
-      padding: 1.5rem;
-      width: 100%;
-      max-width: 350px;
-      border: 1px solid var(--glass-border);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-      transform: scale(0.9);
+
+    .dialog-box {
+      background: var(--dark-2);
+      border-radius: 10px;
+      padding: 20px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      transform: translateY(20px);
       transition: transform 0.3s ease;
-      text-align: center;
     }
-    
-    .custom-alert.show .custom-alert-box {
-      transform: scale(1);
+
+    .dialog-overlay.active .dialog-box {
+      transform: translateY(0);
     }
-    
-    .custom-alert-icon {
-      font-size: 2.5rem;
-      color: var(--danger);
-      margin-bottom: 1rem;
+
+    .dialog-title {
+      font-size: 1.2rem;
+      margin-bottom: 15px;
+      color: var(--light-1);
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
-    
-    .custom-alert-message {
-      font-size: 0.95rem;
-      margin-bottom: 1.5rem;
-      color: var(--light);
+
+    .dialog-message {
+      margin-bottom: 20px;
+      color: var(--light-2);
       line-height: 1.5;
     }
-    
-    .custom-alert-button {
+
+    .dialog-buttons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .dialog-btn {
+      padding: 8px 15px;
+      border-radius: 5px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .dialog-btn-cancel {
+      background: var(--dark-3);
+      color: var(--light-1);
+      border: 1px solid var(--dark-3);
+    }
+
+    .dialog-btn-cancel:hover {
+      background: var(--dark-1);
+    }
+
+    .dialog-btn-confirm {
       background: var(--danger);
       color: white;
-      border: none;
-      padding: 0.8rem 1.5rem;
-      border-radius: 10px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: all 0.3s ease;
-      width: 100%;
-      max-width: 200px;
-      margin: 0 auto;
-      box-shadow: 0 4px 10px rgba(255, 23, 68, 0.3);
+      border: 1px solid var(--danger);
+    }
+
+    .dialog-btn-confirm:hover {
+      background: #e00064;
+    }
+
+    .dialog-icon {
+      font-size: 1.5rem;
+      color: var(--danger);
     }
     
-    .custom-alert-button:hover {
-      background: #ff3a3a;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 15px rgba(255, 23, 68, 0.4);
-    }
-    
-    .custom-alert-button:active {
-      transform: translateY(0);
+    /* Loading spinner */
+    .spinner {
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: var(--primary);
+      animation: spin 1s ease-in-out infinite;
+      display: inline-block;
     }
     
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
     
-    /* Floating animation for cards */
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
+    /* Tooltip */
+    .tooltip {
+      position: relative;
+      display: inline-block;
     }
     
-    /* Responsive adjustments */
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 200px;
+      background-color: var(--dark-1);
+      color: var(--light-1);
+      text-align: center;
+      border-radius: 6px;
+      padding: 8px;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-size: 0.8rem;
+      border: 1px solid var(--dark-3);
+    }
+    
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    /* Disclaimer badge */
+    .disclaimer-badge {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(255, 0, 110, 0.2);
+      color: var(--danger);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 9999;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .disclaimer-badge:hover {
+      background: rgba(255, 0, 110, 0.3);
+      transform: scale(1.1);
+    }
+
+    /* Disclaimer popup */
+    .disclaimer-popup {
+      position: fixed;
+      bottom: 70px;
+      right: 20px;
+      width: 300px;
+      max-width: 90%;
+      background: var(--dark-2);
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      border-left: 4px solid var(--danger);
+      transform: translateY(20px);
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 9998;
+      pointer-events: none;
+    }
+
+    .disclaimer-popup.show {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .disclaimer-popup h4 {
+      color: var(--danger);
+      margin-bottom: 10px;
+      font-size: 1rem;
+    }
+
+    .disclaimer-popup p {
+      font-size: 0.8rem;
+      line-height: 1.4;
+      color: var(--light-2);
+      margin-bottom: 10px;
+    }
+
+    .disclaimer-popup a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .disclaimer-popup a:hover {
+      text-decoration: underline;
+    }
+
     @media (max-width: 768px) {
-      .app-container {
-        padding: 0.8rem;
+      .header h1 {
+        font-size: 1.3rem;
       }
       
-      .logo {
-        font-size: 1.5rem;
-      }
-      
-      .subtitle {
+      .header p {
         font-size: 0.8rem;
       }
       
-      .datetime-container {
-        gap: 1rem;
-      }
-      
-      .datetime-item {
-        font-size: 0.8rem;
-      }
-      
-      .hash-input {
-        padding: 0.9rem;
-        font-size: 0.85rem;
-      }
-      
-      .odds-container {
-        flex-direction: column;
-        gap: 0.8rem;
-      }
-      
-      .odd-btn {
-        width: 100%;
-        padding: 1rem;
-      }
-      
-      .result-grid {
+      .odd-buttons {
         grid-template-columns: 1fr;
-      }
-      
-      .result-item {
-        padding: 0.9rem;
       }
     }
     
     @media (max-width: 480px) {
-      .logo {
-        font-size: 1.3rem;
+      .header h1 {
+        font-size: 1.2rem;
+        padding-top: 10px;
       }
       
-      .card {
-        padding: 1.2rem;
-      }
-      
-      .result-title h2 {
-        font-size: 1rem;
-      }
-      
-      .result-value {
-        font-size: 1rem;
+      .content {
+        padding: 15px;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Floating particles background -->
-  <div class="particles" id="particles"></div>
-  
-  <div class="app-container">
-    <div class="header-section">
-      <h1 class="logo">XTREME AVIATOR SHA512 HASH LITE</h1>
-      <p class="subtitle">Advanced SHA512 Hash Analysis Engine</p>
+  <div class="main-container">
+    <div class="header">
+      <h1>XTREME AVIATOR SHA512 HASH ULTRA PREDICTOR LITE</h1>
+      <p>Basic AI-powered prediction for 2× and 3× multipliers</p>
     </div>
     
-    <div class="card">
-      <div class="datetime-container">
-        <div class="datetime-item">
-          <i class="fas fa-calendar-day"></i>
-          <span id="currentDate">Loading date...</span>
-        </div>
-        <div class="datetime-item">
-          <i class="fas fa-clock"></i>
-          <span id="currentTime">Loading time...</span>
-        </div>
-      </div>
-      
-      <div class="input-section">
-        <div class="input-header">
-          <div class="input-label-container">
-            <div class="input-label">Enter SHA512 Hash</div>
-            <i class="fas fa-info-circle info-icon" id="infoIcon"></i>
-          </div>
-        </div>
-        <div class="hash-input-container">
-          <input type="text" id="hashInput" class="hash-input" placeholder="Paste your hash here...">
-          <div class="input-actions">
-            <button class="input-btn clear" id="clearInput">
-              <i class="fas fa-times"></i>
-            </button>
-          </div>
-        </div>
-        <div class="input-hint" id="inputHint">
-          Must be 128-character hexadecimal string (0-9, a-f).<br>
-          Copy the game hash from your Aviator game interface.
-        </div>
-      </div>
-      
-      <div class="odds-container">
-        <button class="odd-btn odd-btn-1-5x" id="btn1-5x">
-          <span class="odd-btn-label">1.50x CASHOUT</span>
-          <span class="odd-btn-value">Lower risk</span>
-        </button>
-        <button class="odd-btn odd-btn-2x" id="btn2x">
-          <span class="odd-btn-label">2x CASHOUT</span>
-          <span class="odd-btn-value">Higher payout</span>
-        </button>
-      </div>
+    <div class="datetime">
+      <div id="current-date"></div>
+      <div id="current-time"></div>
     </div>
     
-    <div class="card results-section" id="resultBox">
-      <div class="result-title">
-        <i class="fas fa-chart-bar"></i>
-        <h2>PREDICTION ANALYTICS</h2>
+    <div class="content">
+      <div class="input-group">
+        <label for="hashInput">Enter SHA512 Hash <span class="tooltip"><i class="fas fa-info-circle"></i><span class="tooltiptext">Must be 128-character hexadecimal string (0-9, a-f)</span></span></label>
+        <input type="text" id="hashInput" placeholder="Paste your hash here..." autocomplete="off" autocorrect="off" spellcheck="false">
+        <div class="input-actions">
+          <button class="paste-btn" id="pasteHashInput">
+            <i class="fas fa-paste"></i> Paste Hash
+          </button>
+          <button class="clear-btn" id="clearHashInput">
+            <i class="fas fa-broom"></i> Clear
+          </button>
+        </div>
       </div>
       
-      <div class="result-grid">
-        <div class="result-item">
-          <div class="result-label">
-            <i class="fas fa-random"></i>
-            <span>ENTROPY</span>
-          </div>
-          <div class="result-value" id="entropyValue">0.000</div>
-          <div class="result-progress">
-            <div class="result-progress-fill fill-entropy" id="entropyProgress" style="width: 0%"></div>
-          </div>
-        </div>
-        
-        <div class="result-item">
-          <div class="result-label">
-            <i class="fas fa-star"></i>
-            <span>SCORE</span>
-          </div>
-          <div class="result-value" id="scoreValue">0</div>
-          <div class="result-progress">
-            <div class="result-progress-fill fill-score" id="scoreProgress" style="width: 0%"></div>
-          </div>
-        </div>
-        
-        <div class="result-item">
-          <div class="result-label">
-            <i class="fas fa-bullseye"></i>
-            <span>CONFIDENCE</span>
-          </div>
-          <div class="result-value" id="confidenceValue">0%</div>
-          <div class="result-progress">
-            <div class="result-progress-fill fill-confidence" id="confidenceProgress" style="width: 0%"></div>
-          </div>
-        </div>
-        
-        <div class="result-item">
-          <div class="result-label">
-            <i class="fas fa-stopwatch"></i>
-            <span>DELAY</span>
-          </div>
-          <div class="result-value" id="delayValue">0s</div>
-          <div class="result-progress">
-            <div class="result-progress-fill fill-delay" id="delayProgress" style="width: 0%"></div>
-          </div>
-        </div>
-        
-        <div class="signal-info">
-          <div class="signal-row">
-            <span class="signal-label">Selected Multiplier:</span>
-            <span class="signal-value" id="selectedMultiplier">Not selected</span>
-          </div>
-          <div class="signal-row">
-            <span class="signal-label">Optimal Bet Time:</span>
-            <span class="signal-value" id="timeValue">00:00:00</span>
-          </div>
-        </div>
+      <div class="odd-buttons">
+        <button class="odd-btn" onclick="predict('2')" id="odd-2">
+          <span>2x</span>
+          <span>Low Risk</span>
+          <div class="confidence-bar" id="confidence-2" style="width: 0%"></div>
+        </button>
+        <button class="odd-btn" onclick="predict('3')" id="odd-3">
+          <span>3x</span>
+          <span>Balanced</span>
+          <div class="confidence-bar" id="confidence-3" style="width: 0%"></div>
+        </button>
       </div>
+      
+      <div class="results" id="output">
+        <div class="result-item">
+          <span class="label">Target Multiplier:</span>
+          <span class="value" id="result-odd">-</span>
+        </div>
+        <div class="result-item">
+          <span class="label">Hash Entropy:</span>
+          <span class="value" id="result-entropy">-</span>
+        </div>
+        <div class="result-item">
+          <span class="label">Hash Score:</span>
+          <span class="value" id="result-score">-</span>
+        </div>
+        <div class="result-item">
+          <span class="label">Confidence Level:</span>
+          <span class="value" id="result-confidence">-</span>
+        </div>
+        <div class="result-item">
+          <span class="label">Estimated Delay:</span>
+          <span class="value" id="result-delay">-</span>
+        </div>
+        <div class="result-item">
+          <span class="label">Next Signal Time:</span>
+          <span class="value" id="result-time">-</span>
+        </div>
+        <button class="copy-result-btn" id="copyResultBtn" onclick="copyResultToClipboard(event)" disabled>
+          <i class="fas fa-copy"></i> Copy Signal
+        </button>
+      </div>
+      
+      <div class="countdown" id="countdown">No active signals. Create a new prediction.</div>
     </div>
     
     <div class="footer">
-      <p>©2025 XTREME AVIATOR SHA512 HASH LITE | v2.1.7</p>
+      XTREME AVIATOR SHA512 HASH ULTRA PREDICTOR LITE © <span id="current-year"></span> | ALL RIGHTS RESERVED
     </div>
   </div>
 
-  <div class="loading" id="loadingIndicator">
-    <div class="spinner"></div>
-    <p class="loading-text">Analyzing hash patterns<br>and calculating predictions...</p>
-    <div class="loading-dots">
-      <div class="loading-dot"></div>
-      <div class="loading-dot"></div>
-      <div class="loading-dot"></div>
-    </div>
+  <!-- Disclaimer Badge -->
+  <div class="disclaimer-badge" id="disclaimerBadge">
+    <i class="fas fa-exclamation-triangle"></i>
   </div>
 
-  <div class="custom-alert" id="customAlert">
-    <div class="custom-alert-box">
-      <div class="custom-alert-icon">
-        <i class="fas fa-exclamation-triangle"></i>
+  <!-- Disclaimer Popup -->
+  <div class="disclaimer-popup" id="disclaimerPopup">
+    <h4>DISCLAIMER!</h4>
+    <p>This tool is for entertainment purposes only. Predictions are not guaranteed. Gambling involves risk. Only play with money you can afford to lose.</p>
+    <a href="https://damindu817.github.io/DISCLAIMER-/" target="_blank">Click icon for guide & creator contact</a>
+  </div>
+
+  <!-- Custom Dialogs -->
+  <div class="dialog-overlay" id="errorDialog">
+    <div class="dialog-box">
+      <div class="dialog-title">
+        <i class="fas fa-exclamation-circle dialog-icon"></i>
+        <span>Invalid Input</span>
       </div>
-      <div class="custom-alert-message" id="alertMessage"></div>
-      <button class="custom-alert-button" id="alertButton">UNDERSTOOD</button>
+      <div class="dialog-message" id="errorMessage">Invalid SHA512 hash. Must be exactly 128 hexadecimal characters.</div>
+      <div class="dialog-buttons">
+        <button class="dialog-btn dialog-btn-confirm" onclick="hideErrorDialog()">OK</button>
+      </div>
     </div>
   </div>
+
+  <div class="dialog-overlay" id="successDialog">
+    <div class="dialog-box">
+      <div class="dialog-title">
+        <i class="fas fa-check-circle dialog-icon" style="color: var(--success);"></i>
+        <span>Signal Generated</span>
+      </div>
+      <div class="dialog-message" id="successMessage">Prediction signal created successfully!</div>
+      <div class="dialog-buttons">
+        <button class="dialog-btn dialog-btn-confirm" onclick="hideSuccessDialog()" style="background: var(--success);">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <textarea id="copyTemplate" style="position: absolute; left: -9999px;"></textarea>
 
   <script src="hashLogic.js"></script>
   <script>
-    // Create floating particles
-    function createParticles() {
-      const particlesContainer = document.getElementById('particles');
-      const particleCount = window.innerWidth < 768 ? 15 : 30;
+    // Global variables
+    let activeSignals = [];
+    let currentCountdown = null;
+    let serverTimeOffset = 0;
+    let lastHash = '';
+    let selectedOdd = null;
+    let disclaimerShown = false;
+    
+    // Initialize on load
+    window.onload = function() {
+      updateDateTime();
+      syncServerTime(); // Runs in background
       
-      for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        particle.classList.add('particle');
-        
-        // Random size between 2px and 6px
-        const size = Math.random() * 4 + 2;
-        particle.style.width = `${size}px`;
-        particle.style.height = `${size}px`;
-        
-        // Random position
-        particle.style.left = `${Math.random() * 100}%`;
-        particle.style.top = `${Math.random() * 100}%`;
-        
-        // Random opacity
-        particle.style.opacity = Math.random() * 0.5 + 0.1;
-        
-        // Random animation
-        const duration = Math.random() * 20 + 10;
-        const delay = Math.random() * 5;
-        particle.style.animation = `float ${duration}s ease-in-out ${delay}s infinite`;
-        
-        particlesContainer.appendChild(particle);
+      // Auto-focus input field
+      document.getElementById("hashInput").focus();
+      
+      // Auto-predict if hash is pasted
+      document.getElementById("hashInput").addEventListener('input', function(e) {
+        const hash = e.target.value.trim();
+        if (hash.length === 128 && /^[a-f0-9]+$/.test(hash)) {
+          lastHash = hash;
+          preAnalyzeHash(hash);
+          // Don't enable copy button here - wait for odd selection
+        } else {
+          document.getElementById("copyResultBtn").disabled = true;
+        }
+      });
+      
+      // Initialize disclaimer badge
+      const disclaimerBadge = document.getElementById("disclaimerBadge");
+      disclaimerBadge.addEventListener('click', function(e) {
+        e.preventDefault();
+        window.open('https://damindu817.github.io/DISCLAIMER-/', '_blank');
+      });
+      
+      // Show disclaimer popup after 5 seconds if not shown before
+      if (!sessionStorage.getItem('disclaimerShown')) {
+        setTimeout(() => {
+          showDisclaimer();
+          setTimeout(hideDisclaimer, 8000);
+          sessionStorage.setItem('disclaimerShown', 'true');
+        }, 5000);
       }
+    };
+    
+    // Show disclaimer popup
+    function showDisclaimer() {
+      const popup = document.getElementById("disclaimerPopup");
+      popup.classList.add("show");
     }
     
-    // Initialize particles
-    createParticles();
+    // Hide disclaimer popup
+    function hideDisclaimer() {
+      const popup = document.getElementById("disclaimerPopup");
+      popup.classList.remove("show");
+    }
     
-    // Update date and time
+    // Update current date and time with server sync
     function updateDateTime() {
-      const now = new Date();
-      
-      // Format date
-      const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-      document.getElementById('currentDate').textContent = now.toLocaleDateString('en-US', dateOptions);
-      
-      // Format time in 24-hour format
-      const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
-      document.getElementById('currentTime').textContent = now.toLocaleTimeString('en-US', timeOptions);
+      const now = new Date(Date.now() + serverTimeOffset);
+      document.getElementById("current-date").textContent = now.toLocaleDateString('en-US', { 
+        weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' 
+      });
+      document.getElementById("current-time").textContent = now.toLocaleTimeString();
+      document.getElementById("current-year").textContent = now.getFullYear();
     }
     
-    // Update datetime immediately and then every second
-    updateDateTime();
     setInterval(updateDateTime, 1000);
-
-    // Info icon functionality with auto-hide
-    const infoIcon = document.getElementById('infoIcon');
-    const inputHint = document.getElementById('inputHint');
     
-    infoIcon.addEventListener('click', function(e) {
-      e.stopPropagation();
-      inputHint.style.display = 'block';
+    // Sync with server time for maximum accuracy (runs in background)
+    async function syncServerTime() {
+      try {
+        const start = Date.now();
+        const response = await fetch('https://worldtimeapi.org/api/ip');
+        const data = await response.json();
+        const serverTime = new Date(data.utc_datetime).getTime();
+        const end = Date.now();
+        const rtt = end - start;
+        
+        // Calculate offset accounting for network latency
+        serverTimeOffset = serverTime - end + (rtt / 2);
+        
+        console.log(`Time synced successfully (${rtt}ms latency)`);
+        
+        // Recheck any active signals with corrected time
+        checkNextSignal();
+      } catch (e) {
+        console.error("Time sync failed, using local time:", e);
+      }
+    }
+    
+    // Pre-analyze hash to show confidence levels
+    function preAnalyzeHash(hash) {
+      if (!hash || hash.length !== 128 || !/^[a-f0-9]+$/.test(hash)) return;
       
-      // Auto-hide after 5 seconds
+      const entropy = hashLogic.calcEntropy(hash);
+      const score = hashLogic.scoreFromHash(hash);
+      
+      // Update confidence bars for each odd
+      [2, 3].forEach(odd => {
+        const confidence = hashLogic.calculateConfidence(entropy, score, odd.toString(), hash);
+        document.getElementById(`confidence-${odd}`).style.width = `${confidence}%`;
+      });
+    }
+    
+    // Paste hash from clipboard
+    document.getElementById("pasteHashInput").addEventListener('click', async function() {
+      try {
+        const text = await navigator.clipboard.readText();
+        document.getElementById("hashInput").value = text;
+        lastHash = text.trim();
+        if (lastHash.length === 128 && /^[a-f0-9]+$/.test(lastHash)) {
+          preAnalyzeHash(lastHash);
+          // Don't enable copy button here - wait for odd selection
+        } else {
+          document.getElementById("copyResultBtn").disabled = true;
+        }
+      } catch (err) {
+        showErrorDialog("Failed to read from clipboard. Please paste manually.");
+        console.error("Failed to read clipboard contents: ", err);
+      }
+    });
+    
+    // Clear hash input
+    document.getElementById("clearHashInput").addEventListener('click', function() {
+      document.getElementById("hashInput").value = '';
+      lastHash = '';
+      document.getElementById("copyResultBtn").disabled = true;
+      selectedOdd = null;
+      
+      // Reset confidence bars
+      [2, 3].forEach(odd => {
+        document.getElementById(`confidence-${odd}`).style.width = '0%';
+      });
+      
+      // Reset results display
+      document.getElementById("result-odd").textContent = "-";
+      document.getElementById("result-entropy").textContent = "-";
+      document.getElementById("result-score").textContent = "-";
+      document.getElementById("result-confidence").textContent = "-";
+      document.getElementById("result-delay").textContent = "-";
+      document.getElementById("result-time").textContent = "-";
+    });
+    
+    // Countdown and active signal tracking
+    function updateCountdown(targetTime, odd) {
+      // Clear any existing countdown
+      if (currentCountdown) {
+        clearInterval(currentCountdown);
+      }
+      
+      const signalId = Date.now();
+      activeSignals.push({ id: signalId, time: targetTime, odd });
+      
+      currentCountdown = setInterval(() => {
+        const now = new Date(Date.now() + serverTimeOffset);
+        const diff = Math.floor((targetTime - now) / 1000);
+        
+        if (diff <= 0) {
+          clearInterval(currentCountdown);
+          document.getElementById("countdown").textContent = `Signal for ${odd}x reached! Place your bet now!`;
+          document.getElementById("countdown").className = "countdown";
+          removeSignal(signalId);
+          
+          // Check for next signal after this one completes
+          setTimeout(checkNextSignal, 1000);
+        } else {
+          const min = Math.floor(diff / 60);
+          const sec = diff % 60;
+          document.getElementById("countdown").textContent = `Next ${odd}x signal in: ${min}m ${sec}s`;
+          
+          // Change color based on urgency
+          if (diff < 30) {
+            document.getElementById("countdown").className = "countdown danger";
+          } else if (diff < 60) {
+            document.getElementById("countdown").className = "countdown warning";
+          } else {
+            document.getElementById("countdown").className = "countdown";
+          }
+        }
+      }, 1000);
+    }
+    
+    function checkNextSignal() {
+      const now = new Date(Date.now() + serverTimeOffset);
+      
+      // Find the next upcoming signal that hasn't passed yet
+      const upcomingSignals = activeSignals.filter(signal => {
+        return signal.time > now;
+      }).sort((a, b) => a.time - b.time);
+      
+      if (upcomingSignals.length > 0) {
+        const nextSignal = upcomingSignals[0];
+        updateCountdown(nextSignal.time, nextSignal.odd);
+      } else {
+        document.getElementById("countdown").textContent = "No active signals. Create a new prediction.";
+        document.getElementById("countdown").className = "countdown warning";
+      }
+    }
+    
+    function removeSignal(id) {
+      activeSignals = activeSignals.filter(signal => signal.id !== id);
+    }
+    
+    // Generate WhatsApp message template
+    function generateWhatsAppTemplate(odd, timeStr, confidence) {
+      let riskText = "";
+      if (odd === "2") {
+        riskText = " (Low Risk)";
+      } else if (odd === "3") {
+        riskText = " (Balanced)";
+      }
+      
+      return `Xtreme Aviator Predictor - 1xBet\n\nTime: ${timeStr}\nOdd: ${odd}×${riskText}\nConfidence: ${confidence}%\n\nThis signal is generated using the XTREME AVIATOR SHA512 HASH ULTRA PREDICTOR LITE tool.`;
+    }
+    
+    // Generate result copy template
+    function generateResultCopyTemplate() {
+      const odd = document.getElementById("result-odd").textContent;
+      const time = document.getElementById("result-time").textContent;
+      const confidence = document.getElementById("result-confidence").textContent;
+      
+      if (odd === "2x") {
+        return `Xtreme Aviator Predictor - 1xBet\n\nTime: ${time}\nOdd: ${odd} (Low Risk)\nConfidence: ${confidence}\n\nThis signal is generated using the XTREME AVIATOR SHA512 HASH ULTRA PREDICTOR LITE tool.`;
+      } else {
+        return `Xtreme Aviator Predictor - 1xBet\n\nTime: ${time}\nOdd: ${odd} (Balanced)\nConfidence: ${confidence}\n\nThis signal is generated using the XTREME AVIATOR SHA512 HASH ULTRA PREDICTOR LITE tool.`;
+      }
+    }
+    
+    // Copy to clipboard function
+    function copyToClipboard(text) {
+      const textarea = document.getElementById("copyTemplate");
+      textarea.value = text;
+      textarea.select();
+      document.execCommand("copy");
+      
+      // Show feedback
+      const originalText = document.activeElement.innerHTML;
+      document.activeElement.innerHTML = '<i class="fas fa-check"></i> Copied!';
       setTimeout(() => {
-        inputHint.style.display = 'none';
-      }, 5000);
-    });
-
-    // Hide hint when clicking elsewhere
-    document.addEventListener('click', function() {
-      inputHint.style.display = 'none';
-    });
-
-    // Prevent hint from closing when clicking on it
-    inputHint.addEventListener('click', function(e) {
-      e.stopPropagation();
-    });
-
-    // Input actions
-    document.getElementById('clearInput').addEventListener('click', function() {
-      document.getElementById('hashInput').value = '';
-      document.getElementById('hashInput').focus();
-      this.style.display = 'none';
-    });
-
-    // Show clear button when input has value
-    document.getElementById('hashInput').addEventListener('input', function() {
-      const clearBtn = document.getElementById('clearInput');
-      if (this.value.length > 0) {
-        clearBtn.style.display = 'flex';
-      } else {
-        clearBtn.style.display = 'none';
-      }
-    });
-
-    // Custom alert system
-    const customAlert = document.getElementById('customAlert');
-    const alertMessage = document.getElementById('alertMessage');
-    const alertButton = document.getElementById('alertButton');
-    
-    function showAlert(message) {
-      alertMessage.textContent = message;
-      customAlert.classList.add('show');
+        document.activeElement.innerHTML = originalText;
+      }, 2000);
     }
     
-    alertButton.addEventListener('click', function() {
-      customAlert.classList.remove('show');
-    });
-
-    // Prevent zooming
-    document.addEventListener('wheel', function(e) {
-      if (e.ctrlKey) {
-        e.preventDefault();
-      }
-    }, { passive: false });
-
-    document.addEventListener('keydown', function(e) {
-      if (e.ctrlKey && (e.key === '+' || e.key === '-' || e.key === '0')) {
-        e.preventDefault();
-      }
-    });
-
-    // Initialize button handlers when DOM is loaded
-    document.addEventListener('DOMContentLoaded', function() {
-      // Show clear button if there's already text in the input
-      if (document.getElementById('hashInput').value.length > 0) {
-        document.getElementById('clearInput').style.display = 'flex';
+    function copyResultToClipboard(e) {
+      e.preventDefault();
+      const hash = document.getElementById("hashInput").value.trim();
+      if (!hash || hash.length !== 128 || !/^[a-f0-9]+$/.test(hash)) {
+        showErrorDialog("Please enter a valid SHA512 hash first.");
+        return;
       }
       
-      // The actual button click handlers are in hashLogic.js
-      // We're just setting up the UI here
-    });
-
-    // This function will be called from hashLogic.js to update the multiplier display
-    function updateMultiplierDisplay(multiplier) {
-      let displayText = 'Not selected';
-      if (multiplier === '2') {
-        displayText = '1.50x';
-      } else if (multiplier === '3') {
-        displayText = '2x';
+      if (!selectedOdd) {
+        showErrorDialog("Please select an odd first.");
+        return;
       }
-      document.getElementById('selectedMultiplier').textContent = displayText;
+      
+      const template = generateResultCopyTemplate();
+      copyToClipboard(template);
     }
-
-    // This function will be called from hashLogic.js to show/hide loading
-    function setLoading(loading) {
-      const loader = document.getElementById('loadingIndicator');
-      if (loading) {
-        loader.classList.add('show');
-      } else {
-        loader.classList.remove('show');
+    
+    // Dialog functions
+    function showErrorDialog(message) {
+      document.getElementById("errorMessage").textContent = message;
+      document.getElementById("errorDialog").classList.add("active");
+    }
+    
+    function hideErrorDialog() {
+      document.getElementById("errorDialog").classList.remove("active");
+    }
+    
+    function showSuccessDialog(message) {
+      document.getElementById("successMessage").textContent = message;
+      document.getElementById("successDialog").classList.add("active");
+    }
+    
+    function hideSuccessDialog() {
+      document.getElementById("successDialog").classList.remove("active");
+    }
+    
+    // Main prediction function
+    function predict(oddStr) {
+      const hash = document.getElementById("hashInput").value.trim().toLowerCase();
+      const output = document.getElementById("output");
+      
+      if (!hash || hash.length !== 128 || !/^[a-f0-9]+$/.test(hash)) {
+        showErrorDialog("Invalid SHA512 hash. Must be exactly 128 hexadecimal characters (0-9, a-f).");
+        return;
       }
+      
+      selectedOdd = oddStr;
+      const entropy = hashLogic.calcEntropy(hash);
+      const score = hashLogic.scoreFromHash(hash);
+      const confidence = hashLogic.calculateConfidence(entropy, score, oddStr, hash);
+      const delay = hashLogic.calculateDelay(score, entropy, oddStr, hash);
+      const future = new Date(Date.now() + serverTimeOffset + delay * 1000);
+      const timeStr = future.toLocaleTimeString();
+      
+      // Update results display
+      document.getElementById("result-odd").textContent = `${oddStr}x`;
+      document.getElementById("result-entropy").textContent = entropy.toFixed(3);
+      document.getElementById("result-score").textContent = score;
+      document.getElementById("result-confidence").textContent = `${confidence}%`;
+      document.getElementById("result-delay").textContent = `${delay} seconds`;
+      document.getElementById("result-time").textContent = timeStr;
+      
+      // Enable copy button only after odd is selected
+      document.getElementById("copyResultBtn").disabled = false;
+      
+      output.style.display = 'block';
+      updateCountdown(future, oddStr);
+      showSuccessDialog(`Signal for ${oddStr}x generated with ${confidence}% confidence!`);
+      
+      // Scroll to results
+      output.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
   </script>
 </body>
