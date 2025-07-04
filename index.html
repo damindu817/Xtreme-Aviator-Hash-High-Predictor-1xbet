@@ -3,9 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>XTREME AVIATOR SHA512 HASH ULTRA PREDICTOR LITE</title>
+  <title>XTREME AVIATOR SHA512 HASH PREDICTOR LITE</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    /* Disable text selection */
+    body {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+    
+    /* Allow selection only in input fields */
+    input, textarea {
+      -webkit-user-select: text;
+      -moz-user-select: text;
+      -ms-user-select: text;
+      user-select: text;
+    }
+
     :root {
       --primary: #3a86ff;
       --primary-dark: #2667cc;
@@ -18,8 +34,8 @@
       --dark-3: #1e2538;
       --light-1: #f8f9fa;
       --light-2: #e9ecef;
-      --accent: #3a86ff;
-      --extreme: #ff00ff;
+      --blue-theme: #3498db;
+      --purple-theme: #9b59b6;
     }
     
     * {
@@ -53,7 +69,7 @@
     }
     
     .header {
-      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      background: linear-gradient(90deg, var(--blue-theme), var(--purple-theme));
       padding: 20px;
       text-align: center;
     }
@@ -104,15 +120,11 @@
       color: var(--light-1);
       font-size: 1rem;
       transition: all 0.3s ease;
-      -webkit-user-select: text;
-      -moz-user-select: text;
-      -ms-user-select: text;
-      user-select: text;
     }
     
     #hashInput:focus {
       outline: none;
-      border-color: var(--primary);
+      border-color: var(--blue-theme);
       box-shadow: 0 0 0 3px rgba(58, 134, 255, 0.2);
     }
     
@@ -124,8 +136,8 @@
     }
     
     .paste-btn {
-      background: rgba(58, 134, 255, 0.2);
-      color: var(--primary);
+      background: rgba(52, 152, 219, 0.2);
+      color: var(--blue-theme);
       border: none;
       border-radius: 8px;
       padding: 10px 15px;
@@ -140,7 +152,7 @@
     }
     
     .paste-btn:hover {
-      background: rgba(58, 134, 255, 0.3);
+      background: rgba(52, 152, 219, 0.3);
     }
     
     .clear-btn {
@@ -192,8 +204,8 @@
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     }
     
-    .odd-btn:nth-child(1) { border-top: 3px solid var(--success); }
-    .odd-btn:nth-child(2) { border-top: 3px solid var(--warning); }
+    .odd-btn:nth-child(1) { border-top: 3px solid var(--blue-theme); }
+    .odd-btn:nth-child(2) { border-top: 3px solid var(--purple-theme); }
     
     .odd-btn span:first-child {
       font-size: 1.2rem;
@@ -216,15 +228,15 @@
       transition: width 0.5s ease;
     }
     
-    #confidence-2 { background: var(--success); }
-    #confidence-3 { background: var(--warning); }
+    #confidence-1_5 { background: var(--blue-theme); }
+    #confidence-2 { background: var(--purple-theme); }
     
     .results {
       background: var(--dark-3);
       border-radius: 10px;
       padding: 20px;
       margin-top: 20px;
-      border-left: 4px solid var(--primary);
+      border-left: 4px solid var(--blue-theme);
     }
     
     .result-item {
@@ -248,11 +260,11 @@
     }
     
     .countdown {
-      background: rgba(6, 214, 160, 0.1);
-      border-left: 4px solid var(--success);
+      background: rgba(52, 152, 219, 0.1);
+      border-left: 4px solid var(--blue-theme);
       padding: 15px;
       border-radius: 8px;
-      margin: 15px 0;
+      margin: 20px 0;
       text-align: center;
       font-weight: 600;
       font-size: 1.1rem;
@@ -269,32 +281,6 @@
       border-left: 4px solid var(--danger);
     }
     
-    .copy-result-btn {
-      background: rgba(58, 134, 255, 0.2);
-      color: var(--primary);
-      border: none;
-      border-radius: 8px;
-      padding: 10px 15px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      margin-top: 15px;
-      width: 100%;
-    }
-    
-    .copy-result-btn:hover {
-      background: rgba(58, 134, 255, 0.3);
-    }
-    
-    .copy-result-btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-    
     .footer {
       text-align: center;
       padding: 15px;
@@ -304,182 +290,194 @@
       border-top: 1px solid rgba(255, 255, 255, 0.05);
     }
     
+    @media (max-width: 480px) {
+      .header h1 {
+        font-size: 1.3rem;
+      }
+      
+      .header p {
+        font-size: 0.8rem;
+      }
+      
+      .odd-buttons {
+        grid-template-columns: 1fr;
+      }
+    }
+
     /* Animation for active signal */
     @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(6, 214, 160, 0.4); }
-      70% { box-shadow: 0 0 0 10px rgba(6, 214, 160, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(6, 214, 160, 0); }
+      0% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.4); }
+      70% { box-shadow: 0 0 0 10px rgba(52, 152, 219, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0); }
     }
     
     .active-signal {
       animation: pulse 2s infinite;
     }
 
-    /* Custom Dialog Styles */
-    .dialog-overlay {
+    /* Tips Badge - Positioned ABOVE disclaimer with PRO version spacing */
+    .tips-badge {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.7);
+      bottom: 140px; /* 115px above disclaimer badge */
+      right: 25px;
+      background: linear-gradient(145deg, rgba(255, 190, 11, 0.3), rgba(255, 190, 11, 0.4));
+      color: var(--warning);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
       display: flex;
-      justify-content: center;
       align-items: center;
-      z-index: 1000;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 9997;
+      box-shadow: 0 5px 20px rgba(255, 190, 11, 0.3);
+      transition: all 0.3s ease;
+      font-size: 1.2rem;
+      animation: pulseWarning 2s infinite;
     }
-
-    .dialog-overlay.active {
+    
+    @keyframes pulseWarning {
+      0% { box-shadow: 0 0 0 0 rgba(255, 190, 11, 0.4); }
+      70% { box-shadow: 0 0 0 15px rgba(255, 190, 11, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 190, 11, 0); }
+    }
+    
+    .tips-badge:hover {
+      background: linear-gradient(145deg, rgba(255, 190, 11, 0.4), rgba(255, 190, 11, 0.5));
+      transform: scale(1.1);
+      animation: pulseWarningHover 1.5s infinite;
+    }
+    
+    @keyframes pulseWarningHover {
+      0% { box-shadow: 0 0 0 0 rgba(255, 190, 11, 0.6), 
+                    0 0 0 10px rgba(255, 190, 11, 0.4),
+                    0 0 0 20px rgba(255, 190, 11, 0.2); }
+      100% { box-shadow: 0 0 0 10px rgba(255, 190, 11, 0), 
+                      0 0 0 20px rgba(255, 190, 11, 0),
+                      0 0 0 30px rgba(255, 190, 11, 0); }
+    }
+    
+    /* Tips Popup */
+    .tips-popup {
+      position: fixed;
+      bottom: 200px; /* Above tips badge */
+      right: 25px;
+      width: 300px;
+      max-width: 90%;
+      background: var(--dark-2);
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      border-left: 4px solid var(--warning);
+      transform: translateY(20px);
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 9996;
+      pointer-events: none;
+    }
+    
+    .tips-popup.show {
+      transform: translateY(0);
       opacity: 1;
       pointer-events: all;
     }
-
-    .dialog-box {
-      background: var(--dark-2);
-      border-radius: 10px;
-      padding: 20px;
-      width: 90%;
-      max-width: 400px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-      transform: translateY(20px);
-      transition: transform 0.3s ease;
-    }
-
-    .dialog-overlay.active .dialog-box {
-      transform: translateY(0);
-    }
-
-    .dialog-title {
-      font-size: 1.2rem;
-      margin-bottom: 15px;
-      color: var(--light-1);
+    
+    .tips-popup h4 {
+      color: var(--warning);
+      margin-bottom: 10px;
+      font-size: 1rem;
       display: flex;
       align-items: center;
-      gap: 10px;
-    }
-
-    .dialog-message {
-      margin-bottom: 20px;
-      color: var(--light-2);
-      line-height: 1.5;
-    }
-
-    .dialog-buttons {
-      display: flex;
-      justify-content: flex-end;
-      gap: 10px;
-    }
-
-    .dialog-btn {
-      padding: 8px 15px;
-      border-radius: 5px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .dialog-btn-cancel {
-      background: var(--dark-3);
-      color: var(--light-1);
-      border: 1px solid var(--dark-3);
-    }
-
-    .dialog-btn-cancel:hover {
-      background: var(--dark-1);
-    }
-
-    .dialog-btn-confirm {
-      background: var(--danger);
-      color: white;
-      border: 1px solid var(--danger);
-    }
-
-    .dialog-btn-confirm:hover {
-      background: #e00064;
-    }
-
-    .dialog-icon {
-      font-size: 1.5rem;
-      color: var(--danger);
+      gap: 8px;
     }
     
-    /* Loading spinner */
-    .spinner {
-      width: 20px;
-      height: 20px;
-      border: 3px solid rgba(255, 255, 255, 0.3);
-      border-radius: 50%;
-      border-top-color: var(--primary);
-      animation: spin 1s ease-in-out infinite;
-      display: inline-block;
-    }
-    
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-    
-    /* Tooltip */
-    .tooltip {
-      position: relative;
-      display: inline-block;
-    }
-    
-    .tooltip .tooltiptext {
-      visibility: hidden;
-      width: 200px;
-      background-color: var(--dark-1);
-      color: var(--light-1);
-      text-align: center;
-      border-radius: 6px;
-      padding: 8px;
-      position: absolute;
-      z-index: 1;
-      bottom: 125%;
-      left: 50%;
-      transform: translateX(-50%);
-      opacity: 0;
-      transition: opacity 0.3s;
+    .tips-popup p {
       font-size: 0.8rem;
-      border: 1px solid var(--dark-3);
+      line-height: 1.4;
+      color: var(--light-2);
+      margin-bottom: 10px;
     }
     
-    .tooltip:hover .tooltiptext {
-      visibility: visible;
-      opacity: 1;
+    .tips-popup ul {
+      padding-left: 20px;
+      margin-bottom: 10px;
+    }
+    
+    .tips-popup li {
+      margin-bottom: 5px;
+      font-size: 0.8rem;
+    }
+    
+    .tips-popup a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.8rem;
+      display: inline-block;
+      margin-top: 5px;
+    }
+    
+    .tips-popup a:hover {
+      text-decoration: underline;
     }
 
-    /* Disclaimer badge */
+    /* Disclaimer Badge - Positioned at BOTTOM with PRO version link functionality */
     .disclaimer-badge {
       position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: rgba(255, 0, 110, 0.2);
+      bottom: 25px;
+      right: 25px;
+      background: linear-gradient(145deg, rgba(255, 0, 110, 0.3), rgba(255, 0, 110, 0.4));
       color: var(--danger);
       border-radius: 50%;
-      width: 40px;
-      height: 40px;
+      width: 50px;
+      height: 50px;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       z-index: 9999;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 5px 20px rgba(255, 0, 110, 0.3);
       transition: all 0.3s ease;
+      font-size: 1.2rem;
+      animation: pulseDanger 2s infinite;
+    }
+
+    @keyframes pulseDanger {
+      0% {
+        box-shadow: 0 0 0 0 rgba(255, 0, 110, 0.4);
+      }
+      70% {
+        box-shadow: 0 0 0 15px rgba(255, 0, 110, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(255, 0, 110, 0);
+      }
     }
 
     .disclaimer-badge:hover {
-      background: rgba(255, 0, 110, 0.3);
+      background: linear-gradient(145deg, rgba(255, 0, 110, 0.4), rgba(255, 0, 110, 0.5));
       transform: scale(1.1);
+      animation: pulseDangerHover 1.5s infinite;
+    }
+
+    @keyframes pulseDangerHover {
+      0% {
+        box-shadow: 0 0 0 0 rgba(255, 0, 110, 0.6), 
+                    0 0 0 10px rgba(255, 0, 110, 0.4),
+                    0 0 0 20px rgba(255, 0, 110, 0.2);
+      }
+      100% {
+        box-shadow: 0 0 0 10px rgba(255, 0, 110, 0), 
+                    0 0 0 20px rgba(255, 0, 110, 0),
+                    0 0 0 30px rgba(255, 0, 110, 0);
+      }
     }
 
     /* Disclaimer popup */
     .disclaimer-popup {
       position: fixed;
-      bottom: 70px;
-      right: 20px;
+      bottom: 85px; /* Above disclaimer badge */
+      right: 25px;
       width: 300px;
       max-width: 90%;
       background: var(--dark-2);
@@ -523,28 +521,28 @@
       text-decoration: underline;
     }
 
-    @media (max-width: 768px) {
-      .header h1 {
-        font-size: 1.3rem;
-      }
-      
-      .header p {
-        font-size: 0.8rem;
-      }
-      
-      .odd-buttons {
-        grid-template-columns: 1fr;
-      }
-    }
-    
+    /* Responsive adjustments */
     @media (max-width: 480px) {
-      .header h1 {
-        font-size: 1.2rem;
-        padding-top: 10px;
+      .tips-badge {
+        bottom: 140px;
+        right: 15px;
       }
       
-      .content {
-        padding: 15px;
+      .disclaimer-badge {
+        bottom: 25px;
+        right: 15px;
+      }
+      
+      .tips-popup {
+        bottom: 200px;
+        right: 15px;
+        width: calc(100% - 30px);
+      }
+      
+      .disclaimer-popup {
+        bottom: 85px;
+        right: 15px;
+        width: calc(100% - 30px);
       }
     }
   </style>
@@ -553,7 +551,7 @@
   <div class="main-container">
     <div class="header">
       <h1>XTREME AVIATOR SHA512 HASH PREDICTOR LITE</h1>
-      <p>Basic AI-powered prediction for 2× and 3× multipliers</p>
+      <p>Basic AI-powered prediction for 1.5× and 2× multipliers</p>
     </div>
     
     <div class="datetime">
@@ -563,7 +561,7 @@
     
     <div class="content">
       <div class="input-group">
-        <label for="hashInput">Enter SHA512 Hash <span class="tooltip"><i class="fas fa-info-circle"></i><span class="tooltiptext">Must be 128-character hexadecimal string (0-9, a-f)</span></span></label>
+        <label for="hashInput">Enter SHA512 Hash</label>
         <input type="text" id="hashInput" placeholder="Paste your hash here..." autocomplete="off" autocorrect="off" spellcheck="false">
         <div class="input-actions">
           <button class="paste-btn" id="pasteHashInput">
@@ -576,15 +574,15 @@
       </div>
       
       <div class="odd-buttons">
+        <button class="odd-btn" onclick="predict('1.5')" id="odd-1_5">
+          <span>1.5x</span>
+          <span>Safe Bet</span>
+          <div class="confidence-bar" id="confidence-1_5" style="width: 0%"></div>
+        </button>
         <button class="odd-btn" onclick="predict('2')" id="odd-2">
           <span>2x</span>
-          <span>Low Risk</span>
-          <div class="confidence-bar" id="confidence-2" style="width: 0%"></div>
-        </button>
-        <button class="odd-btn" onclick="predict('3')" id="odd-3">
-          <span>3x</span>
           <span>Balanced</span>
-          <div class="confidence-bar" id="confidence-3" style="width: 0%"></div>
+          <div class="confidence-bar" id="confidence-2" style="width: 0%"></div>
         </button>
       </div>
       
@@ -606,16 +604,9 @@
           <span class="value" id="result-confidence">-</span>
         </div>
         <div class="result-item">
-          <span class="label">Estimated Delay:</span>
-          <span class="value" id="result-delay">-</span>
-        </div>
-        <div class="result-item">
-          <span class="label">Next Signal Time:</span>
+          <span class="label">Signal Time:</span>
           <span class="value" id="result-time">-</span>
         </div>
-        <button class="copy-result-btn" id="copyResultBtn" onclick="copyResultToClipboard(event)" disabled>
-          <i class="fas fa-copy"></i> Copy Signal
-        </button>
       </div>
       
       <div class="countdown" id="countdown">No active signals. Create a new prediction.</div>
@@ -626,61 +617,47 @@
     </div>
   </div>
 
-  <!-- Disclaimer Badge -->
-  <div class="disclaimer-badge" id="disclaimerBadge">
+  <!-- Tips Badge (Positioned ABOVE disclaimer with PRO version spacing) -->
+  <div class="tips-badge" id="tipsBadge">
+    <i class="fas fa-lightbulb"></i>
+  </div>
+
+  <!-- Disclaimer Badge (Positioned at BOTTOM with link functionality) -->
+  <div class="disclaimer-badge" id="disclaimerBadge" onclick="window.open('https://damindu817.github.io/DISCLAIMER-/','_blank')">
     <i class="fas fa-exclamation-triangle"></i>
+  </div>
+
+  <!-- Tips Popup -->
+  <div class="tips-popup" id="tipsPopup">
+    <h4><i class="fas fa-lightbulb"></i> TIPS & TRICKS</h4>
+    <p>Here are some expert tips to improve your predictions:</p>
+    <ul>
+      <li>Use signals with confidence above 70%</li>
+      <li>Start with small bets to test the system</li>
+      <li>Combine multiple signals for better accuracy</li>
+      <li>Set auto-cashout slightly below target</li>
+    </ul>
+    <a href="https://damindu817.github.io/Aviator-Sha512-Hash-Professional-Strategy-Guide/" target="_blank">Click here to view the full winning guide</a>
   </div>
 
   <!-- Disclaimer Popup -->
   <div class="disclaimer-popup" id="disclaimerPopup">
     <h4>DISCLAIMER!</h4>
     <p>This tool provides analytical insights based on patterns and probability. Predictions are not guaranteed. Gambling involves risk. Only play with money you can afford to lose.</p>
-    <a href="https://damindu817.github.io/DISCLAIMER-/" target="_blank">Click icon for guide & creator contact</a>
+    <a href="https://damindu817.github.io/DISCLAIMER-/" target="_blank">Click here for guide & creator contact</a>
   </div>
 
-  <!-- Custom Dialogs -->
-  <div class="dialog-overlay" id="errorDialog">
-    <div class="dialog-box">
-      <div class="dialog-title">
-        <i class="fas fa-exclamation-circle dialog-icon"></i>
-        <span>Invalid Input</span>
-      </div>
-      <div class="dialog-message" id="errorMessage">Invalid SHA512 hash. Must be exactly 128 hexadecimal characters.</div>
-      <div class="dialog-buttons">
-        <button class="dialog-btn dialog-btn-confirm" onclick="hideErrorDialog()">OK</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="dialog-overlay" id="successDialog">
-    <div class="dialog-box">
-      <div class="dialog-title">
-        <i class="fas fa-check-circle dialog-icon" style="color: var(--success);"></i>
-        <span>Signal Generated</span>
-      </div>
-      <div class="dialog-message" id="successMessage">Prediction signal created successfully!</div>
-      <div class="dialog-buttons">
-        <button class="dialog-btn dialog-btn-confirm" onclick="hideSuccessDialog()" style="background: var(--success);">OK</button>
-      </div>
-    </div>
-  </div>
-
-  <textarea id="copyTemplate" style="position: absolute; left: -9999px;"></textarea>
-
-  <script src="hashLogic.js"></script>
   <script>
     // Global variables
     let activeSignals = [];
     let currentCountdown = null;
-    let serverTimeOffset = 0;
     let lastHash = '';
-    let selectedOdd = null;
+    let tipsPopupShown = false;
     let disclaimerShown = false;
     
     // Initialize on load
     window.onload = function() {
       updateDateTime();
-      syncServerTime(); // Runs in background
       
       // Auto-focus input field
       document.getElementById("hashInput").focus();
@@ -691,44 +668,65 @@
         if (hash.length === 128 && /^[a-f0-9]+$/.test(hash)) {
           lastHash = hash;
           preAnalyzeHash(hash);
-          // Don't enable copy button here - wait for odd selection
-        } else {
-          document.getElementById("copyResultBtn").disabled = true;
         }
       });
       
-      // Initialize disclaimer badge
-      const disclaimerBadge = document.getElementById("disclaimerBadge");
-      disclaimerBadge.addEventListener('click', function(e) {
+      // Initialize tips badge
+      const tipsBadge = document.getElementById("tipsBadge");
+      const tipsPopup = document.getElementById("tipsPopup");
+      
+      tipsBadge.addEventListener('click', function(e) {
         e.preventDefault();
-        window.open('https://damindu817.github.io/DISCLAIMER-/', '_blank');
+        e.stopPropagation();
+        tipsPopup.classList.toggle("show");
+        
+        // Hide disclaimer popup if showing
+        document.getElementById("disclaimerPopup").classList.remove("show");
+      });
+      
+      // Initialize disclaimer badge (only for popup, link is handled via HTML)
+      const disclaimerBadge = document.getElementById("disclaimerBadge");
+      const disclaimerPopup = document.getElementById("disclaimerPopup");
+      
+      // Only show popup if not opening link
+      disclaimerBadge.addEventListener('click', function(e) {
+        // Only prevent default if clicking the icon directly (not the link)
+        if (e.target.classList.contains('fa-exclamation-triangle')) {
+          e.preventDefault();
+          e.stopPropagation();
+          disclaimerPopup.classList.toggle("show");
+          
+          // Hide tips popup if showing
+          document.getElementById("tipsPopup").classList.remove("show");
+        }
+      });
+      
+      // Close popups when clicking elsewhere
+      document.addEventListener('click', function(e) {
+        if (!tipsBadge.contains(e.target) && !tipsPopup.contains(e.target)) {
+          tipsPopup.classList.remove("show");
+        }
+        
+        if (!disclaimerBadge.contains(e.target) && !disclaimerPopup.contains(e.target)) {
+          disclaimerPopup.classList.remove("show");
+        }
       });
       
       // Show disclaimer popup after 5 seconds if not shown before
       if (!sessionStorage.getItem('disclaimerShown')) {
         setTimeout(() => {
-          showDisclaimer();
-          setTimeout(hideDisclaimer, 8000);
+          document.getElementById("disclaimerPopup").classList.add("show");
+          setTimeout(() => {
+            document.getElementById("disclaimerPopup").classList.remove("show");
+          }, 8000);
           sessionStorage.setItem('disclaimerShown', 'true');
         }, 5000);
       }
-    };
-    
-    // Show disclaimer popup
-    function showDisclaimer() {
-      const popup = document.getElementById("disclaimerPopup");
-      popup.classList.add("show");
     }
     
-    // Hide disclaimer popup
-    function hideDisclaimer() {
-      const popup = document.getElementById("disclaimerPopup");
-      popup.classList.remove("show");
-    }
-    
-    // Update current date and time with server sync
+    // Update current date and time
     function updateDateTime() {
-      const now = new Date(Date.now() + serverTimeOffset);
+      const now = new Date();
       document.getElementById("current-date").textContent = now.toLocaleDateString('en-US', { 
         weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' 
       });
@@ -738,39 +736,65 @@
     
     setInterval(updateDateTime, 1000);
     
-    // Sync with server time for maximum accuracy (runs in background)
-    async function syncServerTime() {
-      try {
-        const start = Date.now();
-        const response = await fetch('https://worldtimeapi.org/api/ip');
-        const data = await response.json();
-        const serverTime = new Date(data.utc_datetime).getTime();
-        const end = Date.now();
-        const rtt = end - start;
-        
-        // Calculate offset accounting for network latency
-        serverTimeOffset = serverTime - end + (rtt / 2);
-        
-        console.log(`Time synced successfully (${rtt}ms latency)`);
-        
-        // Recheck any active signals with corrected time
-        checkNextSignal();
-      } catch (e) {
-        console.error("Time sync failed, using local time:", e);
-      }
+    // Core algorithms
+    function calcEntropy(hash) {
+      const freq = {};
+      for (let c of hash) freq[c] = (freq[c] || 0) + 1;
+      return Object.values(freq).reduce((acc, f) => {
+        const p = f / hash.length;
+        return acc - p * Math.log2(p);
+      }, 0);
+    }
+    
+    function scoreFromHash(hash) {
+      const indexes = [5, 15, 25, 35, 50, 75, 100, 120];
+      return indexes.reduce((sum, i) => sum + parseInt(hash[i], 16), 0);
+    }
+    
+    function calculateConfidence(entropy, score, oddTarget, hash) {
+      let confidence = 50;
+      
+      // Entropy scoring
+      if (entropy > 4.2) confidence += 10;
+      if (entropy > 4.5) confidence += 15;
+      
+      // Pattern recognition
+      if (score % 7 === 0) confidence += 8;
+      if (score % 5 === 0) confidence += 5;
+      if (/(\w)\1{2,}/.test(hash)) confidence += 15;
+      
+      // Odd-specific adjustments
+      if (oddTarget === '1.5') confidence += 15;
+      if (oddTarget === '2') confidence += 10;
+      
+      // Tail pattern detection
+      const tail = hash.slice(-4);
+      if (/^(aaaa|ffff|0000|1111)$/.test(tail)) confidence += 10;
+      
+      return Math.min(98, Math.max(5, Math.round(confidence)));
+    }
+    
+    function calculateDelay(score, entropy, oddTarget) {
+      let base = parseInt(oddTarget) * 45;
+      
+      if (entropy > 4.3) base += 20;
+      if (score % 7 === 0) base += 30;
+      if (score % 5 === 0) base += 15;
+      
+      return Math.max(45, base);
     }
     
     // Pre-analyze hash to show confidence levels
     function preAnalyzeHash(hash) {
       if (!hash || hash.length !== 128 || !/^[a-f0-9]+$/.test(hash)) return;
       
-      const entropy = hashLogic.calcEntropy(hash);
-      const score = hashLogic.scoreFromHash(hash);
+      const entropy = calcEntropy(hash);
+      const score = scoreFromHash(hash);
       
       // Update confidence bars for each odd
-      [2, 3].forEach(odd => {
-        const confidence = hashLogic.calculateConfidence(entropy, score, odd.toString(), hash);
-        document.getElementById(`confidence-${odd}`).style.width = `${confidence}%`;
+      ['1.5', '2'].forEach(odd => {
+        const confidence = calculateConfidence(entropy, score, odd, hash);
+        document.getElementById(`confidence-${odd.replace('.', '_')}`).style.width = `${confidence}%`;
       });
     }
     
@@ -782,12 +806,8 @@
         lastHash = text.trim();
         if (lastHash.length === 128 && /^[a-f0-9]+$/.test(lastHash)) {
           preAnalyzeHash(lastHash);
-          // Don't enable copy button here - wait for odd selection
-        } else {
-          document.getElementById("copyResultBtn").disabled = true;
         }
       } catch (err) {
-        showErrorDialog("Failed to read from clipboard. Please paste manually.");
         console.error("Failed to read clipboard contents: ", err);
       }
     });
@@ -796,12 +816,10 @@
     document.getElementById("clearHashInput").addEventListener('click', function() {
       document.getElementById("hashInput").value = '';
       lastHash = '';
-      document.getElementById("copyResultBtn").disabled = true;
-      selectedOdd = null;
       
       // Reset confidence bars
-      [2, 3].forEach(odd => {
-        document.getElementById(`confidence-${odd}`).style.width = '0%';
+      ['1.5', '2'].forEach(odd => {
+        document.getElementById(`confidence-${odd.replace('.', '_')}`).style.width = '0%';
       });
       
       // Reset results display
@@ -809,7 +827,6 @@
       document.getElementById("result-entropy").textContent = "-";
       document.getElementById("result-score").textContent = "-";
       document.getElementById("result-confidence").textContent = "-";
-      document.getElementById("result-delay").textContent = "-";
       document.getElementById("result-time").textContent = "-";
     });
     
@@ -824,17 +841,13 @@
       activeSignals.push({ id: signalId, time: targetTime, odd });
       
       currentCountdown = setInterval(() => {
-        const now = new Date(Date.now() + serverTimeOffset);
+        const now = new Date();
         const diff = Math.floor((targetTime - now) / 1000);
         
         if (diff <= 0) {
           clearInterval(currentCountdown);
           document.getElementById("countdown").textContent = `Signal for ${odd}x reached! Place your bet now!`;
-          document.getElementById("countdown").className = "countdown";
-          removeSignal(signalId);
-          
-          // Check for next signal after this one completes
-          setTimeout(checkNextSignal, 1000);
+          document.getElementById("countdown").className = "countdown danger";
         } else {
           const min = Math.floor(diff / 60);
           const sec = diff % 60;
@@ -852,119 +865,21 @@
       }, 1000);
     }
     
-    function checkNextSignal() {
-      const now = new Date(Date.now() + serverTimeOffset);
-      
-      // Find the next upcoming signal that hasn't passed yet
-      const upcomingSignals = activeSignals.filter(signal => {
-        return signal.time > now;
-      }).sort((a, b) => a.time - b.time);
-      
-      if (upcomingSignals.length > 0) {
-        const nextSignal = upcomingSignals[0];
-        updateCountdown(nextSignal.time, nextSignal.odd);
-      } else {
-        document.getElementById("countdown").textContent = "No active signals. Create a new prediction.";
-        document.getElementById("countdown").className = "countdown warning";
-      }
-    }
-    
-    function removeSignal(id) {
-      activeSignals = activeSignals.filter(signal => signal.id !== id);
-    }
-    
-    // Generate WhatsApp message template
-    function generateWhatsAppTemplate(odd, timeStr, confidence) {
-      let riskText = "";
-      if (odd === "2") {
-        riskText = " (Low Risk)";
-      } else if (odd === "3") {
-        riskText = " (Balanced)";
-      }
-      
-      return `Xtreme Aviator Predictor - 1xBet\n\nTime: ${timeStr}\nOdd: ${odd}×${riskText}\nConfidence: ${confidence}%\n\nThis signal is generated using the XTREME AVIATOR SHA512 HASH ULTRA PREDICTOR LITE tool.`;
-    }
-    
-    // Generate result copy template
-    function generateResultCopyTemplate() {
-      const odd = document.getElementById("result-odd").textContent;
-      const time = document.getElementById("result-time").textContent;
-      const confidence = document.getElementById("result-confidence").textContent;
-      
-      if (odd === "2x") {
-        return `Xtreme Aviator Predictor - 1xBet\n\nTime: ${time}\nOdd: ${odd} (Low Risk)\nConfidence: ${confidence}\n\nThis signal is generated using the XTREME AVIATOR SHA512 HASH ULTRA PREDICTOR LITE tool.`;
-      } else {
-        return `Xtreme Aviator Predictor - 1xBet\n\nTime: ${time}\nOdd: ${odd} (Balanced)\nConfidence: ${confidence}\n\nThis signal is generated using the XTREME AVIATOR SHA512 HASH ULTRA PREDICTOR LITE tool.`;
-      }
-    }
-    
-    // Copy to clipboard function
-    function copyToClipboard(text) {
-      const textarea = document.getElementById("copyTemplate");
-      textarea.value = text;
-      textarea.select();
-      document.execCommand("copy");
-      
-      // Show feedback
-      const originalText = document.activeElement.innerHTML;
-      document.activeElement.innerHTML = '<i class="fas fa-check"></i> Copied!';
-      setTimeout(() => {
-        document.activeElement.innerHTML = originalText;
-      }, 2000);
-    }
-    
-    function copyResultToClipboard(e) {
-      e.preventDefault();
-      const hash = document.getElementById("hashInput").value.trim();
-      if (!hash || hash.length !== 128 || !/^[a-f0-9]+$/.test(hash)) {
-        showErrorDialog("Please enter a valid SHA512 hash first.");
-        return;
-      }
-      
-      if (!selectedOdd) {
-        showErrorDialog("Please select an odd first.");
-        return;
-      }
-      
-      const template = generateResultCopyTemplate();
-      copyToClipboard(template);
-    }
-    
-    // Dialog functions
-    function showErrorDialog(message) {
-      document.getElementById("errorMessage").textContent = message;
-      document.getElementById("errorDialog").classList.add("active");
-    }
-    
-    function hideErrorDialog() {
-      document.getElementById("errorDialog").classList.remove("active");
-    }
-    
-    function showSuccessDialog(message) {
-      document.getElementById("successMessage").textContent = message;
-      document.getElementById("successDialog").classList.add("active");
-    }
-    
-    function hideSuccessDialog() {
-      document.getElementById("successDialog").classList.remove("active");
-    }
-    
     // Main prediction function
     function predict(oddStr) {
       const hash = document.getElementById("hashInput").value.trim().toLowerCase();
       const output = document.getElementById("output");
       
       if (!hash || hash.length !== 128 || !/^[a-f0-9]+$/.test(hash)) {
-        showErrorDialog("Invalid SHA512 hash. Must be exactly 128 hexadecimal characters (0-9, a-f).");
+        alert("Invalid SHA512 hash. Must be exactly 128 hexadecimal characters (0-9, a-f).");
         return;
       }
       
-      selectedOdd = oddStr;
-      const entropy = hashLogic.calcEntropy(hash);
-      const score = hashLogic.scoreFromHash(hash);
-      const confidence = hashLogic.calculateConfidence(entropy, score, oddStr, hash);
-      const delay = hashLogic.calculateDelay(score, entropy, oddStr, hash);
-      const future = new Date(Date.now() + serverTimeOffset + delay * 1000);
+      const entropy = calcEntropy(hash);
+      const score = scoreFromHash(hash);
+      const confidence = calculateConfidence(entropy, score, oddStr, hash);
+      const delay = calculateDelay(score, entropy, oddStr);
+      const future = new Date(Date.now() + delay * 1000);
       const timeStr = future.toLocaleTimeString();
       
       // Update results display
@@ -972,18 +887,24 @@
       document.getElementById("result-entropy").textContent = entropy.toFixed(3);
       document.getElementById("result-score").textContent = score;
       document.getElementById("result-confidence").textContent = `${confidence}%`;
-      document.getElementById("result-delay").textContent = `${delay} seconds`;
       document.getElementById("result-time").textContent = timeStr;
-      
-      // Enable copy button only after odd is selected
-      document.getElementById("copyResultBtn").disabled = false;
       
       output.style.display = 'block';
       updateCountdown(future, oddStr);
-      showSuccessDialog(`Signal for ${oddStr}x generated with ${confidence}% confidence!`);
       
       // Scroll to results
       output.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      
+      // Show tips popup after first prediction
+      if (!tipsPopupShown) {
+        setTimeout(() => {
+          document.getElementById("tipsPopup").classList.add("show");
+          tipsPopupShown = true;
+          setTimeout(() => {
+            document.getElementById("tipsPopup").classList.remove("show");
+          }, 8000);
+        }, 2000);
+      }
     }
   </script>
 </body>
