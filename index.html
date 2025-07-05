@@ -34,9 +34,9 @@
       --dark-3: #1e2538;
       --light-1: #f8f9fa;
       --light-2: #e9ecef;
-      --blue-theme: #3498db;
-      --purple-theme: #9b59b6;
       --accent: #3a86ff;
+      --safe-blue: #3a86ff;
+      --low-risk-purple: #8338ec;
     }
     
     * {
@@ -60,7 +60,7 @@
     
     .main-container {
       width: 100%;
-      max-width: 600px;
+      max-width: 500px;
       background: var(--dark-2);
       border-radius: 16px;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
@@ -70,14 +70,14 @@
     }
     
     .header {
-      background: linear-gradient(90deg, var(--blue-theme), var(--purple-theme));
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
       padding: 20px;
       text-align: center;
     }
     
     .header h1 {
       font-weight: 600;
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       margin-bottom: 5px;
       line-height: 1.3;
     }
@@ -125,7 +125,7 @@
     
     #hashInput:focus {
       outline: none;
-      border-color: var(--blue-theme);
+      border-color: var(--primary);
       box-shadow: 0 0 0 3px rgba(58, 134, 255, 0.2);
     }
     
@@ -137,8 +137,8 @@
     }
     
     .paste-btn {
-      background: rgba(52, 152, 219, 0.2);
-      color: var(--blue-theme);
+      background: rgba(58, 134, 255, 0.2);
+      color: var(--primary);
       border: none;
       border-radius: 8px;
       padding: 10px 15px;
@@ -153,7 +153,7 @@
     }
     
     .paste-btn:hover {
-      background: rgba(52, 152, 219, 0.3);
+      background: rgba(58, 134, 255, 0.3);
     }
     
     .clear-btn {
@@ -178,9 +178,9 @@
     
     .odd-buttons {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: 1fr 1fr;
       gap: 12px;
-      margin: 20px 0;
+      margin: 25px 0;
     }
     
     .odd-btn {
@@ -205,8 +205,13 @@
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     }
     
-    .odd-btn:nth-child(1) { border-top: 3px solid var(--blue-theme); }
-    .odd-btn:nth-child(2) { border-top: 3px solid var(--purple-theme); }
+    #odd-1_5 {
+      border-top: 3px solid var(--safe-blue);
+    }
+    
+    #odd-2 {
+      border-top: 3px solid var(--low-risk-purple);
+    }
     
     .odd-btn span:first-child {
       font-size: 1.2rem;
@@ -229,15 +234,20 @@
       transition: width 0.5s ease;
     }
     
-    #confidence-1_5 { background: var(--blue-theme); }
-    #confidence-2 { background: var(--purple-theme); }
+    #confidence-1_5 {
+      background: var(--safe-blue);
+    }
+    
+    #confidence-2 {
+      background: var(--low-risk-purple);
+    }
     
     .results {
       background: var(--dark-3);
       border-radius: 10px;
       padding: 20px;
-      margin-top: 20px;
-      border-left: 4px solid var(--blue-theme);
+      margin-top: 25px;
+      border-left: 4px solid var(--primary);
     }
     
     .result-item {
@@ -261,8 +271,8 @@
     }
     
     .countdown {
-      background: rgba(52, 152, 219, 0.1);
-      border-left: 4px solid var(--blue-theme);
+      background: rgba(6, 214, 160, 0.1);
+      border-left: 4px solid var(--success);
       padding: 15px;
       border-radius: 8px;
       margin: 20px 0;
@@ -272,14 +282,30 @@
       transition: all 0.3s ease;
     }
     
-    .countdown.warning {
-      background: rgba(255, 190, 11, 0.1);
-      border-left: 4px solid var(--warning);
+    .copy-result-btn {
+      background: rgba(58, 134, 255, 0.2);
+      color: var(--primary);
+      border: none;
+      border-radius: 8px;
+      padding: 10px 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 15px;
+      width: 100%;
     }
     
-    .countdown.danger {
-      background: rgba(255, 0, 110, 0.1);
-      border-left: 4px solid var(--danger);
+    .copy-result-btn:hover {
+      background: rgba(58, 134, 255, 0.3);
+    }
+    
+    .copy-result-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
     }
     
     .footer {
@@ -291,221 +317,34 @@
       border-top: 1px solid rgba(255, 255, 255, 0.05);
     }
     
-    /* Animation for active signal */
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.4); }
-      70% { box-shadow: 0 0 0 10px rgba(52, 152, 219, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0); }
-    }
-    
-    .active-signal {
-      animation: pulse 2s infinite;
-    }
-
-    /* Tips Badge */
-    .tips-badge {
-      position: fixed;
-      bottom: 140px;
-      right: 25px;
-      background: linear-gradient(145deg, rgba(255, 190, 11, 0.3), rgba(255, 190, 11, 0.4));
-      color: var(--warning);
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      z-index: 9997;
-      box-shadow: 0 5px 20px rgba(255, 190, 11, 0.3);
-      transition: all 0.3s ease;
-      font-size: 1.2rem;
-      animation: pulseWarning 2s infinite;
-    }
-    
-    @keyframes pulseWarning {
-      0% { box-shadow: 0 0 0 0 rgba(255, 190, 11, 0.4); }
-      70% { box-shadow: 0 0 0 15px rgba(255, 190, 11, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(255, 190, 11, 0); }
-    }
-    
-    .tips-badge:hover {
-      background: linear-gradient(145deg, rgba(255, 190, 11, 0.4), rgba(255, 190, 11, 0.5));
-      transform: scale(1.1);
-      animation: pulseWarningHover 1.5s infinite;
-    }
-    
-    @keyframes pulseWarningHover {
-      0% { box-shadow: 0 0 0 0 rgba(255, 190, 11, 0.6), 
-                    0 0 0 10px rgba(255, 190, 11, 0.4),
-                    0 0 0 20px rgba(255, 190, 11, 0.2); }
-      100% { box-shadow: 0 0 0 10px rgba(255, 190, 11, 0), 
-                      0 0 0 20px rgba(255, 190, 11, 0),
-                      0 0 0 30px rgba(255, 190, 11, 0); }
-    }
-    
-    /* Tips Popup */
-    .tips-popup {
-      position: fixed;
-      bottom: 200px;
-      right: 25px;
-      width: 300px;
-      max-width: 90%;
-      background: var(--dark-2);
-      border-radius: 10px;
-      padding: 15px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-      border-left: 4px solid var(--warning);
-      transform: translateY(20px);
-      opacity: 0;
-      transition: all 0.3s ease;
-      z-index: 9996;
-      pointer-events: none;
-    }
-    
-    .tips-popup.show {
-      transform: translateY(0);
-      opacity: 1;
-      pointer-events: all;
-    }
-    
-    .tips-popup h4 {
-      color: var(--warning);
-      margin-bottom: 10px;
-      font-size: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    
-    .tips-popup p {
-      font-size: 0.8rem;
-      line-height: 1.4;
-      color: var(--light-2);
-      margin-bottom: 10px;
-    }
-    
-    .tips-popup ul {
-      padding-left: 20px;
-      margin-bottom: 10px;
-    }
-    
-    .tips-popup li {
-      margin-bottom: 5px;
-      font-size: 0.8rem;
-    }
-    
-    .tips-popup a {
-      color: var(--primary);
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 0.8rem;
+    /* Tooltip */
+    .tooltip {
+      position: relative;
       display: inline-block;
-      margin-top: 5px;
     }
     
-    .tips-popup a:hover {
-      text-decoration: underline;
-    }
-
-    /* Disclaimer Badge */
-    .disclaimer-badge {
-      position: fixed;
-      bottom: 25px;
-      right: 25px;
-      background: linear-gradient(145deg, rgba(255, 0, 110, 0.3), rgba(255, 0, 110, 0.4));
-      color: var(--danger);
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      z-index: 9999;
-      box-shadow: 0 5px 20px rgba(255, 0, 110, 0.3);
-      transition: all 0.3s ease;
-      font-size: 1.2rem;
-      animation: pulseDanger 2s infinite;
-    }
-
-    @keyframes pulseDanger {
-      0% {
-        box-shadow: 0 0 0 0 rgba(255, 0, 110, 0.4);
-      }
-      70% {
-        box-shadow: 0 0 0 15px rgba(255, 0, 110, 0);
-      }
-      100% {
-        box-shadow: 0 0 0 0 rgba(255, 0, 110, 0);
-      }
-    }
-
-    .disclaimer-badge:hover {
-      background: linear-gradient(145deg, rgba(255, 0, 110, 0.4), rgba(255, 0, 110, 0.5));
-      transform: scale(1.1);
-      animation: pulseDangerHover 1.5s infinite;
-    }
-
-    @keyframes pulseDangerHover {
-      0% {
-        box-shadow: 0 0 0 0 rgba(255, 0, 110, 0.6), 
-                    0 0 0 10px rgba(255, 0, 110, 0.4),
-                    0 0 0 20px rgba(255, 0, 110, 0.2);
-      }
-      100% {
-        box-shadow: 0 0 0 10px rgba(255, 0, 110, 0), 
-                    0 0 0 20px rgba(255, 0, 110, 0),
-                    0 0 0 30px rgba(255, 0, 110, 0);
-      }
-    }
-
-    /* Disclaimer popup */
-    .disclaimer-popup {
-      position: fixed;
-      bottom: 85px;
-      right: 25px;
-      width: 300px;
-      max-width: 90%;
-      background: var(--dark-2);
-      border-radius: 10px;
-      padding: 15px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-      border-left: 4px solid var(--danger);
-      transform: translateY(20px);
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 200px;
+      background-color: var(--dark-1);
+      color: var(--light-1);
+      text-align: center;
+      border-radius: 6px;
+      padding: 8px;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
       opacity: 0;
-      transition: all 0.3s ease;
-      z-index: 9998;
-      pointer-events: none;
-    }
-
-    .disclaimer-popup.show {
-      transform: translateY(0);
-      opacity: 1;
-      pointer-events: all;
-    }
-
-    .disclaimer-popup h4 {
-      color: var(--danger);
-      margin-bottom: 10px;
-      font-size: 1rem;
-    }
-
-    .disclaimer-popup p {
+      transition: opacity 0.3s;
       font-size: 0.8rem;
-      line-height: 1.4;
-      color: var(--light-2);
-      margin-bottom: 10px;
+      border: 1px solid var(--dark-3);
     }
-
-    .disclaimer-popup a {
-      color: var(--primary);
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    .disclaimer-popup a:hover {
-      text-decoration: underline;
+    
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
     }
 
     /* Custom Dialog Styles */
@@ -598,78 +437,377 @@
       font-size: 1.5rem;
       color: var(--danger);
     }
-
-    /* Tooltip */
-    .tooltip {
-      position: relative;
-      display: inline-block;
-    }
     
-    .tooltip .tooltiptext {
-      visibility: hidden;
-      width: 200px;
-      background-color: var(--dark-1);
-      color: var(--light-1);
-      text-align: center;
-      border-radius: 6px;
-      padding: 8px;
-      position: absolute;
-      z-index: 1;
-      bottom: 125%;
-      left: 50%;
-      transform: translateX(-50%);
-      opacity: 0;
-      transition: opacity 0.3s;
-      font-size: 0.8rem;
-      border: 1px solid var(--dark-3);
-    }
-    
-    .tooltip:hover .tooltiptext {
-      visibility: visible;
-      opacity: 1;
-    }
-
-    /* Copy Result Button */
-    .copy-result-btn {
-      background: rgba(58, 134, 255, 0.2);
-      color: var(--primary);
-      border: none;
-      border-radius: 8px;
-      padding: 10px 15px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
+    /* Updated Disclaimer Badge Animation */
+    .disclaimer-badge {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: linear-gradient(145deg, rgba(255, 0, 110, 0.3), rgba(255, 0, 110, 0.4));
+      color: var(--danger);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      margin-top: 15px;
-      width: 100%;
-    }
-    
-    .copy-result-btn:hover {
-      background: rgba(58, 134, 255, 0.3);
-    }
-    
-    .copy-result-btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
+      cursor: pointer;
+      z-index: 9999;
+      box-shadow: 0 5px 20px rgba(255, 0, 110, 0.3);
+      transition: all 0.3s ease;
+      font-size: 1.2rem;
+      animation: pulseDanger 2s infinite;
     }
 
-    /* Responsive adjustments */
+    @keyframes pulseDanger {
+      0% {
+        box-shadow: 0 0 0 0 rgba(255, 0, 110, 0.4);
+      }
+      70% {
+        box-shadow: 0 0 0 15px rgba(255, 0, 110, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(255, 0, 110, 0);
+      }
+    }
+
+    .disclaimer-badge:hover {
+      background: linear-gradient(145deg, rgba(255, 0, 110, 0.4), rgba(255, 0, 110, 0.5));
+      transform: scale(1.1);
+      animation: pulseDangerHover 1.5s infinite;
+    }
+
+    @keyframes pulseDangerHover {
+      0% {
+        box-shadow: 0 0 0 0 rgba(255, 0, 110, 0.6), 
+                    0 0 0 10px rgba(255, 0, 110, 0.4),
+                    0 0 0 20px rgba(255, 0, 110, 0.2);
+      }
+      100% {
+        box-shadow: 0 0 0 10px rgba(255, 0, 110, 0), 
+                    0 0 0 20px rgba(255, 0, 110, 0),
+                    0 0 0 30px rgba(255, 0, 110, 0);
+      }
+    }
+
+    /* Disclaimer popup */
+    .disclaimer-popup {
+      position: fixed;
+      bottom: 80px;
+      right: 25px;
+      width: 300px;
+      max-width: 90%;
+      background: var(--dark-2);
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      border-left: 4px solid var(--danger);
+      transform: translateY(20px);
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 9998;
+      pointer-events: none;
+    }
+
+    .disclaimer-popup.show {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .disclaimer-popup h4 {
+      color: var(--danger);
+      margin-bottom: 10px;
+      font-size: 1rem;
+    }
+
+    .disclaimer-popup p {
+      font-size: 0.8rem;
+      line-height: 1.4;
+      color: var(--light-2);
+      margin-bottom: 10px;
+    }
+
+    .disclaimer-popup a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .disclaimer-popup a:hover {
+      text-decoration: underline;
+    }
+
+    /* New Light Bulb Badge */
+    .tips-badge {
+      position: fixed;
+      bottom: 140px;
+      right: 25px;
+      background: linear-gradient(145deg, rgba(255, 190, 11, 0.3), rgba(255, 190, 11, 0.4));
+      color: var(--warning);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 9997;
+      box-shadow: 0 5px 20px rgba(255, 190, 11, 0.3);
+      transition: all 0.3s ease;
+      font-size: 1.2rem;
+      animation: pulseWarning 2s infinite;
+    }
+    
+    /* New animation for light bulb badge */
+    @keyframes pulseWarning {
+      0% { box-shadow: 0 0 0 0 rgba(255, 190, 11, 0.4); }
+      70% { box-shadow: 0 0 0 15px rgba(255, 190, 11, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 190, 11, 0); }
+    }
+    
+    /* Hover effects for light bulb */
+    .tips-badge:hover {
+      background: linear-gradient(145deg, rgba(255, 190, 11, 0.4), rgba(255, 190, 11, 0.5));
+      transform: scale(1.1);
+      animation: pulseWarningHover 1.5s infinite;
+    }
+    
+    @keyframes pulseWarningHover {
+      0% { box-shadow: 0 0 0 0 rgba(255, 190, 11, 0.6), 
+                    0 0 0 10px rgba(255, 190, 11, 0.4),
+                    0 0 0 20px rgba(255, 190, 11, 0.2); }
+      100% { box-shadow: 0 0 0 10px rgba(255, 190, 11, 0), 
+                      0 0 0 20px rgba(255, 190, 11, 0),
+                      0 0 0 30px rgba(255, 190, 11, 0); }
+    }
+    
+    /* Tips popup styles */
+    .tips-popup {
+      position: fixed;
+      bottom: 200px;
+      right: 25px;
+      width: 300px;
+      max-width: 90%;
+      background: var(--dark-2);
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      border-left: 4px solid var(--warning);
+      transform: translateY(20px);
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 9996;
+      pointer-events: none;
+    }
+    
+    .tips-popup.show {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: all;
+    }
+    
+    .tips-popup h4 {
+      color: var(--warning);
+      margin-bottom: 10px;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .tips-popup p {
+      font-size: 0.8rem;
+      line-height: 1.4;
+      color: var(--light-2);
+      margin-bottom: 10px;
+    }
+    
+    .tips-popup ul {
+      padding-left: 20px;
+      margin-bottom: 10px;
+    }
+    
+    .tips-popup li {
+      margin-bottom: 5px;
+      font-size: 0.8rem;
+    }
+    
+    .tips-popup a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.8rem;
+      display: inline-block;
+      margin-top: 5px;
+    }
+    
+    .tips-popup a:hover {
+      text-decoration: underline;
+    }
+
+    /* Offline Page Styles */
+    .offline-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--dark-1);
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+    }
+
+    .offline-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .offline-container {
+      width: 100%;
+      max-width: 500px;
+      background: var(--dark-2);
+      border-radius: 16px;
+      padding: 40px;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 0, 110, 0.3);
+      transform: scale(0.9);
+      opacity: 0;
+      animation: fadeIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+      position: relative;
+      z-index: 2;
+      backdrop-filter: blur(10px);
+    }
+    
+    @keyframes fadeIn {
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+    
+    .offline-icon {
+      font-size: 80px;
+      color: var(--danger);
+      margin-bottom: 20px;
+    }
+    
+    .offline-title {
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+      color: var(--danger);
+      font-weight: 600;
+    }
+    
+    .offline-message {
+      color: var(--light-2);
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+    
+    .retry-btn {
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 14px 28px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 4px 15px rgba(58, 134, 255, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .retry-btn::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        to bottom right,
+        rgba(255,255,255,0) 0%,
+        rgba(255,255,255,0.1) 45%,
+        rgba(255,255,255,0.15) 50%,
+        rgba(255,255,255,0.1) 55%,
+        rgba(255,255,255,0) 100%
+      );
+      transform: rotate(30deg);
+      animation: shine 3s infinite;
+    }
+    
+    @keyframes shine {
+      0% { transform: translateX(-100%) rotate(30deg); }
+      100% { transform: translateX(100%) rotate(30deg); }
+    }
+    
+    .retry-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(58, 134, 255, 0.4);
+    }
+    
+    .retry-btn:active {
+      transform: translateY(0);
+    }
+    
+    .connection-animation {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      opacity: 0.1;
+    }
+    
+    .connection-animation div {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--primary);
+      filter: blur(5px);
+      animation: float 15s infinite linear;
+    }
+    
+    @keyframes float {
+      0% { transform: translate(0, 0) scale(1); opacity: 0; }
+      50% { opacity: 0.3; }
+      100% { transform: translate(random(200) - 100px, random(200) - 100px) scale(0); opacity: 0; }
+    }
+
     @media (max-width: 480px) {
       .header h1 {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
+        padding-top: 10px;
       }
       
       .header p {
         font-size: 0.8rem;
       }
       
-      .odd-buttons {
-        grid-template-columns: 1fr;
+      .content {
+        padding: 20px 15px;
       }
       
+      .input-actions {
+        flex-direction: column;
+      }
+      
+      /* Adjust badge positions for mobile */
       .tips-badge {
         bottom: 140px;
         right: 15px;
@@ -695,10 +833,27 @@
   </style>
 </head>
 <body>
+  <!-- Offline Overlay -->
+  <div class="offline-overlay" id="offlineOverlay">
+    <div class="connection-animation" id="connectionAnimation"></div>
+    
+    <div class="offline-container">
+      <div class="offline-icon">
+        <i class="fas fa-unlink"></i>
+      </div>
+      <h1 class="offline-title">CONNECTION LOST</h1>
+      <p class="offline-message">XTREME AVIATOR predictor requires stable internet connection for real-time predictions. Please check your network and try again.</p>
+      <button class="retry-btn" id="retryBtn">
+        <i class="fas fa-sync-alt"></i> RETRY CONNECTION
+      </button>
+    </div>
+  </div>
+
+  <!-- Main App Content -->
   <div class="main-container">
     <div class="header">
       <h1>XTREME AVIATOR SHA512 HASH PREDICTOR LITE</h1>
-      <p>Basic AI-powered prediction for 1.5× and 2× multipliers</p>
+      <p>Basic AI-powered prediction for safe and low-risk multipliers</p>
     </div>
     
     <div class="datetime">
@@ -721,14 +876,14 @@
       </div>
       
       <div class="odd-buttons">
-        <button class="odd-btn" onclick="predict('1.5')" id="odd-1_5">
+        <button class="odd-btn" onclick="predict('1_5')" id="odd-1_5">
           <span>1.5x</span>
           <span>Safe Bet</span>
           <div class="confidence-bar" id="confidence-1_5" style="width: 0%"></div>
         </button>
         <button class="odd-btn" onclick="predict('2')" id="odd-2">
           <span>2x</span>
-          <span>Balanced</span>
+          <span>Low Risk</span>
           <div class="confidence-bar" id="confidence-2" style="width: 0%"></div>
         </button>
       </div>
@@ -751,7 +906,11 @@
           <span class="value" id="result-confidence">-</span>
         </div>
         <div class="result-item">
-          <span class="label">Signal Time:</span>
+          <span class="label">Estimated Delay:</span>
+          <span class="value" id="result-delay">-</span>
+        </div>
+        <div class="result-item">
+          <span class="label">Next Signal Time:</span>
           <span class="value" id="result-time">-</span>
         </div>
         <button class="copy-result-btn" id="copyResultBtn" onclick="copyResultToClipboard(event)" disabled>
@@ -797,7 +956,7 @@
     <a href="https://damindu817.github.io/DISCLAIMER-/" target="_blank">Click icon for guide & creator contact</a>
   </div>
 
-  <!-- Error Dialog -->
+  <!-- Custom Dialogs -->
   <div class="dialog-overlay" id="errorDialog">
     <div class="dialog-box">
       <div class="dialog-title">
@@ -811,7 +970,6 @@
     </div>
   </div>
 
-  <!-- Success Dialog -->
   <div class="dialog-overlay" id="successDialog">
     <div class="dialog-box">
       <div class="dialog-title">
@@ -825,21 +983,36 @@
     </div>
   </div>
 
+  <audio id="signalSound" src="https://assets.mixkit.co/sfx/preview/mixkit-alarm-digital-clock-beep-989.mp3" preload="auto"></audio>
+  <audio id="successSound" src="https://assets.mixkit.co/sfx/preview/mixkit-achievement-bell-600.mp3" preload="auto"></audio>
+  <audio id="beepSound" src="https://assets.mixkit.co/sfx/preview/mixkit-positive-interface-beep-221.mp3" preload="auto"></audio>
   <textarea id="copyTemplate" style="position: absolute; left: -9999px;"></textarea>
 
   <script>
     // Global variables
     let activeSignals = [];
     let currentCountdown = null;
+    let serverTimeOffset = 0;
     let lastHash = '';
     let selectedOdd = null;
-    let tipsPopupShown = false;
     let disclaimerShown = false;
-    let firstSignalGenerated = false;
+    let tipsPopupShown = false;
+    let signalResultReceived = false;
     
     // Initialize on load
     window.onload = function() {
+      initializeApp();
+    };
+
+    function initializeApp() {
       updateDateTime();
+      
+      // Check connection status immediately
+      checkConnection();
+      
+      // Set up connection monitoring
+      window.addEventListener('online', checkConnection);
+      window.addEventListener('offline', checkConnection);
       
       // Auto-focus input field
       document.getElementById("hashInput").focus();
@@ -850,10 +1023,7 @@
         if (hash.length === 128 && /^[a-f0-9]+$/.test(hash)) {
           lastHash = hash;
           preAnalyzeHash(hash);
-          // Enable copy button only if odd is selected
-          if (selectedOdd) {
-            document.getElementById("copyResultBtn").disabled = false;
-          }
+          // Don't enable copy button here - wait for odd selection
         } else {
           document.getElementById("copyResultBtn").disabled = true;
         }
@@ -872,23 +1042,6 @@
         document.getElementById("disclaimerPopup").classList.remove("show");
       });
       
-      // Initialize disclaimer badge (only for popup, link is handled via HTML)
-      const disclaimerBadge = document.getElementById("disclaimerBadge");
-      const disclaimerPopup = document.getElementById("disclaimerPopup");
-      
-      // Only show popup if not opening link
-      disclaimerBadge.addEventListener('click', function(e) {
-        // Only prevent default if clicking the icon directly (not the link)
-        if (e.target.classList.contains('fa-exclamation-triangle')) {
-          e.preventDefault();
-          e.stopPropagation();
-          disclaimerPopup.classList.toggle("show");
-          
-          // Hide tips popup if showing
-          document.getElementById("tipsPopup").classList.remove("show");
-        }
-      });
-      
       // Close popups when clicking elsewhere
       document.addEventListener('click', function(e) {
         if (!tipsBadge.contains(e.target) && !tipsPopup.contains(e.target)) {
@@ -896,25 +1049,112 @@
         }
         
         if (!disclaimerBadge.contains(e.target) && !disclaimerPopup.contains(e.target)) {
-          disclaimerPopup.classList.remove("show");
+          document.getElementById("disclaimerPopup").classList.remove("show");
         }
       });
       
       // Show disclaimer popup after 5 seconds if not shown before
       if (!sessionStorage.getItem('disclaimerShown')) {
         setTimeout(() => {
-          document.getElementById("disclaimerPopup").classList.add("show");
-          setTimeout(() => {
-            document.getElementById("disclaimerPopup").classList.remove("show");
-          }, 8000);
+          showDisclaimer();
+          setTimeout(hideDisclaimer, 8000);
           sessionStorage.setItem('disclaimerShown', 'true');
         }, 5000);
       }
+      
+      // Create floating animation elements for offline page
+      const animationContainer = document.getElementById('connectionAnimation');
+      for (let i = 0; i < 15; i++) {
+        const dot = document.createElement('div');
+        dot.style.left = `${Math.random() * 100}%`;
+        dot.style.top = `${Math.random() * 100}%`;
+        dot.style.animationDelay = `${Math.random() * 15}s`;
+        dot.style.animationDuration = `${10 + Math.random() * 20}s`;
+        animationContainer.appendChild(dot);
+      }
+      
+      // Retry button functionality
+      const retryBtn = document.getElementById('retryBtn');
+      retryBtn.addEventListener('click', function() {
+        const btn = this;
+        const icon = btn.querySelector('i');
+        
+        // Show loading state
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> CONNECTING...';
+        
+        // Simulate connection check
+        setTimeout(() => {
+          if (navigator.onLine) {
+            // Success state
+            btn.innerHTML = '<i class="fas fa-check"></i> CONNECTION RESTORED!';
+            btn.style.background = `linear-gradient(90deg, var(--success), var(--primary))`;
+            
+            // Hide offline overlay
+            document.getElementById('offlineOverlay').classList.remove('active');
+            
+            // Sync server time
+            syncServerTime();
+            
+            // Redirect back to app
+            setTimeout(() => {
+              window.location.reload();
+            }, 1000);
+          } else {
+            // Error state
+            btn.innerHTML = '<i class="fas fa-times"></i> CONNECTION FAILED';
+            btn.style.background = `linear-gradient(90deg, var(--danger), var(--warning))`;
+            
+            // Reset button after delay
+            setTimeout(() => {
+              btn.innerHTML = '<i class="fas fa-sync-alt"></i> RETRY CONNECTION';
+              btn.style.background = `linear-gradient(90deg, var(--primary), var(--secondary))`;
+              btn.disabled = false;
+            }, 1500);
+          }
+        }, 2000);
+      });
     }
     
-    // Update current date and time
+    // Check connection status
+    function checkConnection() {
+      if (navigator.onLine) {
+        document.getElementById('offlineOverlay').classList.remove('active');
+        syncServerTime(); // Sync time when connection is restored
+      } else {
+        document.getElementById('offlineOverlay').classList.add('active');
+      }
+    }
+    
+    // Show disclaimer popup
+    function showDisclaimer() {
+      const popup = document.getElementById("disclaimerPopup");
+      popup.classList.add("show");
+    }
+    
+    // Hide disclaimer popup
+    function hideDisclaimer() {
+      const popup = document.getElementById("disclaimerPopup");
+      popup.classList.remove("show");
+    }
+    
+    // Show tips popup after signal generation and result
+    function showTipsPopup() {
+      if (!tipsPopupShown && signalResultReceived) {
+        const tipsPopup = document.getElementById("tipsPopup");
+        tipsPopup.classList.add("show");
+        tipsPopupShown = true;
+        
+        // Auto-hide after 8 seconds
+        setTimeout(() => {
+          tipsPopup.classList.remove("show");
+        }, 8000);
+      }
+    }
+    
+    // Update current date and time with server sync
     function updateDateTime() {
-      const now = new Date();
+      const now = new Date(Date.now() + serverTimeOffset);
       document.getElementById("current-date").textContent = now.toLocaleDateString('en-US', { 
         weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' 
       });
@@ -924,7 +1164,31 @@
     
     setInterval(updateDateTime, 1000);
     
-    // Core algorithms
+    // Sync with server time for maximum accuracy (runs in background)
+    async function syncServerTime() {
+      try {
+        const start = Date.now();
+        const response = await fetch('https://worldtimeapi.org/api/ip');
+        const data = await response.json();
+        const serverTime = new Date(data.utc_datetime).getTime();
+        const end = Date.now();
+        const rtt = end - start;
+        
+        // Calculate offset accounting for network latency
+        serverTimeOffset = serverTime - end + (rtt / 2);
+        
+        console.log(`Time synced successfully (${rtt}ms latency)`);
+        
+        // Recheck any active signals with corrected time
+        checkNextSignal();
+      } catch (e) {
+        console.error("Time sync failed, using local time:", e);
+      }
+    }
+    
+    // ====== CORE ALGORITHMS ====== //
+    
+    // 1. Corrected entropy calculation
     function calcEntropy(hash) {
       const freq = {};
       for (let c of hash) freq[c] = (freq[c] || 0) + 1;
@@ -934,40 +1198,71 @@
       }, 0);
     }
     
-    function scoreFromHash(hash) {
+    // 2. Hash scoring for 1.5x (from 1.50 htmlviewer.html)
+    function scoreFromHash1_5(hash) {
+      const indexes = [2, 8, 22, 33, 44, 66, 77, 99, 111];
+      return indexes.reduce((sum, i) => sum + parseInt(hash[i], 16), 0);
+    }
+    
+    // 3. Hash scoring for 2x (original)
+    function scoreFromHash2(hash) {
       const indexes = [5, 15, 25, 35, 50, 75, 100, 120];
       return indexes.reduce((sum, i) => sum + parseInt(hash[i], 16), 0);
     }
     
-    function calculateConfidence(entropy, score, oddTarget, hash) {
+    // 4. Confidence calculation for 1.5x (from 1.50 htmlviewer.html)
+    function calculateConfidence1_5(entropy, score, hash) {
       let confidence = 50;
       
-      // Entropy scoring
-      if (entropy > 4.2) confidence += 10;
-      if (entropy > 4.5) confidence += 15;
-      
-      // Pattern recognition
-      if (score % 7 === 0) confidence += 8;
-      if (score % 5 === 0) confidence += 5;
-      if (/(\w)\1{2,}/.test(hash)) confidence += 15;
-      
-      // Odd-specific adjustments
-      if (oddTarget === '1.5') confidence += 15;
-      if (oddTarget === '2') confidence += 10;
-      
-      // Tail pattern detection
-      const tail = hash.slice(-4);
-      if (/^(aaaa|ffff|0000|1111)$/.test(tail)) confidence += 10;
+      if (entropy < 3.75) confidence += 20;
+      if (score >= 20 && score <= 55) confidence += 15;
+      if (/00$|ff$|ee$/.test(hash.slice(-2))) confidence += 10;
+      if (hash.startsWith('00') || hash.startsWith('11')) confidence += 8;
       
       return Math.min(98, Math.max(5, Math.round(confidence)));
     }
     
-    function calculateDelay(score, entropy, oddTarget) {
-      let base = parseInt(oddTarget) * 45;
+    // 5. Confidence calculation for 2x (original)
+    function calculateConfidence2(entropy, score, hash) {
+      let confidence = 50;
+      
+      // Improved entropy scoring
+      if (entropy > 4.2) confidence += 10;
+      if (entropy > 4.5) confidence += 15;
+      
+      // Improved pattern recognition
+      if (score % 7 === 0) confidence += 8;
+      if (score % 5 === 0) confidence += 5;
+      if (/(\w)\1{2,}/.test(hash)) confidence += 15;
+      if (/(\w{2,4})\1{1,}/.test(hash)) confidence += 10;
+      
+      // Tail pattern detection
+      const tail = hash.slice(-4);
+      if (/^(aaaa|ffff|0000|1111)$/.test(tail)) confidence += 20;
+      
+      // 2x specific adjustments
+      confidence += 5;
+      
+      return Math.min(98, Math.max(5, Math.round(confidence)));
+    }
+    
+    // 6. Delay calculation for 1.5x (from 1.50 htmlviewer.html)
+    function calculateDelay1_5(score, entropy) {
+      let base = 120; // base delay 2 min
+      if (entropy < 3.75) base += 20;
+      if (score % 5 === 0) base += 10;
+      return Math.max(60, base); // at least 60 seconds
+    }
+    
+    // 7. Delay calculation for 2x (original)
+    function calculateDelay2(score, entropy, hash) {
+      let base = 90; // 2x * 45
       
       if (entropy > 4.3) base += 20;
       if (score % 7 === 0) base += 30;
       if (score % 5 === 0) base += 15;
+      if (/(\w)\1{2,}/.test(hash)) base += 20;
+      if (/(\w{2,4})\1{1,}/.test(hash)) base += 15;
       
       return Math.max(45, base);
     }
@@ -977,14 +1272,18 @@
       if (!hash || hash.length !== 128 || !/^[a-f0-9]+$/.test(hash)) return;
       
       const entropy = calcEntropy(hash);
-      const score = scoreFromHash(hash);
       
       // Update confidence bars for each odd
-      ['1.5', '2'].forEach(odd => {
-        const confidence = calculateConfidence(entropy, score, odd, hash);
-        document.getElementById(`confidence-${odd.replace('.', '_')}`).style.width = `${confidence}%`;
-      });
+      const score1_5 = scoreFromHash1_5(hash);
+      const confidence1_5 = calculateConfidence1_5(entropy, score1_5, hash);
+      document.getElementById("confidence-1_5").style.width = `${confidence1_5}%`;
+      
+      const score2 = scoreFromHash2(hash);
+      const confidence2 = calculateConfidence2(entropy, score2, hash);
+      document.getElementById("confidence-2").style.width = `${confidence2}%`;
     }
+    
+    // ====== END OF ALGORITHMS ====== //
     
     // Paste hash from clipboard
     document.getElementById("pasteHashInput").addEventListener('click', async function() {
@@ -994,12 +1293,8 @@
         lastHash = text.trim();
         if (lastHash.length === 128 && /^[a-f0-9]+$/.test(lastHash)) {
           preAnalyzeHash(lastHash);
-          // Enable copy button only if odd is selected
-          if (selectedOdd) {
-            document.getElementById("copyResultBtn").disabled = false;
-          }
+          // Don't enable copy button here - wait for odd selection
         } else {
-          showErrorDialog("Invalid SHA512 hash. Must be exactly 128 hexadecimal characters (0-9, a-f).");
           document.getElementById("copyResultBtn").disabled = true;
         }
       } catch (err) {
@@ -1016,17 +1311,36 @@
       selectedOdd = null;
       
       // Reset confidence bars
-      ['1.5', '2'].forEach(odd => {
-        document.getElementById(`confidence-${odd.replace('.', '_')}`).style.width = '0%';
-      });
+      document.getElementById("confidence-1_5").style.width = '0%';
+      document.getElementById("confidence-2").style.width = '0%';
       
       // Reset results display
       document.getElementById("result-odd").textContent = "-";
       document.getElementById("result-entropy").textContent = "-";
       document.getElementById("result-score").textContent = "-";
       document.getElementById("result-confidence").textContent = "-";
+      document.getElementById("result-delay").textContent = "-";
       document.getElementById("result-time").textContent = "-";
     });
+    
+    // Audio functions
+    function playSignalSound() {
+      const audio = document.getElementById("signalSound");
+      audio.currentTime = 0;
+      audio.play().catch(e => console.log("Audio play failed:", e));
+    }
+    
+    function playSuccessSound() {
+      const audio = document.getElementById("successSound");
+      audio.currentTime = 0;
+      audio.play().catch(e => console.log("Audio play failed:", e));
+    }
+    
+    function playBeepSound() {
+      const audio = document.getElementById("beepSound");
+      audio.currentTime = 0;
+      audio.play().catch(e => console.log("Beep sound play failed:", e));
+    }
     
     // Countdown and active signal tracking
     function updateCountdown(targetTime, odd) {
@@ -1039,13 +1353,19 @@
       activeSignals.push({ id: signalId, time: targetTime, odd });
       
       currentCountdown = setInterval(() => {
-        const now = new Date();
+        const now = new Date(Date.now() + serverTimeOffset);
         const diff = Math.floor((targetTime - now) / 1000);
         
         if (diff <= 0) {
           clearInterval(currentCountdown);
           document.getElementById("countdown").textContent = `Signal for ${odd}x reached! Place your bet now!`;
-          document.getElementById("countdown").className = "countdown danger";
+          document.getElementById("countdown").className = "countdown";
+          playSignalSound();
+          playBeepSound(); // Play beep sound when signal is reached
+          removeSignal(signalId);
+          
+          // Check for next signal after this one completes
+          setTimeout(checkNextSignal, 1000);
         } else {
           const min = Math.floor(diff / 60);
           const sec = diff % 60;
@@ -1063,13 +1383,30 @@
       }, 1000);
     }
     
+    function checkNextSignal() {
+      const now = new Date(Date.now() + serverTimeOffset);
+      
+      if (activeSignals.length > 0) {
+        const nextSignal = activeSignals[0];
+        const signalTime = new Date(nextSignal.time);
+        updateCountdown(signalTime, nextSignal.odd);
+      } else {
+        document.getElementById("countdown").textContent = "No active signals. Create a new prediction.";
+        document.getElementById("countdown").className = "countdown warning";
+      }
+    }
+    
+    function removeSignal(id) {
+      activeSignals = activeSignals.filter(signal => signal.id !== id);
+    }
+    
     // Generate result copy template
     function generateResultCopyTemplate() {
       const odd = document.getElementById("result-odd").textContent;
       const time = document.getElementById("result-time").textContent;
       const confidence = document.getElementById("result-confidence").textContent;
       
-      return `Xtreme Aviator Predictor - 1xBet\n\nTime: ${time}\nOdd: ${odd}\nConfidence: ${confidence}\n\nThis signal is generated using the XTREME AVIATOR SHA512 HASH PREDICTOR LITE tool.`;
+      return `Xtreme Aviator Predictor - 1xBet\n\nTime: ${time}\nOdd: ${odd}\nConfidence: ${confidence}%\n\nThis signal is generated using the XTREME AVIATOR SHA512 HASH PREDICTOR LITE tool with AI-powered accuracy.`;
     }
     
     // Copy to clipboard function
@@ -1117,10 +1454,16 @@
     function showSuccessDialog(message) {
       document.getElementById("successMessage").textContent = message;
       document.getElementById("successDialog").classList.add("active");
+      playSuccessSound();
     }
     
     function hideSuccessDialog() {
       document.getElementById("successDialog").classList.remove("active");
+      
+      // After hiding the success dialog, check if we should show tips popup
+      if (signalResultReceived) {
+        setTimeout(showTipsPopup, 1000);
+      }
     }
     
     // Main prediction function
@@ -1135,39 +1478,41 @@
       
       selectedOdd = oddStr;
       const entropy = calcEntropy(hash);
-      const score = scoreFromHash(hash);
-      const confidence = calculateConfidence(entropy, score, oddStr, hash);
-      const delay = calculateDelay(score, entropy, oddStr);
-      const future = new Date(Date.now() + delay * 1000);
+      let score, confidence, delay;
+      
+      if (oddStr === '1_5') {
+        score = scoreFromHash1_5(hash);
+        confidence = calculateConfidence1_5(entropy, score, hash);
+        delay = calculateDelay1_5(score, entropy);
+      } else { // 2x
+        score = scoreFromHash2(hash);
+        confidence = calculateConfidence2(entropy, score, hash);
+        delay = calculateDelay2(score, entropy, hash);
+      }
+      
+      const future = new Date(Date.now() + serverTimeOffset + delay * 1000);
       const timeStr = future.toLocaleTimeString();
       
       // Update results display
-      document.getElementById("result-odd").textContent = `${oddStr}x`;
+      document.getElementById("result-odd").textContent = `${oddStr.replace('_', '.')}x`;
       document.getElementById("result-entropy").textContent = entropy.toFixed(3);
       document.getElementById("result-score").textContent = score;
       document.getElementById("result-confidence").textContent = `${confidence}%`;
+      document.getElementById("result-delay").textContent = `${delay} seconds`;
       document.getElementById("result-time").textContent = timeStr;
       
-      // Enable copy button
+      // Enable copy button only after odd is selected
       document.getElementById("copyResultBtn").disabled = false;
       
       output.style.display = 'block';
-      updateCountdown(future, oddStr);
-      showSuccessDialog(`Signal for ${oddStr}x generated with ${confidence}% confidence!`);
+      updateCountdown(future, oddStr.replace('_', '.'));
+      showSuccessDialog(`Signal for ${oddStr.replace('_', '.')}x generated with ${confidence}% confidence!`);
       
       // Scroll to results
       output.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       
-      // Show tips popup after first prediction
-      if (!firstSignalGenerated) {
-        firstSignalGenerated = true;
-        setTimeout(() => {
-          document.getElementById("tipsPopup").classList.add("show");
-          setTimeout(() => {
-            document.getElementById("tipsPopup").classList.remove("show");
-          }, 8000);
-        }, 2000);
-      }
+      // Set flag that first signal has been generated
+      signalResultReceived = true;
     }
   </script>
 </body>
