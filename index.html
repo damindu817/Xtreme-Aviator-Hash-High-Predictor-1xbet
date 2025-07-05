@@ -1000,7 +1000,7 @@
 
   <script>
     // Global variables
-    let activeSignals = [];
+    let activeSignal = null; // Changed from array to single signal
     let currentCountdown = null;
     let serverTimeOffset = 0;
     let lastHash = '';
@@ -1331,6 +1331,15 @@
       document.getElementById("result-confidence").textContent = "-";
       document.getElementById("result-delay").textContent = "-";
       document.getElementById("result-time").textContent = "-";
+      
+      // Clear any active signal
+      if (currentCountdown) {
+        clearInterval(currentCountdown);
+        currentCountdown = null;
+      }
+      activeSignal = null;
+      document.getElementById("countdown").textContent = "No active signals. Create a new prediction.";
+      document.getElementById("countdown").className = "countdown";
     });
     
     // Audio functions
@@ -1357,10 +1366,10 @@
       // Clear any existing countdown
       if (currentCountdown) {
         clearInterval(currentCountdown);
+        currentCountdown = null;
       }
       
-      const signalId = Date.now();
-      activeSignals.push({ id: signalId, time: targetTime, odd });
+      activeSignal = { time: targetTime, odd };
       
       currentCountdown = setInterval(() => {
         const now = new Date(Date.now() + serverTimeOffset);
@@ -1368,14 +1377,12 @@
         
         if (diff <= 0) {
           clearInterval(currentCountdown);
+          currentCountdown = null;
           document.getElementById("countdown").textContent = `Signal for ${odd}x reached! Place your bet now!`;
           document.getElementById("countdown").className = "countdown";
           playSignalSound();
           playBeepSound(); // Play beep sound when signal is reached
-          removeSignal(signalId);
-          
-          // Check for next signal after this one completes
-          setTimeout(checkNextSignal, 1000);
+          activeSignal = null;
         } else {
           const min = Math.floor(diff / 60);
           const sec = diff % 60;
@@ -1396,18 +1403,13 @@
     function checkNextSignal() {
       const now = new Date(Date.now() + serverTimeOffset);
       
-      if (activeSignals.length > 0) {
-        const nextSignal = activeSignals[0];
-        const signalTime = new Date(nextSignal.time);
-        updateCountdown(signalTime, nextSignal.odd);
+      if (activeSignal) {
+        const signalTime = new Date(activeSignal.time);
+        updateCountdown(signalTime, activeSignal.odd);
       } else {
         document.getElementById("countdown").textContent = "No active signals. Create a new prediction.";
         document.getElementById("countdown").className = "countdown warning";
       }
-    }
-    
-    function removeSignal(id) {
-      activeSignals = activeSignals.filter(signal => signal.id !== id);
     }
     
     // Generate result copy template
