@@ -282,6 +282,16 @@
       transition: all 0.3s ease;
     }
     
+    .countdown.warning {
+      background: rgba(255, 190, 11, 0.1);
+      border-left: 4px solid var(--warning);
+    }
+    
+    .countdown.danger {
+      background: rgba(255, 0, 110, 0.1);
+      border-left: 4px solid var(--danger);
+    }
+    
     .copy-result-btn {
       background: rgba(58, 134, 255, 0.2);
       color: var(--primary);
@@ -1404,9 +1414,8 @@
     function generateResultCopyTemplate() {
       const odd = document.getElementById("result-odd").textContent;
       const time = document.getElementById("result-time").textContent;
-      const confidence = document.getElementById("result-confidence").textContent;
       
-      return `Xtreme Aviator Predictor - 1xBet\n\nTime: ${time}\nOdd: ${odd}\nConfidence: ${confidence}%\n\nThis signal is generated using the XTREME AVIATOR SHA512 HASH PREDICTOR LITE tool with AI-powered accuracy.`;
+      return `Xtreme Aviator Predictor - 1xBet\n\nTime: ${time}\nOdd: ${odd}\n\nThis signal is generated using the XTREME AVIATOR SHA512 HASH PREDICTOR LITE tool with AI-powered accuracy.`;
     }
     
     // Copy to clipboard function
