@@ -36,6 +36,7 @@
       --light-2: #e9ecef;
       --blue-theme: #3498db;
       --purple-theme: #9b59b6;
+      --accent: #3a86ff;
     }
     
     * {
@@ -290,20 +291,6 @@
       border-top: 1px solid rgba(255, 255, 255, 0.05);
     }
     
-    @media (max-width: 480px) {
-      .header h1 {
-        font-size: 1.3rem;
-      }
-      
-      .header p {
-        font-size: 0.8rem;
-      }
-      
-      .odd-buttons {
-        grid-template-columns: 1fr;
-      }
-    }
-
     /* Animation for active signal */
     @keyframes pulse {
       0% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.4); }
@@ -315,10 +302,10 @@
       animation: pulse 2s infinite;
     }
 
-    /* Tips Badge - Positioned ABOVE disclaimer with PRO version spacing */
+    /* Tips Badge */
     .tips-badge {
       position: fixed;
-      bottom: 140px; /* 115px above disclaimer badge */
+      bottom: 140px;
       right: 25px;
       background: linear-gradient(145deg, rgba(255, 190, 11, 0.3), rgba(255, 190, 11, 0.4));
       color: var(--warning);
@@ -360,7 +347,7 @@
     /* Tips Popup */
     .tips-popup {
       position: fixed;
-      bottom: 200px; /* Above tips badge */
+      bottom: 200px;
       right: 25px;
       width: 300px;
       max-width: 90%;
@@ -421,7 +408,7 @@
       text-decoration: underline;
     }
 
-    /* Disclaimer Badge - Positioned at BOTTOM with PRO version link functionality */
+    /* Disclaimer Badge */
     .disclaimer-badge {
       position: fixed;
       bottom: 25px;
@@ -476,7 +463,7 @@
     /* Disclaimer popup */
     .disclaimer-popup {
       position: fixed;
-      bottom: 85px; /* Above disclaimer badge */
+      bottom: 85px;
       right: 25px;
       width: 300px;
       max-width: 90%;
@@ -521,8 +508,168 @@
       text-decoration: underline;
     }
 
+    /* Custom Dialog Styles */
+    .dialog-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .dialog-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .dialog-box {
+      background: var(--dark-2);
+      border-radius: 10px;
+      padding: 20px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
+    }
+
+    .dialog-overlay.active .dialog-box {
+      transform: translateY(0);
+    }
+
+    .dialog-title {
+      font-size: 1.2rem;
+      margin-bottom: 15px;
+      color: var(--light-1);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .dialog-message {
+      margin-bottom: 20px;
+      color: var(--light-2);
+      line-height: 1.5;
+    }
+
+    .dialog-buttons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .dialog-btn {
+      padding: 8px 15px;
+      border-radius: 5px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .dialog-btn-cancel {
+      background: var(--dark-3);
+      color: var(--light-1);
+      border: 1px solid var(--dark-3);
+    }
+
+    .dialog-btn-cancel:hover {
+      background: var(--dark-1);
+    }
+
+    .dialog-btn-confirm {
+      background: var(--danger);
+      color: white;
+      border: 1px solid var(--danger);
+    }
+
+    .dialog-btn-confirm:hover {
+      background: #e00064;
+    }
+
+    .dialog-icon {
+      font-size: 1.5rem;
+      color: var(--danger);
+    }
+
+    /* Tooltip */
+    .tooltip {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 200px;
+      background-color: var(--dark-1);
+      color: var(--light-1);
+      text-align: center;
+      border-radius: 6px;
+      padding: 8px;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-size: 0.8rem;
+      border: 1px solid var(--dark-3);
+    }
+    
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    /* Copy Result Button */
+    .copy-result-btn {
+      background: rgba(58, 134, 255, 0.2);
+      color: var(--primary);
+      border: none;
+      border-radius: 8px;
+      padding: 10px 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 15px;
+      width: 100%;
+    }
+    
+    .copy-result-btn:hover {
+      background: rgba(58, 134, 255, 0.3);
+    }
+    
+    .copy-result-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
     /* Responsive adjustments */
     @media (max-width: 480px) {
+      .header h1 {
+        font-size: 1.3rem;
+      }
+      
+      .header p {
+        font-size: 0.8rem;
+      }
+      
+      .odd-buttons {
+        grid-template-columns: 1fr;
+      }
+      
       .tips-badge {
         bottom: 140px;
         right: 15px;
@@ -561,7 +708,7 @@
     
     <div class="content">
       <div class="input-group">
-        <label for="hashInput">Enter SHA512 Hash</label>
+        <label for="hashInput">Enter SHA512 Hash <span class="tooltip"><i class="fas fa-info-circle"></i><span class="tooltiptext">Must be 128-character hexadecimal string (0-9, a-f)</span></span></label>
         <input type="text" id="hashInput" placeholder="Paste your hash here..." autocomplete="off" autocorrect="off" spellcheck="false">
         <div class="input-actions">
           <button class="paste-btn" id="pasteHashInput">
@@ -607,6 +754,9 @@
           <span class="label">Signal Time:</span>
           <span class="value" id="result-time">-</span>
         </div>
+        <button class="copy-result-btn" id="copyResultBtn" onclick="copyResultToClipboard(event)" disabled>
+          <i class="fas fa-copy"></i> Copy Signal
+        </button>
       </div>
       
       <div class="countdown" id="countdown">No active signals. Create a new prediction.</div>
@@ -617,14 +767,9 @@
     </div>
   </div>
 
-  <!-- Tips Badge (Positioned ABOVE disclaimer with PRO version spacing) -->
+  <!-- Tips Badge -->
   <div class="tips-badge" id="tipsBadge">
     <i class="fas fa-lightbulb"></i>
-  </div>
-
-  <!-- Disclaimer Badge (Positioned at BOTTOM with link functionality) -->
-  <div class="disclaimer-badge" id="disclaimerBadge" onclick="window.open('https://damindu817.github.io/DISCLAIMER-/','_blank')">
-    <i class="fas fa-exclamation-triangle"></i>
   </div>
 
   <!-- Tips Popup -->
@@ -640,20 +785,57 @@
     <a href="https://damindu817.github.io/Aviator-Sha512-Hash-Professional-Strategy-Guide/" target="_blank">Click here to view the full winning guide</a>
   </div>
 
+  <!-- Disclaimer Badge -->
+  <div class="disclaimer-badge" id="disclaimerBadge" onclick="window.open('https://damindu817.github.io/DISCLAIMER-/','_blank')">
+    <i class="fas fa-exclamation-triangle"></i>
+  </div>
+
   <!-- Disclaimer Popup -->
   <div class="disclaimer-popup" id="disclaimerPopup">
     <h4>DISCLAIMER!</h4>
     <p>This tool provides analytical insights based on patterns and probability. Predictions are not guaranteed. Gambling involves risk. Only play with money you can afford to lose.</p>
-    <a href="https://damindu817.github.io/DISCLAIMER-/" target="_blank">Click here for guide & creator contact</a>
+    <a href="https://damindu817.github.io/DISCLAIMER-/" target="_blank">Click icon for guide & creator contact</a>
   </div>
+
+  <!-- Error Dialog -->
+  <div class="dialog-overlay" id="errorDialog">
+    <div class="dialog-box">
+      <div class="dialog-title">
+        <i class="fas fa-exclamation-circle dialog-icon"></i>
+        <span>Invalid Input</span>
+      </div>
+      <div class="dialog-message" id="errorMessage">Invalid SHA512 hash. Must be exactly 128 hexadecimal characters.</div>
+      <div class="dialog-buttons">
+        <button class="dialog-btn dialog-btn-confirm" onclick="hideErrorDialog()">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Success Dialog -->
+  <div class="dialog-overlay" id="successDialog">
+    <div class="dialog-box">
+      <div class="dialog-title">
+        <i class="fas fa-check-circle dialog-icon" style="color: var(--success);"></i>
+        <span>Signal Generated</span>
+      </div>
+      <div class="dialog-message" id="successMessage">Prediction signal created successfully!</div>
+      <div class="dialog-buttons">
+        <button class="dialog-btn dialog-btn-confirm" onclick="hideSuccessDialog()" style="background: var(--success);">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <textarea id="copyTemplate" style="position: absolute; left: -9999px;"></textarea>
 
   <script>
     // Global variables
     let activeSignals = [];
     let currentCountdown = null;
     let lastHash = '';
+    let selectedOdd = null;
     let tipsPopupShown = false;
     let disclaimerShown = false;
+    let firstSignalGenerated = false;
     
     // Initialize on load
     window.onload = function() {
@@ -668,6 +850,12 @@
         if (hash.length === 128 && /^[a-f0-9]+$/.test(hash)) {
           lastHash = hash;
           preAnalyzeHash(hash);
+          // Enable copy button only if odd is selected
+          if (selectedOdd) {
+            document.getElementById("copyResultBtn").disabled = false;
+          }
+        } else {
+          document.getElementById("copyResultBtn").disabled = true;
         }
       });
       
@@ -806,8 +994,16 @@
         lastHash = text.trim();
         if (lastHash.length === 128 && /^[a-f0-9]+$/.test(lastHash)) {
           preAnalyzeHash(lastHash);
+          // Enable copy button only if odd is selected
+          if (selectedOdd) {
+            document.getElementById("copyResultBtn").disabled = false;
+          }
+        } else {
+          showErrorDialog("Invalid SHA512 hash. Must be exactly 128 hexadecimal characters (0-9, a-f).");
+          document.getElementById("copyResultBtn").disabled = true;
         }
       } catch (err) {
+        showErrorDialog("Failed to read from clipboard. Please paste manually.");
         console.error("Failed to read clipboard contents: ", err);
       }
     });
@@ -816,6 +1012,8 @@
     document.getElementById("clearHashInput").addEventListener('click', function() {
       document.getElementById("hashInput").value = '';
       lastHash = '';
+      document.getElementById("copyResultBtn").disabled = true;
+      selectedOdd = null;
       
       // Reset confidence bars
       ['1.5', '2'].forEach(odd => {
@@ -865,16 +1063,77 @@
       }, 1000);
     }
     
+    // Generate result copy template
+    function generateResultCopyTemplate() {
+      const odd = document.getElementById("result-odd").textContent;
+      const time = document.getElementById("result-time").textContent;
+      const confidence = document.getElementById("result-confidence").textContent;
+      
+      return `Xtreme Aviator Predictor - 1xBet\n\nTime: ${time}\nOdd: ${odd}\nConfidence: ${confidence}\n\nThis signal is generated using the XTREME AVIATOR SHA512 HASH PREDICTOR LITE tool.`;
+    }
+    
+    // Copy to clipboard function
+    function copyToClipboard(text) {
+      const textarea = document.getElementById("copyTemplate");
+      textarea.value = text;
+      textarea.select();
+      document.execCommand("copy");
+      
+      // Show feedback
+      const originalText = document.activeElement.innerHTML;
+      document.activeElement.innerHTML = '<i class="fas fa-check"></i> Copied!';
+      setTimeout(() => {
+        document.activeElement.innerHTML = originalText;
+      }, 2000);
+    }
+    
+    function copyResultToClipboard(e) {
+      e.preventDefault();
+      const hash = document.getElementById("hashInput").value.trim();
+      if (!hash || hash.length !== 128 || !/^[a-f0-9]+$/.test(hash)) {
+        showErrorDialog("Please enter a valid SHA512 hash first.");
+        return;
+      }
+      
+      if (!selectedOdd) {
+        showErrorDialog("Please select an odd first.");
+        return;
+      }
+      
+      const template = generateResultCopyTemplate();
+      copyToClipboard(template);
+    }
+    
+    // Dialog functions
+    function showErrorDialog(message) {
+      document.getElementById("errorMessage").textContent = message;
+      document.getElementById("errorDialog").classList.add("active");
+    }
+    
+    function hideErrorDialog() {
+      document.getElementById("errorDialog").classList.remove("active");
+    }
+    
+    function showSuccessDialog(message) {
+      document.getElementById("successMessage").textContent = message;
+      document.getElementById("successDialog").classList.add("active");
+    }
+    
+    function hideSuccessDialog() {
+      document.getElementById("successDialog").classList.remove("active");
+    }
+    
     // Main prediction function
     function predict(oddStr) {
       const hash = document.getElementById("hashInput").value.trim().toLowerCase();
       const output = document.getElementById("output");
       
       if (!hash || hash.length !== 128 || !/^[a-f0-9]+$/.test(hash)) {
-        alert("Invalid SHA512 hash. Must be exactly 128 hexadecimal characters (0-9, a-f).");
+        showErrorDialog("Invalid SHA512 hash. Must be exactly 128 hexadecimal characters (0-9, a-f).");
         return;
       }
       
+      selectedOdd = oddStr;
       const entropy = calcEntropy(hash);
       const score = scoreFromHash(hash);
       const confidence = calculateConfidence(entropy, score, oddStr, hash);
@@ -889,17 +1148,21 @@
       document.getElementById("result-confidence").textContent = `${confidence}%`;
       document.getElementById("result-time").textContent = timeStr;
       
+      // Enable copy button
+      document.getElementById("copyResultBtn").disabled = false;
+      
       output.style.display = 'block';
       updateCountdown(future, oddStr);
+      showSuccessDialog(`Signal for ${oddStr}x generated with ${confidence}% confidence!`);
       
       // Scroll to results
       output.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       
       // Show tips popup after first prediction
-      if (!tipsPopupShown) {
+      if (!firstSignalGenerated) {
+        firstSignalGenerated = true;
         setTimeout(() => {
           document.getElementById("tipsPopup").classList.add("show");
-          tipsPopupShown = true;
           setTimeout(() => {
             document.getElementById("tipsPopup").classList.remove("show");
           }, 8000);
